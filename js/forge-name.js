@@ -401,22 +401,22 @@ let result = {
         : given,
 
 
-    given:given,
+    given: given,
 
-    surname:surname,
+    surname: surname,
 
-    title:null,
+    title: null,
 
-    nickname:null,
+    nickname: null,
 
-    trueName:null,
+    trueName: null,
 
 
-    culture:cultureID,
+    culture: cultureID,
 
-    pack:packID,
+    pack: packID,
 
-    seed:generationSeed
+    seed: generationSeed
 
 };
 
@@ -431,11 +431,8 @@ result =
 return result;
 
 
-    return {
+}
 
-        generate
-
-    };
 
 function smoothName(name){
 
@@ -445,6 +442,14 @@ function smoothName(name){
         .replace(/ii+/gi,"i");
 
 }
+
+
+
+return {
+
+    generate
+
+};
 
 
 })();

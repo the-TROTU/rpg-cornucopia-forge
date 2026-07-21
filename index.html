@@ -8,11 +8,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>
-RPG Cornucopia - The Forge
+RPG Cornucopia - The Name Smith
 </title>
 
 
 <link rel="stylesheet" href="css/forge.css">
+
 
 </head>
 
@@ -23,63 +24,150 @@ RPG Cornucopia - The Forge
 <div id="rpg-forge">
 
 
-    <div class="forge-container">
+<div class="forge-container">
 
 
-        <div class="forge-workshop">
+<div class="forge-workshop">
 
 
-            <div class="forge-header">
+<!-- HEADER -->
 
-                <h1 class="forge-title">
-                    ⚒ The Name Smith
-                </h1>
+<div class="forge-header">
 
-
-                <p class="forge-subtitle">
-                    Every legend begins with a name.
-                </p>
-
-            </div>
+<h1 class="forge-title">
+⚒ The Name Smith
+</h1>
 
 
+<p class="forge-subtitle">
+Every legend begins with a name.
+</p>
 
-
-            <div class="forge-panel">
-
-
-                <h2>
-                    The Anvil
-                </h2>
-
-
-                <button
-                    id="forge-name-button"
-                    class="forge-button"
-                >
-                    ⚒ Forge Name
-                </button>
+</div>
 
 
 
-                <div
-                    id="forge-result"
-                    class="forge-result"
-                >
-
-                    The forge awaits.
-
-                </div>
 
 
-            </div>
+<!-- CONTROLS -->
+
+<div class="forge-grid">
 
 
 
-        </div>
+<div class="forge-panel">
 
 
-    </div>
+<h2>
+Choose Your Craft
+</h2>
+
+
+
+<label class="forge-label">
+Culture
+</label>
+
+
+<select
+id="forge-culture"
+class="forge-select"
+>
+</select>
+
+
+
+
+<label class="forge-label">
+Naming Style
+</label>
+
+
+<select
+id="forge-gender"
+class="forge-select"
+>
+
+<option value="neutral">
+Neutral
+</option>
+
+<option value="male">
+Male
+</option>
+
+<option value="female">
+Female
+</option>
+
+</select>
+
+
+
+
+<div class="forge-option">
+
+<label>
+
+<input
+type="checkbox"
+id="forge-surname"
+>
+
+Include surname
+
+</label>
+
+</div>
+
+
+
+
+<div class="forge-option">
+
+<label>
+
+<input
+type="checkbox"
+id="forge-title"
+>
+
+Include title
+
+</label>
+
+</div>
+
+
+
+
+<div class="forge-option">
+
+<label>
+
+<input
+type="checkbox"
+id="forge-true-name"
+>
+
+Reveal true name
+
+</label>
+
+</div>
+
+
+
+
+<button
+id="forge-name-button"
+class="forge-button"
+>
+
+⚒ Forge Name
+
+</button>
+
 
 
 </div>
@@ -87,9 +175,64 @@ RPG Cornucopia - The Forge
 
 
 
-<!-- THE FORGE MACHINERY -->
+
+<!-- RESULT -->
+
+<div class="forge-panel">
+
+
+<h2>
+The Anvil
+</h2>
+
+
+<div
+id="forge-result"
+class="forge-result"
+>
+
+The forge awaits.
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+<!-- ======================================
+     THE FORGE MACHINERY
+====================================== -->
+
+
+<script src="js/forge-core.js"></script>
+
+<script src="js/forge-random.js"></script>
+
+<script src="js/forge-language.js"></script>
+
 
 <script src="languages/fantasy-core.js"></script>
+
 
 <script src="js/forge-signatures.js"></script>
 

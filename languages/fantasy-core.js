@@ -175,7 +175,7 @@ female: {
 
             }
 
-        }
+        },
 	elven: {
 
     name: "Elven",
@@ -270,7 +270,8 @@ female: {
 
     }
 
-}
+},
+
 dwarven: {
 
     name:"Dwarven",
@@ -386,7 +387,7 @@ dragonkin: {
 
         surnameChance:60,
 	
-	trueNameChance:80
+	trueNameChance:80,
 
         titleChance:80,
 

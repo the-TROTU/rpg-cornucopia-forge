@@ -364,7 +364,7 @@ dwarven: {
 
     }
 
-}
+},
 
 dragonkin: {
 

@@ -417,7 +417,7 @@ dragonkin: {
         weight:2
     }
 
-]
+],
 
     given: {
 

@@ -297,7 +297,8 @@ const NameSmith = (() => {
 
             html +=
                 `<div class="forge-title">
-                    ❖ ${result.title}
+                    <small>❖ ${result.title}</small>
+                    
                 </div>`;
 
         }

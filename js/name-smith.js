@@ -295,7 +295,7 @@ const NameSmith = (() => {
 
         html +=
             `<div class="forge-seed">
-                Seed:
+                ⚒ Blueprint #:
                 ${result.seed}
             </div>`;
 

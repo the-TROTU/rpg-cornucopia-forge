@@ -85,7 +85,6 @@ const given =
 
         if(
             options.surname ||
-            rollChance(culture.profile.surnameChance)
         ){
 
             surname =

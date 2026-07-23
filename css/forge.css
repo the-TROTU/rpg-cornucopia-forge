@@ -56,13 +56,15 @@
 }
 
 
-.forge-title {
+forge-title {
 
-    font-size: 3rem;
+    margin-top: 12px;
 
-    letter-spacing: 3px;
+    font-size: 1.4rem;
 
-    margin-bottom: 10px;
+    font-style: italic;
+
+    letter-spacing: 1px;
 
 }
 

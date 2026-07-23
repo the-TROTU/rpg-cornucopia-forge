@@ -349,16 +349,20 @@ const given =
 
         case "ceremonial":
 
-            if(
-                rollChance(culture.profile.titleChance)
-            ){
+    if(
+        culture.titles &&
+        culture.titles.length &&
+        rollChance(culture.profile.titleChance)
+    ){
 
-                result.title =
-                    "The Eternal";
+        result.title =
+            ForgeRandom
+                .weighted(culture.titles)
+                .text;
 
-            }
+    }
 
-            break;
+    break;
 
 
 

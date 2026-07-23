@@ -415,6 +415,26 @@ dragonkin: {
     {
         text:"The Storm Remembered",
         weight:2
+    },
+
+      {
+        text:"The Last Light",
+        weight:5
+    },
+
+    {
+        text:"Not Just A First Flame",
+        weight:2
+    },
+
+    {
+        text:"World Eater",
+        weight:3
+    },
+
+    {
+        text:"The Forgotten",
+        weight:2
     }
 
 ],

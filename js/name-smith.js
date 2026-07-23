@@ -203,9 +203,11 @@ const NameSmith = (() => {
 
                     surname,
 
-                    title,
+                   includeTitle:
+                     titleCheckbox.checked,
 
-                    trueName
+                    includeTrueName:
+                        trueNameCheckbox.checked
 
                 });
 
@@ -317,10 +319,39 @@ const NameSmith = (() => {
 
 
 
-        output.innerHTML =
-            html;
+        let html =
+            `<h2>${result.fullName}</h2>`;
 
+if(result.title){
 
+    html +=
+        `<div class="forge-title">
+            ❖ ${result.title}
+        </div>`;
+
+}
+
+if(result.trueName){
+
+    html +=
+        `<div class="forge-true-name">
+
+            <strong>True Name</strong>
+
+            ${result.trueName}
+
+        </div>`;
+
+}
+
+html +=
+    `<div class="forge-blueprint">
+
+        Blueprint #.
+
+        ${result.seed}
+
+    </div>`;
 
     }
 

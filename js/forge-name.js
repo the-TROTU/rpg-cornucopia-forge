@@ -85,15 +85,15 @@ const given =
 
         if(
             options.surname ||
-        ){
+        {
 
             surname =
                 buildSurname(
                     culture.surname
-                );
-
+                )
+            
         }
-
+        )
 
 
         function buildWord(parts, profile = {}) {

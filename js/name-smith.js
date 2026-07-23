@@ -42,10 +42,21 @@ const NameSmith = (() => {
         }
 
 
-        const language =
-            ForgeLanguage.get(
-                "fantasy-core"
-            );
+        if(typeof ForgeLanguage === "undefined"){
+
+    console.error(
+        "ForgeLanguage engine has not loaded."
+    );
+
+    return;
+
+}
+
+
+const language =
+    ForgeLanguage.get(
+        "fantasy-core"
+    );
 
 
         if(

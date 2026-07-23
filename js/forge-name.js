@@ -80,20 +80,20 @@ const given =
     );
 
 
-        let surname = null;
+                let surname = null;
 
 
         if(
             options.surname ||
-        {
+            rollChance(culture.profile.surnameChance)
+        ){
 
             surname =
                 buildSurname(
                     culture.surname
-                )
-            
+                );
+
         }
-        )
 
 
         function buildWord(parts, profile = {}) {

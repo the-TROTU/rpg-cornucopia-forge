@@ -415,16 +415,6 @@ dragonkin: {
     {
         text:"The Storm Remembered",
         weight:2
-    },
-
-    {
-        text:"World Eater",
-        weight:1
-    },
-
-    {
-        text:"Skull Crusher",
-        weight:2
     }
 
 ],

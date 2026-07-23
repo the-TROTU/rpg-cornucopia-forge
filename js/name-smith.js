@@ -11,17 +11,14 @@
 const NameSmith = (() => {
 
 
-
     function initialize(){
-
 
         populateCultures();
 
-
         bindEvents();
 
-
     }
+
 
 
 
@@ -45,11 +42,28 @@ const NameSmith = (() => {
         }
 
 
+        const language =
+            ForgeLanguage.get(
+                "fantasy-core"
+            );
+
+
+        if(
+            !language ||
+            !language.cultures
+        ){
+
+            console.error(
+                "Fantasy Core language pack missing."
+            );
+
+            return;
+
+        }
+
 
         const cultures =
-            ForgeLanguage
-                .get("fantasy-core")
-                .cultures;
+            language.cultures;
 
 
 
@@ -63,8 +77,7 @@ const NameSmith = (() => {
                     );
 
 
-                option.value =
-                    id;
+                option.value = id;
 
 
                 option.textContent =
@@ -81,6 +94,7 @@ const NameSmith = (() => {
 
 
     }
+
 
 
 
@@ -117,12 +131,12 @@ const NameSmith = (() => {
 
 
 
+
     /*
         Main forging event
     */
 
     function forgeName(){
-
 
 
         const button =
@@ -131,10 +145,8 @@ const NameSmith = (() => {
             );
 
 
-
         button.textContent =
             "Forging...";
-
 
 
         button.disabled =
@@ -143,7 +155,6 @@ const NameSmith = (() => {
 
 
         setTimeout(() => {
-
 
 
             const culture =
@@ -173,7 +184,7 @@ const NameSmith = (() => {
 
 
 
-            const title =
+            const includeTitle =
                 document
                     .getElementById(
                         "forge-title"
@@ -182,12 +193,13 @@ const NameSmith = (() => {
 
 
 
-            const trueName =
+            const includeTrueName =
                 document
                     .getElementById(
                         "forge-true-name"
                     )
                     .checked;
+
 
 
 
@@ -203,25 +215,33 @@ const NameSmith = (() => {
 
                     surname,
 
-                   includeTitle:
-                     titleCheckbox.checked,
+                    includeTitle,
 
-                    includeTrueName:
-                        trueNameCheckbox.checked
+                    includeTrueName
 
                 });
 
 
 
-            displayResult(
-                result
-            );
+            if(result){
+
+                displayResult(
+                    result
+                );
+
+            }
+            else{
+
+                console.error(
+                    "Name generation failed."
+                );
+
+            }
 
 
 
             button.textContent =
                 "⚒ Forge Another";
-
 
 
             button.disabled =
@@ -232,8 +252,8 @@ const NameSmith = (() => {
         },300);
 
 
-
     }
+
 
 
 
@@ -242,73 +262,109 @@ const NameSmith = (() => {
         Display the forged creation
     */
 
-   function displayResult(result){
-
-    const output =
-        document.getElementById(
-            "forge-result"
-        );
+    function displayResult(result){
 
 
-    if(!output){
 
-        return;
-
-    }
-
-
-    let html =
-        `<div class="forge-result-name">
-            ${result.fullName}
-        </div>`;
+        const output =
+            document.getElementById(
+                "forge-result"
+            );
 
 
-    if(result.title){
 
-        html +=
-            `<div class="forge-title">
-                ❖ ${result.title}
-            </div>`;
+        if(!output){
 
-    }
+            return;
+
+        }
 
 
-    if(result.trueName){
+
+        let html = "";
+
+
 
         html +=
-            `<div class="forge-true-name">
-                <strong>True Name</strong><br>
-                ${result.trueName}
+            `<div class="forge-result-name">
+                ${result.fullName}
             </div>`;
+
+
+
+        if(result.title){
+
+
+            html +=
+                `<div class="forge-title">
+                    ❖ ${result.title}
+                </div>`;
+
+        }
+
+
+
+
+        if(result.trueName){
+
+
+            html +=
+                `<div class="forge-true-name">
+
+                    <strong>
+                        True Name
+                    </strong>
+
+                    <br>
+
+                    ${result.trueName}
+
+                </div>`;
+
+
+        }
+
+
+
+
+        html +=
+            `<div class="forge-blueprint">
+
+                ⚒ Blueprint No.
+                ${result.seed}
+
+            </div>`;
+
+
+
+
+
+        html +=
+            `<div class="forge-signature">
+
+                ⚒
+
+                ${ForgeSignatures.random(
+                    "nameSmith"
+                )}
+
+                <br><br>
+
+                ~ Aldren, Name Smith
+
+            </div>`;
+
+
+
+
+
+        output.innerHTML =
+            html;
+
 
     }
 
 
-    html +=
-        `<div class="forge-blueprint">
-            ⚒ Blueprint No.
-            ${result.seed}
-        </div>`;
-
-
-    html +=
-        `<div class="forge-signature">
-
-            ⚒
-            ${ForgeSignatures.random(
-                "nameSmith"
-            )}
-
-            <br><br>
-
-            ~ Aldren, Name Smith
-
-        </div>`;
-
-
-    output.innerHTML = html;
-
-}
 
 
 
@@ -323,6 +379,8 @@ const NameSmith = (() => {
 
 
 })();
+
+
 
 
 

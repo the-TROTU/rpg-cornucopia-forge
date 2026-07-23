@@ -242,118 +242,73 @@ const NameSmith = (() => {
         Display the forged creation
     */
 
-    function displayResult(result){
+   function displayResult(result){
+
+    const output =
+        document.getElementById(
+            "forge-result"
+        );
 
 
+    if(!output){
 
-        const output =
-            document.getElementById(
-                "forge-result"
-            );
-
-
-
-        if(!output){
-
-            return;
-
-        }
-
-
-
-        let html = "";
-
-
-
-        html +=
-            `<div class="forge-result-name">
-                ${result.fullName}
-            </div>`;
-
-
-
-        if(result.title){
-
-            html +=
-                `<div class="forge-result-detail">
-                    ${result.title}
-                </div>`;
-
-        }
-
-
-
-        if(result.trueName){
-
-            html +=
-                `<div class="forge-result-detail">
-                    True Name:
-                    ${result.trueName}
-                </div>`;
-
-        }
-
-
-
-        html +=
-            `<div class="forge-seed">
-                ⚒ Blueprint #:
-                ${result.seed}
-            </div>`;
-
-
-
-        html +=
-            `<div class="forge-signature">
-
-                ⚒
-                ${ForgeSignatures.random(
-                    "nameSmith"
-                )}
-
-                <br><br>
-
-                ~ Aldren, Name Smith
-
-            </div>`;
-
-
-
-        let html =
-            `<h2>${result.fullName}</h2>`;
-
-if(result.title){
-
-    html +=
-        `<div class="forge-title">
-            ❖ ${result.title}
-        </div>`;
-
-}
-
-if(result.trueName){
-
-    html +=
-        `<div class="forge-true-name">
-
-            <strong>True Name</strong>
-
-            ${result.trueName}
-
-        </div>`;
-
-}
-
-html +=
-    `<div class="forge-blueprint">
-
-        Blueprint #.
-
-        ${result.seed}
-
-    </div>`;
+        return;
 
     }
+
+
+    let html =
+        `<div class="forge-result-name">
+            ${result.fullName}
+        </div>`;
+
+
+    if(result.title){
+
+        html +=
+            `<div class="forge-title">
+                ❖ ${result.title}
+            </div>`;
+
+    }
+
+
+    if(result.trueName){
+
+        html +=
+            `<div class="forge-true-name">
+                <strong>True Name</strong><br>
+                ${result.trueName}
+            </div>`;
+
+    }
+
+
+    html +=
+        `<div class="forge-blueprint">
+            ⚒ Blueprint No.
+            ${result.seed}
+        </div>`;
+
+
+    html +=
+        `<div class="forge-signature">
+
+            ⚒
+            ${ForgeSignatures.random(
+                "nameSmith"
+            )}
+
+            <br><br>
+
+            ~ Aldren, Name Smith
+
+        </div>`;
+
+
+    output.innerHTML = html;
+
+}
 
 
 

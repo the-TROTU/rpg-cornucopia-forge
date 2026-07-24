@@ -1,19 +1,30 @@
 /* =========================================
    RPG CORNUCOPIA
    THE FORGE
-   Master Workshop Styling
 
-   Version 1.1
+   Workshop Atmosphere Styling
+   Version 1.2
 ========================================= */
 
 
 /* =========================================
-   GLOBAL
+   RESET
 ========================================= */
 
 * {
-    box-sizing: border-box;
+
+    box-sizing:border-box;
+
 }
+
+
+
+html {
+
+    min-height:100%;
+
+}
+
 
 
 body {
@@ -22,38 +33,52 @@ body {
 
     min-height:100vh;
 
+
     font-family:
+
         Georgia,
+
         "Times New Roman",
+
         serif;
+
 
     background:
 
         linear-gradient(
-            rgba(0,0,0,.72),
-            rgba(0,0,0,.72)
+
+            rgba(0,0,0,0.35),
+
+            rgba(0,0,0,0.35)
+
         ),
 
         url("../assets/images/Backdrop.webp");
 
+
     background-size:
+
         cover;
 
+
     background-position:
-        center;
+
+        center center;
+
 
     background-attachment:
+
         fixed;
 
-    color:#2b2119;
+
+    color:#f8e8bf;
 
 }
 
 
 
-
 /* =========================================
-   MAIN FORGE FRAME
+   MAIN FORGE
 ========================================= */
 
 
@@ -61,16 +86,19 @@ body {
 
     min-height:100vh;
 
-    padding:40px 20px;
+    padding:
+
+        30px 20px;
 
 }
 
 
 
-
 .forge-container {
 
-    max-width:1200px;
+    max-width:
+
+        1200px;
 
     margin:auto;
 
@@ -78,33 +106,26 @@ body {
 
 
 
-
 .forge-workshop {
-
 
     background:
 
-        rgba(245,235,210,.92);
+        rgba(10,8,6,0.25);
 
 
     border:
 
-        1px solid rgba(120,90,50,.4);
+        none;
 
 
-    border-radius:18px;
+    padding:
 
-
-    padding:35px;
-
-
-    box-shadow:
-
-        0 20px 60px
-        rgba(0,0,0,.65);
+        25px;
 
 
 }
+
+
 
 
 
@@ -117,7 +138,13 @@ body {
 
     text-align:center;
 
-    margin-bottom:40px;
+    padding:
+
+        20px;
+
+    margin-bottom:
+
+        35px;
 
 }
 
@@ -125,13 +152,26 @@ body {
 
 .forge-logo {
 
+    display:block;
+
     width:
 
-        min(300px,70%);
+        min(280px,70%);
+
 
     height:auto;
 
-    margin-bottom:15px;
+
+    margin:
+
+        0 auto 20px auto;
+
+
+    filter:
+
+        drop-shadow(
+            0 5px 12px rgba(0,0,0,.8)
+        );
 
 }
 
@@ -139,20 +179,27 @@ body {
 
 .forge-title {
 
+    margin:0;
+
+
+    color:
+
+        #f3b63f;
+
+
     font-size:
 
         clamp(2rem,5vw,3.5rem);
 
 
-    margin:
+    letter-spacing:
 
-        0;
-
-
-    color:#2b2119;
+        1px;
 
 
-    letter-spacing:1px;
+    text-shadow:
+
+        0 3px 8px #000;
 
 }
 
@@ -160,16 +207,32 @@ body {
 
 .forge-subtitle {
 
-    margin-top:10px;
 
-    font-style:italic;
+    margin-top:
 
-    color:#665344;
+        10px;
 
-    font-size:1.15rem;
+
+    color:
+
+        #fff0c2;
+
+
+    font-size:
+
+        1.2rem;
+
+
+    font-style:
+
+        italic;
+
+
+    text-shadow:
+
+        0 2px 6px #000;
 
 }
-
 
 
 
@@ -182,21 +245,30 @@ body {
 
     display:grid;
 
+
     grid-template-columns:
 
         repeat(
+
             auto-fit,
+
             minmax(320px,1fr)
+
         );
 
-    gap:30px;
+
+    gap:
+
+        30px;
 
 }
 
 
 
+
+
 /* =========================================
-   PANELS
+   FORGE PANELS
 ========================================= */
 
 
@@ -205,24 +277,37 @@ body {
 
     background:
 
-        rgba(255,250,240,.92);
+        rgba(20,15,12,.78);
 
 
     border:
 
-        1px solid #cdbb9c;
+        1px solid rgba(243,182,63,.35);
 
 
-    border-radius:14px;
+    border-radius:
+
+        14px;
 
 
-    padding:28px;
+    padding:
+
+        28px;
 
 
     box-shadow:
 
-        inset 0 0 20px
-        rgba(80,50,20,.08);
+        0 10px 35px rgba(0,0,0,.7);
+
+
+    backdrop-filter:
+
+        blur(5px);
+
+
+    color:
+
+        #f8e8bf;
 
 }
 
@@ -230,11 +315,25 @@ body {
 
 .forge-panel h2 {
 
-    margin-top:0;
 
-    font-size:1.7rem;
+    margin-top:
 
-    color:#33251b;
+        0;
+
+
+    color:
+
+        #f3b63f;
+
+
+    text-align:
+
+        center;
+
+
+    font-size:
+
+        1.6rem;
 
 }
 
@@ -247,62 +346,107 @@ body {
 
 .forge-label {
 
+
     display:block;
 
-    margin-top:18px;
 
-    font-weight:bold;
+    margin-top:
+
+        18px;
+
+
+    color:
+
+        #ffe7a0;
+
+
+    font-weight:
+
+        bold;
 
 }
+
 
 
 
 .forge-select {
 
 
-    width:100%;
+    width:
 
-    padding:10px;
-
-    margin-top:5px;
+        100%;
 
 
-    font-size:1rem;
+    margin-top:
+
+        6px;
 
 
-    background:#fffdf7;
+    padding:
+
+        10px;
+
+
+    background:
+
+        #201813;
+
+
+    color:
+
+        #ffeec5;
 
 
     border:
 
-        1px solid #bca88b;
+        1px solid rgba(243,182,63,.45);
 
 
-    border-radius:6px;
+    border-radius:
 
+        6px;
+
+
+    font-family:
+
+        inherit;
 
 }
+
 
 
 
 .forge-option {
 
-    margin-top:15px;
 
-    font-size:1rem;
+    margin-top:
+
+        15px;
+
+
+    color:
+
+        #f8e8bf;
 
 }
+
+
 
 
 
 .forge-option input {
 
-    transform:scale(1.15);
 
-    margin-right:8px;
+    transform:
+
+        scale(1.15);
+
+
+    margin-right:
+
+        8px;
 
 }
-
 
 
 
@@ -314,44 +458,68 @@ body {
 .forge-button {
 
 
-    width:100%;
+    width:
+
+        100%;
 
 
-    margin-top:25px;
+    margin-top:
+
+        25px;
 
 
-    padding:15px;
+    padding:
 
-
-    border:none;
-
-
-    border-radius:8px;
+        15px;
 
 
     background:
 
-        #623918;
+        linear-gradient(
+
+            #8b551f,
+
+            #5c3212
+
+        );
 
 
-    color:white;
+    border:
+
+        1px solid #d89a35;
 
 
-    font-family:inherit;
+    border-radius:
+
+        8px;
 
 
-    font-size:1.15rem;
+    color:
+
+        #fff3ce;
 
 
-    cursor:pointer;
+    font-family:
+
+        inherit;
 
 
-    transition:
+    font-size:
 
-        .2s ease;
+        1.15rem;
 
+
+    cursor:
+
+        pointer;
+
+
+    box-shadow:
+
+        0 4px 10px rgba(0,0,0,.5);
 
 }
+
 
 
 
@@ -360,13 +528,13 @@ body {
 
     background:
 
-        #7d4920;
+        linear-gradient(
 
+            #a66a27,
 
-    transform:
+            #704017
 
-        translateY(-2px);
-
+        );
 
 }
 
@@ -374,42 +542,46 @@ body {
 
 .forge-button:disabled {
 
-
-    opacity:.65;
-
-    cursor:
-        wait;
+    opacity:.6;
 
 }
 
 
 
-
 /* =========================================
-   RESULT DISPLAY
+   RESULT
 ========================================= */
 
 
 .forge-result {
 
 
-    min-height:360px;
+    min-height:
+
+        350px;
 
 
     display:flex;
 
 
-    flex-direction:column;
+    flex-direction:
+
+        column;
 
 
-    justify-content:center;
+    justify-content:
+
+        center;
 
 
-    align-items:center;
+    align-items:
+
+        center;
 
 
-    text-align:center;
+    text-align:
 
+        center;
 
 }
 
@@ -418,22 +590,32 @@ body {
 .forge-result-name {
 
 
+    color:
+
+        #ffd46b;
+
+
     font-size:
 
         clamp(
+
             2rem,
-           5vw,
-           3.2rem
+
+            5vw,
+
+            3.3rem
+
         );
 
 
-    font-weight:bold;
+    font-weight:
+
+        bold;
 
 
-    line-height:1.1;
+    text-shadow:
 
-
-    margin-bottom:20px;
+        0 3px 8px #000;
 
 }
 
@@ -442,19 +624,20 @@ body {
 .forge-title {
 
 
-    font-size:
+    margin-top:
 
-        clamp(
-            1.1rem,
-           3vw,
-           1.5rem
-        );
+        12px;
 
 
-    margin-top:10px;
+    color:
+
+        #f4c76b;
 
 
-    font-style:italic;
+    font-style:
+
+        italic;
+
 
 }
 
@@ -463,15 +646,19 @@ body {
 .forge-true-name {
 
 
-    margin-top:25px;
+    margin-top:
+
+        25px;
 
 
-    padding-top:20px;
+    padding-top:
+
+        20px;
 
 
     border-top:
 
-        1px dashed #aa9475;
+        1px dashed rgba(255,220,140,.5);
 
 
 }
@@ -481,14 +668,14 @@ body {
 .forge-blueprint {
 
 
-    margin-top:20px;
+    margin-top:
+
+        20px;
 
 
-    font-size:.95rem;
+    color:
 
-
-    color:#5c4734;
-
+        #e7c98a;
 
 }
 
@@ -497,14 +684,19 @@ body {
 .forge-signature {
 
 
-    margin-top:30px;
+    margin-top:
+
+        30px;
 
 
-    font-style:italic;
+    color:
+
+        #f0d9a0;
 
 
-    color:#5b4938;
+    font-style:
 
+        italic;
 
 }
 
@@ -521,15 +713,9 @@ body {
 
     #rpg-forge {
 
-        padding:15px;
+        padding:
 
-    }
-
-
-
-    .forge-workshop {
-
-        padding:20px;
+            15px;
 
     }
 
@@ -537,10 +723,11 @@ body {
 
     .forge-panel {
 
-        padding:20px;
+        padding:
+
+            20px;
 
     }
-
 
 
 }

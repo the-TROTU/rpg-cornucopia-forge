@@ -731,3 +731,42 @@ body {
 
 
 }
+
+/* =========================================
+   FORGE PROGRESS MESSAGES
+========================================= */
+
+.forge-progress-message {
+
+    font-style:italic;
+
+    opacity:0.85;
+
+    margin:8px 0;
+
+    animation: forgeFade 0.4s ease-in;
+
+}
+
+
+
+@keyframes forgeFade {
+
+    from {
+
+        opacity:0;
+
+        transform:translateY(5px);
+
+    }
+
+
+    to {
+
+        opacity:0.85;
+
+        transform:translateY(0);
+
+    }
+
+}

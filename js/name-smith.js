@@ -163,6 +163,12 @@ const language =
         button.disabled =
             true;
 
+        const progress =
+            ForgeProgress.start(
+            "nameSmith",
+             "forge-progress"
+            );
+
 
 
         setTimeout(() => {
@@ -236,9 +242,15 @@ console.log(result);
 
             if(result){
 
-                displayResult(
-                    result
+                ForgeProgress.clear(
+                progress,
+                "forge-progress"
                 );
+
+
+            displayResult(
+                result
+            );
 
             }
             else{

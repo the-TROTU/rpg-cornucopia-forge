@@ -298,17 +298,17 @@ const language =
 
         html +=
             `<div class="forge-result-name">
-                ${result.fullName}
+                ${result.product.fullName}
             </div>`;
 
 
 
-        if(result.title){
+        if(result.product.title){
 
 
             html +=
                 `<div class="forge-title">
-                    <small>❖ ${result.title}</small>
+                    <small>❖ ${result.product.title}</small>
                     
                 </div>`;
 
@@ -317,7 +317,7 @@ const language =
 
 
 
-        if(result.trueName){
+        if(result.product.trueName){
 
 
             html +=
@@ -329,7 +329,7 @@ const language =
 
                     <br>
 
-                    ${result.trueName}
+                    ${result.product.trueName}
 
                 </div>`;
 
@@ -343,7 +343,7 @@ const language =
             `<div class="forge-blueprint">
 
                 ⚒ Blueprint No.
-                ${result.seed}
+                ${result.blueprint}
 
             </div>`;
 

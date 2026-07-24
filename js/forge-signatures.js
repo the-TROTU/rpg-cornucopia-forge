@@ -60,11 +60,7 @@ const ForgeSignatures = (() => {
 
             legendary:[
 
-            `The Forge grew quiet.
-
-            Even the flames seemed to listen.
-
-            Something ancient approved.`
+                "The Forge grew quiet. Even the flames seemed to listen. Something ancient approved."
 
             ]
 
@@ -178,40 +174,6 @@ const ForgeSignatures = (() => {
                 "The goblin zoning permits were ignored.",
 
                 "Every city needs at least one suspicious alley."
-
-            ]
-
-        },
-
-
-        dragonKeeper:{
-
-
-            common:[
-
-                "Fireproof gloves recommended.",
-
-                "Ancient wisdom included.",
-
-                "Handle with excessive respect."
-
-            ],
-
-
-            humorous:[
-
-                "Village evacuation remains optional.",
-
-                "Hoard capacity tested.",
-
-                "The dragon insists the spelling is correct."
-
-            ],
-
-
-            legendary:[
-
-                "The dragon opened one eye. It approved."
 
             ]
 

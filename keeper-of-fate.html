@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+RPG Cornucopia - The Keeper of Fate
+</title>
+
+
+<link rel="stylesheet" href="css/forge.css">
+
+
+</head>
+
+
+<body>
+
+
+<div id="rpg-forge">
+
+
+<div class="forge-container">
+
+
+<div class="forge-workshop">
+
+
+
+<!-- HEADER -->
+
+<div class="forge-header">
+
+
+<img
+src="assets/images/RPGCornLogo2.svg"
+alt="RPG Cornucopia"
+class="forge-logo"
+>
+
+
+
+<h1 class="forge-title">
+🐉 The Keeper of Fate
+</h1>
+
+
+<p class="forge-subtitle">
+The one who counts the falling stars.
+</p>
+
+
+
+</div>
+
+
+
+
+
+<!-- MAIN WORKSPACE -->
+
+<div class="forge-grid">
+
+
+
+
+
+<!-- DICE CONTROLS -->
+
+
+<div class="forge-panel">
+
+
+<h2>
+Consult the Bones
+</h2>
+
+
+
+<label class="forge-label">
+Choose Your Fate
+</label>
+
+
+<select
+id="dice-type"
+class="forge-select"
+>
+
+
+<option value="2">
+d2
+</option>
+
+
+<option value="4">
+d4
+</option>
+
+
+<option value="6"
+selected>
+d6
+</option>
+
+
+<option value="8">
+d8
+</option>
+
+
+<option value="10">
+d10
+</option>
+
+
+<option value="12">
+d12
+</option>
+
+
+<option value="20">
+d20
+</option>
+
+
+<option value="100">
+d100
+</option>
+
+
+</select>
+
+
+
+
+
+<label class="forge-label">
+Number of Bones
+</label>
+
+
+<input
+id="dice-count"
+class="forge-select"
+type="number"
+value="1"
+min="1"
+max="100"
+>
+
+
+
+
+
+<label class="forge-label">
+Fate Modifier
+</label>
+
+
+<input
+id="dice-modifier"
+class="forge-select"
+type="number"
+value="0"
+>
+
+
+<button
+id="roll-dice-button"
+class="forge-button"
+>
+
+🐉 Cast the Bones
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- RESULT -->
+
+
+<div class="forge-panel">
+
+
+<h2>
+The Keeper Speaks
+</h2>
+
+
+
+<div
+id="dice-result"
+class="forge-result"
+>
+
+
+The bones await.
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- ======================================
+     THE KEEPER MACHINERY
+====================================== -->
+
+
+<script src="js/forge-core.js"></script>
+
+<script src="js/forge-random.js"></script>
+
+<script src="js/forge-seed.js"></script>
+
+<script src="js/forge-dice.js"></script>
+
+<script src="js/keeper-of-fate.js"></script>
+
+
+
+</body>
+
+</html>

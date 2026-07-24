@@ -1,228 +1,355 @@
 /* =========================================
    RPG CORNUCOPIA
-   THE FORGE - Core Styles
+   THE FORGE
+   Master Workshop Styling
 
-   Shared styling for all artisans
+   Version 1.1
 ========================================= */
 
 
-/* ---------- Forge Foundation ---------- */
+/* =========================================
+   GLOBAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin:0;
+
+    min-height:100vh;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    background:
+
+        linear-gradient(
+            rgba(0,0,0,.72),
+            rgba(0,0,0,.72)
+        ),
+
+        url("../assets/images/Backdrop.webp");
+
+    background-size:
+        cover;
+
+    background-position:
+        center;
+
+    background-attachment:
+        fixed;
+
+    color:#2b2119;
+
+}
+
+
+
+
+/* =========================================
+   MAIN FORGE FRAME
+========================================= */
+
+
+#rpg-forge {
+
+    min-height:100vh;
+
+    padding:40px 20px;
+
+}
+
+
+
 
 .forge-container {
 
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 30px;
+    max-width:1200px;
 
-    font-family:
-        "Palatino Linotype",
-        "Book Antiqua",
-        Georgia,
-        serif;
-
-    color: #2b2118;
+    margin:auto;
 
 }
 
 
-/* ---------- Workshop Frame ---------- */
+
 
 .forge-workshop {
 
+
     background:
-        linear-gradient(
-            rgba(255,255,255,0.7),
-            rgba(255,255,255,0.7)
-        );
 
-    border-radius: 12px;
+        rgba(245,235,210,.92);
 
-    padding: 35px;
+
+    border:
+
+        1px solid rgba(120,90,50,.4);
+
+
+    border-radius:18px;
+
+
+    padding:35px;
+
 
     box-shadow:
-        0 10px 30px rgba(0,0,0,0.15);
+
+        0 20px 60px
+        rgba(0,0,0,.65);
+
 
 }
 
 
-/* ---------- Header ---------- */
+
+/* =========================================
+   HEADER
+========================================= */
+
 
 .forge-header {
 
-    text-align: center;
+    text-align:center;
 
-    margin-bottom: 35px;
+    margin-bottom:40px;
 
 }
+
+
+
+.forge-logo {
+
+    width:
+
+        min(300px,70%);
+
+    height:auto;
+
+    margin-bottom:15px;
+
+}
+
 
 
 .forge-title {
 
-    margin-top: 10px;
+    font-size:
 
-    font-size: 0.9rem;
+        clamp(2rem,5vw,3.5rem);
 
-    font-weight: normal;
 
-    font-style: italic;
+    margin:
 
-    letter-spacing: 0.5px;
+        0;
 
-    line-height: 1.3;
 
-    text-align: center;
+    color:#2b2119;
 
-}
 
-.forge-title small {
-
-    font-size: inherit;
+    letter-spacing:1px;
 
 }
+
 
 
 .forge-subtitle {
 
-    font-style: italic;
+    margin-top:10px;
 
-    opacity: 0.8;
+    font-style:italic;
 
-}
+    color:#665344;
 
-
-/* ---------- Artisan Banner ---------- */
-
-.forge-artisan {
-
-    text-align:center;
-
-    padding:25px;
-
-    margin-bottom:30px;
-
-    border-bottom:
-        2px solid rgba(80,50,20,0.25);
+    font-size:1.15rem;
 
 }
 
 
-.forge-artisan-name {
-
-    font-size:2rem;
-
-}
 
 
-/* ---------- Work Areas ---------- */
+/* =========================================
+   GRID
+========================================= */
+
 
 .forge-grid {
 
     display:grid;
 
     grid-template-columns:
+
         repeat(
             auto-fit,
-            minmax(260px,1fr)
+            minmax(320px,1fr)
         );
 
-    gap:25px;
+    gap:30px;
 
 }
 
+
+
+/* =========================================
+   PANELS
+========================================= */
 
 
 .forge-panel {
 
-    background:#f7f0df;
 
-    border-radius:10px;
+    background:
 
-    padding:25px;
+        rgba(255,250,240,.92);
+
 
     border:
-        1px solid rgba(90,60,20,0.25);
+
+        1px solid #cdbb9c;
+
+
+    border-radius:14px;
+
+
+    padding:28px;
+
+
+    box-shadow:
+
+        inset 0 0 20px
+        rgba(80,50,20,.08);
 
 }
 
 
-/* ---------- Labels ---------- */
+
+.forge-panel h2 {
+
+    margin-top:0;
+
+    font-size:1.7rem;
+
+    color:#33251b;
+
+}
+
+
+
+/* =========================================
+   FORM ELEMENTS
+========================================= */
+
 
 .forge-label {
 
     display:block;
 
-    font-weight:bold;
+    margin-top:18px;
 
-    margin-bottom:8px;
+    font-weight:bold;
 
 }
 
 
 
-/* ---------- Inputs ---------- */
+.forge-select {
 
-.forge-select,
-.forge-input {
 
     width:100%;
 
-    padding:12px;
+    padding:10px;
+
+    margin-top:5px;
+
+
+    font-size:1rem;
+
+
+    background:#fffdf7;
+
+
+    border:
+
+        1px solid #bca88b;
+
 
     border-radius:6px;
 
-    border:
-        1px solid #9a8060;
 
-    background:white;
+}
 
-    font-family:inherit;
+
+
+.forge-option {
+
+    margin-top:15px;
 
     font-size:1rem;
 
 }
 
 
-/* ---------- Checkboxes ---------- */
 
-.forge-option {
+.forge-option input {
 
-    margin:12px 0;
+    transform:scale(1.15);
+
+    margin-right:8px;
 
 }
 
 
-/* ---------- Buttons ---------- */
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
 
 .forge-button {
 
-    display:block;
 
     width:100%;
 
-    padding:16px;
 
-    margin-top:20px;
+    margin-top:25px;
 
 
-    background:#5a3518;
+    padding:15px;
 
-    color:white;
 
     border:none;
+
 
     border-radius:8px;
 
 
+    background:
+
+        #623918;
+
+
+    color:white;
+
+
     font-family:inherit;
 
-    font-size:1.2rem;
+
+    font-size:1.15rem;
+
 
     cursor:pointer;
 
 
     transition:
-        transform .2s ease,
-        box-shadow .2s ease;
+
+        .2s ease;
+
 
 }
 
@@ -230,33 +357,59 @@
 
 .forge-button:hover {
 
-    transform:translateY(-2px);
 
-    box-shadow:
-        0 5px 15px rgba(0,0,0,0.25);
+    background:
+
+        #7d4920;
+
+
+    transform:
+
+        translateY(-2px);
+
 
 }
 
 
-/* ---------- Result Chamber ---------- */
+
+.forge-button:disabled {
+
+
+    opacity:.65;
+
+    cursor:
+        wait;
+
+}
+
+
+
+
+/* =========================================
+   RESULT DISPLAY
+========================================= */
+
 
 .forge-result {
 
+
+    min-height:360px;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
     text-align:center;
 
-    margin-top:35px;
-
-    padding:35px;
-
-
-    background:#fffaf0;
-
-
-    border-radius:12px;
-
-
-    border:
-        2px solid rgba(120,80,30,0.35);
 
 }
 
@@ -264,44 +417,41 @@
 
 .forge-result-name {
 
-    font-size:2.5rem;
 
-    margin-bottom:15px;
+    font-size:
 
-}
-
-
-.forge-result-detail {
-
-    margin:10px;
-
-}
+        clamp(
+            2rem,
+           5vw,
+           3.2rem
+        );
 
 
+    font-weight:bold;
 
-/* ---------- Seed Display ---------- */
 
-.forge-seed {
+    line-height:1.1;
 
-    font-size:.9rem;
 
-    opacity:.7;
+    margin-bottom:20px;
 
 }
 
 
 
-/* ---------- Signature ---------- */
-
-.forge-signature {
-
-    margin-top:30px;
-
-    padding-top:20px;
+.forge-title {
 
 
-    border-top:
-        1px dashed #9a8060;
+    font-size:
+
+        clamp(
+            1.1rem,
+           3vw,
+           1.5rem
+        );
+
+
+    margin-top:10px;
 
 
     font-style:italic;
@@ -309,75 +459,72 @@
 }
 
 
-/* ---------- Lore Panel ---------- */
 
-.forge-lore {
+.forge-true-name {
+
+
+    margin-top:25px;
+
+
+    padding-top:20px;
+
+
+    border-top:
+
+        1px dashed #aa9475;
+
+
+}
+
+
+
+.forge-blueprint {
+
+
+    margin-top:20px;
+
+
+    font-size:.95rem;
+
+
+    color:#5c4734;
+
+
+}
+
+
+
+.forge-signature {
+
 
     margin-top:30px;
 
-    padding:25px;
+
+    font-style:italic;
 
 
-    background:#efe3c8;
+    color:#5b4938;
 
-    border-radius:10px;
-
-}
-
-
-/* ---------- Culture Themes ---------- */
-
-
-/* Dragonkin */
-
-.forge-dragonkin {
-
-    --forge-accent:#8b4a20;
 
 }
 
 
 
-/* Elven */
 
-.forge-elven {
-
-    --forge-accent:#557755;
-
-}
-
-
-
-/* Dwarven */
-
-.forge-dwarven {
-
-    --forge-accent:#665544;
-
-}
-
-
-/* Common */
-
-.forge-common {
-
-    --forge-accent:#9b7445;
-
-}
-
-
-
-/* ---------- Mobile ---------- */
+/* =========================================
+   MOBILE
+========================================= */
 
 
 @media(max-width:700px){
 
 
-    .forge-container {
+    #rpg-forge {
 
         padding:15px;
 
     }
+
 
 
     .forge-workshop {
@@ -387,18 +534,13 @@
     }
 
 
-    .forge-title {
 
-        font-size:2.2rem;
+    .forge-panel {
 
-    }
-
-
-    .forge-result-name {
-
-        font-size:2rem;
+        padding:20px;
 
     }
+
 
 
 }

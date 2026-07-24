@@ -60,13 +60,13 @@ const ForgeSignatures = (() => {
 
             legendary:[
 
-    `The Forge grew quiet.
+            `The Forge grew quiet.
 
-Even the flames seemed to listen.
+            Even the flames seemed to listen.
 
-Something ancient approved.`
+            Something ancient approved.`
 
-]
+            ]
 
 
         },

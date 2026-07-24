@@ -226,9 +226,9 @@ const language =
 
                     surname,
 
-                    includeTitle,
+                    title: includeTitle,
 
-                    includeTrueName
+                    trueName: includeTrueName
 
                 });
 

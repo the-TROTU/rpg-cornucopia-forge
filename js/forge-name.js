@@ -7,15 +7,16 @@ File:
     forge-name.js
 
 Version:
-    1.0.0
+    1.1.0
 
 Purpose:
     Generates names using language packs.
 
-Depends On:
-    forge-core.js
-    forge-random.js
-    forge-language.js
+    Name Smith v1.1
+    - Absolute user controls
+    - Blueprint system
+    - True Name support
+    - Artisan standard output
 
 ======================================================*/
 
@@ -25,31 +26,53 @@ const ForgeName = (() => {
 
     function generate(options = {}) {
 
-	const generationSeed =
-    		options.seed ||
-    		ForgeSeed.create();
+
+        const generationSeed =
+            options.seed ||
+            ForgeSeed.create();
 
 
-	ForgeRandom.setSeed(
-    		generationSeed
-);
+        ForgeRandom.setSeed(
+            generationSeed
+        );
 
-        const packID = options.pack || "fantasy-core";
 
-        const cultureID = options.culture || "common";
+        const packID =
+            options.pack ||
+            "fantasy-core";
+
+
+        const cultureID =
+            options.culture ||
+            "common";
+
+
+        const language =
+            ForgeLanguage.get(
+                packID
+            );
+
+
+        if(!language){
+
+            console.error(
+                "Language pack missing:",
+                packID
+            );
+
+            return null;
+
+        }
 
 
         const culture =
-            ForgeLanguage
-                .get(packID)
-                .cultures[cultureID];
+            language.cultures[cultureID];
 
 
         if(!culture){
 
             console.error(
-                "Culture not found:",
-                packID,
+                "Culture missing:",
                 cultureID
             );
 
@@ -58,34 +81,87 @@ const ForgeName = (() => {
         }
 
 
-let namePool;
+
+        /*
+        ================================================
+        Forge Instructions
+        The user decides.
+        The Forge obeys.
+        ================================================
+        */
 
 
-if(options.gender && culture.given[options.gender]){
-
-    namePool = culture.given[options.gender];
-
-}
-else{
-
-    namePool = culture.given.neutral;
-
-}
+        const includeSurname =
+            options.surname === true;
 
 
-const given =
-    buildWord(
-        namePool,
-        culture.profile
-    );
+        const includeTitle =
+            options.title === true;
 
 
-                let surname = null;
+        const revealTrueName =
+            options.trueName === true;
+
+
+
+        /*
+        ================================================
+        Select naming pool
+        ================================================
+        */
+
+
+        let namePool;
 
 
         if(
-            options.surname ||
-            rollChance(culture.profile.surnameChance)
+            options.gender &&
+            culture.given[options.gender]
+        ){
+
+            namePool =
+                culture.given[
+                    options.gender
+                ];
+
+        }
+        else{
+
+            namePool =
+                culture.given.neutral;
+
+        }
+
+
+
+        /*
+        ================================================
+        Create given name
+        ================================================
+        */
+
+
+        const given =
+            buildWord(
+                namePool,
+                culture.profile
+            );
+
+
+
+        /*
+        ================================================
+        Optional surname
+        ================================================
+        */
+
+
+        let surname = null;
+
+
+        if(
+            includeSurname &&
+            culture.surname
         ){
 
             surname =
@@ -96,154 +172,277 @@ const given =
         }
 
 
-        function buildWord(parts, profile = {}) {
+
+        /*
+        ================================================
+        Optional title
+        ================================================
+        */
 
 
-    let structureOptions = [];
+        let title = null;
 
 
-    const lengths = profile.syllableLength || [];
+        if(
+            includeTitle &&
+            culture.titles
+        ){
 
-
-    lengths.forEach(item => {
-
-
-        if(item.value === 1){
-
-            structureOptions.push({
-
-                value:"open-end",
-
-                weight:item.weight
-
-            });
-
-        }
-
-
-        if(item.value === 2){
-
-            structureOptions.push({
-
-                value:"open-end",
-
-                weight:item.weight
-
-            });
+            title =
+                ForgeRandom
+                    .weighted(
+                        culture.titles
+                    )
+                    .text;
 
         }
 
 
-        if(item.value === 3){
 
-            structureOptions.push({
-
-                value:"open-middle-end",
-
-                weight:item.weight
-
-            });
-
-        }
+        /*
+        ================================================
+        Optional true name
+        ================================================
+        */
 
 
-        if(item.value >= 4){
+        let trueName = null;
 
-            structureOptions.push({
 
-                value:"open-middle-middle-end",
+        if(
+            revealTrueName
+        ){
 
-                weight:item.weight
-
-            });
+            trueName =
+                buildWord(
+                    namePool,
+                    culture.profile
+                );
 
         }
 
 
-    });
+
+        /*
+        ================================================
+        Build final product
+        ================================================
+        */
+
+
+        const product = {
+
+
+            given,
+
+
+            fullName:
+                surname
+                ? `${given} ${surname}`
+                : given
+
+        };
 
 
 
-    if(structureOptions.length === 0){
+        if(surname){
+
+            product.surname =
+                surname;
+
+        }
 
 
-        structureOptions = [
+        if(title){
 
-            {
-                value:"open-middle-end",
-                weight:100
+            product.title =
+                title;
+
+        }
+
+
+        if(trueName){
+
+            product.trueName =
+                trueName;
+
+        }
+
+
+
+        /*
+        ================================================
+        Return Forge Standard Object
+        ================================================
+        */
+
+
+        return {
+
+
+            artisan:
+                "name-smith",
+
+
+            blueprint:
+                generationSeed,
+
+
+            product,
+
+
+            culture:
+                cultureID,
+
+
+            pack:
+                packID
+
+
+        };
+
+
+    }
+
+
+
+
+
+    /*
+    ================================================
+    Word Builder
+    ================================================
+    */
+
+
+    function buildWord(parts, profile = {}){
+
+
+        let structureOptions = [];
+
+
+        const lengths =
+            profile.syllableLength || [];
+
+
+
+        lengths.forEach(item => {
+
+
+            if(item.value === 1 ||
+               item.value === 2){
+
+                structureOptions.push({
+
+                    value:"open-end",
+
+                    weight:item.weight
+
+                });
+
             }
 
-        ];
+
+            if(item.value === 3){
+
+                structureOptions.push({
+
+                    value:"open-middle-end",
+
+                    weight:item.weight
+
+                });
+
+            }
+
+
+            if(item.value >= 4){
+
+                structureOptions.push({
+
+                    value:"open-middle-middle-end",
+
+                    weight:item.weight
+
+                });
+
+            }
+
+
+        });
+
+
+
+        if(structureOptions.length === 0){
+
+            structureOptions = [
+
+                {
+                    value:"open-middle-end",
+                    weight:100
+                }
+
+            ];
+
+        }
+
+
+
+        const structure =
+            ForgeRandom.weighted(
+                structureOptions
+            );
+
+
+
+        let word = "";
+
+
+
+        switch(structure.value){
+
+
+            case "open-end":
+
+                word =
+                    pick(parts.openings) +
+                    pick(parts.endings);
+
+                break;
+
+
+
+            case "open-middle-end":
+
+                word =
+                    pick(parts.openings) +
+                    pick(parts.middles) +
+                    pick(parts.endings);
+
+                break;
+
+
+
+            case "open-middle-middle-end":
+
+                word =
+                    pick(parts.openings) +
+                    pick(parts.middles) +
+                    pick(parts.middles) +
+                    pick(parts.endings);
+
+                break;
+
+
+        }
+
+
+        return clean(word);
+
 
     }
 
 
-
-    const structure =
-        ForgeRandom.weighted(
-            structureOptions
-        );
-
-
-
-    let word = "";
-
-
-
-    switch(structure.value){
-
-
-        case "open-end":
-
-
-            word =
-                pick(parts.openings)
-                +
-                pick(parts.endings);
-
-
-            break;
-
-
-
-        case "open-middle-end":
-
-
-            word =
-                pick(parts.openings)
-                +
-                pick(parts.middles)
-                +
-                pick(parts.endings);
-
-
-            break;
-
-
-
-        case "open-middle-middle-end":
-
-
-            word =
-                pick(parts.openings)
-                +
-                pick(parts.middles)
-                +
-                pick(parts.middles)
-                +
-                pick(parts.endings);
-
-
-            break;
-
-    }
-
-
-
-    return clean(word);
-
-}
 
 
 
@@ -252,8 +451,7 @@ const given =
 
         return clean(
 
-            pick(parts.openings)
-            +
+            pick(parts.openings) +
             pick(parts.endings)
 
         );
@@ -267,22 +465,10 @@ const given =
 
     function pick(list){
 
+
         return ForgeRandom
             .weighted(list)
             .text;
-
-    }
-
-
-
-
-
-    function rollChance(chance){
-
-
-        return (
-            ForgeRandom.random() * 100
-        ) < chance;
 
 
     }
@@ -294,10 +480,10 @@ const given =
     function clean(word){
 
 
-        word = word.trim();
+        word =
+            word.trim();
 
 
-        // Remove accidental triple letters
 
         word =
             word.replace(
@@ -306,8 +492,6 @@ const given =
             );
 
 
-
-        // Remove ugly vowel collisions
 
         word =
             word.replace(
@@ -330,129 +514,27 @@ const given =
             );
 
 
-        word =
+
+        return (
             word.charAt(0).toUpperCase()
             +
-            word.slice(1);
-
-
-        return word;
-
-    }
-
-	function applyNamingStyle(result, culture){
-
-
-    switch(culture.profile.namingStyle){
-
-
-        case "ceremonial":
-
-    if(
-        culture.titles &&
-        culture.titles.length &&
-        rollChance(culture.profile.titleChance)
-    ){
-
-        result.title =
-            ForgeRandom
-                .weighted(culture.titles)
-                .text;
-
-    }
-
-    break;
-
-
-
-        case "clan":
-
-            if(result.surname){
-
-                result.surname =
-                    result.surname;
-
-            }
-
-            break;
-
-
-
-        case "flowing":
-
-            result.fullName =
-                smoothName(
-                    result.fullName
-                );
-
-            break;
-
+            word.slice(1)
+        );
 
 
     }
 
 
-    return result;
-
-}
-
-let result = {
-
-    fullName:
-        surname
-        ? `${given} ${surname}`
-        : given,
-
-
-    given: given,
-
-    surname: surname,
-
-    title: null,
-
-    nickname: null,
-
-    trueName: null,
-
-
-    culture: cultureID,
-
-    pack: packID,
-
-    seed: generationSeed
-
-};
-
-
-result =
-    applyNamingStyle(
-        result,
-        culture
-    );
-
-
-return result;
-
-
-}
-
-
-function smoothName(name){
-
-    return name
-        .replace(/aa+/gi,"a")
-        .replace(/ee+/gi,"e")
-        .replace(/ii+/gi,"i");
-
-}
 
 
 
-return {
+    return {
 
-    generate
 
-};
+        generate
+
+
+    };
 
 
 })();

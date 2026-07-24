@@ -342,7 +342,7 @@ console.log(result);
         html +=
             `<div class="forge-blueprint">
 
-                ⚒ Blueprint No.
+                ⚒ Blueprint: 
                 ${result.blueprint}
 
             </div>`;

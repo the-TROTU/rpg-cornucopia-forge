@@ -16,53 +16,6 @@
 
 const KeeperOfFate = (() => {
 
-
-
-    const whispers = {
-
-
-        common:[
-
-            "The bones awaken...",
-
-            "The Keeper consults the ancient tally...",
-
-            "The scales shift...",
-
-            "The stars take note..."
-
-        ],
-
-
-        rare:[
-
-            "The Keeper opens one ancient eye...",
-
-            "A forgotten probability stirs...",
-
-            "The old dragon remembers this path..."
-
-        ],
-
-
-        legendary:[
-
-            "The stars hesitate.",
-
-            "For one moment, fate looks back.",
-
-            "Even the Keeper waits to see what falls."
-
-        ]
-
-
-    };
-
-
-
-
-
-
     function randomFrom(list){
 
 
@@ -77,45 +30,6 @@ const KeeperOfFate = (() => {
 
     }
 
-
-
-
-
-
-    function keeperQuote(){
-
-
-        const roll =
-            Math.random();
-
-
-
-        if(roll < .02){
-
-            return randomFrom(
-                whispers.legendary
-            );
-
-        }
-
-
-
-        if(roll < .15){
-
-            return randomFrom(
-                whispers.rare
-            );
-
-        }
-
-
-
-        return randomFrom(
-            whispers.common
-        );
-
-
-    }
 
 
 
@@ -403,7 +317,7 @@ const KeeperOfFate = (() => {
 
         <div class="forge-signature">
 
-            ${keeperQuote()}
+            ${ForgeSignatures.random("keeperOfFate")}
 
             <br><br>
 

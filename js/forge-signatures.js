@@ -71,6 +71,64 @@ Something ancient approved.`
 
         },
 
+                keeperOfFate:{
+
+
+            common:[
+
+                "The bones have fallen. The answer has been recorded.",
+
+                "The stars take note.",
+
+                "The scales shift, and fate speaks.",
+
+                "The Keeper has considered the possibilities.",
+
+                "The ancient tally has been completed."
+
+            ],
+
+
+
+            humorous:[
+
+                "The dragon insists the dice were properly warmed.",
+
+                "The universe was consulted. It remained vague.",
+
+                "The Keeper blames the dice. The dice blame destiny.",
+
+                "Probability has been politely reminded of expectations."
+
+            ],
+
+
+
+            rare:[
+
+                "The Keeper opens one ancient eye.",
+
+                "A forgotten path briefly reveals itself.",
+
+                "The stars pause before continuing their dance."
+
+            ],
+
+
+
+            legendary:[
+
+                "For one impossible moment, fate looked back.",
+
+                "The first dragon counted these numbers long ago.",
+
+                "The universe waited for the result."
+
+            ]
+
+
+        },
+
 
         characterSmith:{
 

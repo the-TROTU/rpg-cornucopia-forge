@@ -3,291 +3,156 @@
    RPG CORNUCOPIA
    THE FORGE
 
-   Forge Progress System
-
-   Gives each artisan a moment of theater.
+   Forge Progress Engine
+   Version 2.0
 
 ========================================= */
 
-
 const ForgeProgress = (() => {
-
 
     const messages = {
 
+        nameSmith: [
 
-        nameSmith:[
-
-            "Chasing away alphabet gremlins...",
-            "Searching for vowel tweezers...",
-            "Polishing forgotten syllables...",
-            "Convincing letters to cooperate...",
-            "Checking for accidental tongue twisters...",
-            "Putting out completely intentional fires...",
-            "Explaining the noise to the neighbors...",
-            "Rethinking my career decisions..."
+            "⚒ Chasing away alphabet gremlins...",
+            "⚒ Searching for vowel tweezers...",
+            "⚒ Polishing forgotten syllables...",
+            "⚒ Putting out completely intentional fires...",
+            "⚒ Explaining the noise to the neighbors...",
+            "⚒ Rethinking my career decisions...",
+            "⚒ Convincing vowels to behave..."
 
         ],
 
+        keeperOfFate: [
 
-
-        keeperOfFate:[
-
-            "Consulting the ancient bones...",
-            "Negotiating with probability...",
-            "Checking whether destiny is awake...",
-            "Reminding fate about proper etiquette...",
-            "Watching the stars align...",
-            "Asking the dragon to stop breathing on the dice..."
+            "🐉 Consulting the oldest bones...",
+            "🐉 Negotiating with probability...",
+            "🐉 Asking destiny for clarification...",
+            "🐉 Checking whether fate is awake...",
+            "🐉 Asking the dragon to stop breathing on the dice..."
 
         ],
 
+        characterSmith: [
 
-
-        characterSmith:[
-
-            "Tempering personality traits...",
-            "Balancing courage and questionable decisions...",
-            "Searching for hidden motivations...",
-            "Adding just the right amount of trouble..."
+            "⚒ Tempering personality traits...",
+            "⚒ Polishing questionable life choices...",
+            "⚒ Adjusting heroic tendencies..."
 
         ],
 
+        architect: [
 
-
-        architect:[
-
-            "Convincing walls to remain upright...",
-            "Measuring suspiciously empty spaces...",
-            "Checking foundation paperwork...",
-            "Making room for secret passages..."
+            "⚒ Measuring suspicious empty spaces...",
+            "⚒ Convincing walls to remain upright...",
+            "⚒ Looking for room for a secret passage..."
 
         ]
 
     };
 
 
+    function randomMessage(artisan){
 
+        const pool =
+            messages[artisan] || [];
 
-
-    function getMessages(artisan){
-
-
-        const forge =
-            messages[artisan] ||
-            messages.nameSmith;
-
-
-
-        const roll =
-            Math.random();
-
-
-
-        /*
-            Most operations are instant.
-            This determines theatrical level.
-
-            50% no message
-            40% one message
-            10% two messages
-        */
-
-
-        if(roll < 0.5){
-
-            return [];
-
+        if(pool.length === 0){
+            return "";
         }
 
-
-        if(roll < 0.9){
-
-            return [
-
-                randomFrom(forge)
-
-            ];
-
-        }
-
-
-        return [
-
-            randomFrom(forge),
-
-            randomFrom(forge)
-
-        ];
-
-
-    }
-
-
-
-
-
-
-    function randomFrom(list){
-
-
-        return list[
+        return pool[
             Math.floor(
-                Math.random() *
-                list.length
+                Math.random() * pool.length
             )
         ];
 
-
     }
 
 
-
-
-
-    function start(artisan, elementID){
-
+    function run(artisan, elementID, callback){
 
         const element =
-            document.getElementById(
-                elementID
-            );
-
+            document.getElementById(elementID);
 
         if(!element){
 
-            return null;
+            callback();
+            return;
 
         }
 
+        const roll = Math.random();
 
+        let count = 0;
 
-        const lines =
-            getMessages(
-                artisan
-            );
+        if(roll < 0.50){
 
+            count = 0;
 
+        }
+        else if(roll < 0.90){
 
-        if(lines.length === 0){
+            count = 1;
 
-            return null;
+        }
+        else{
+
+            count = 2;
 
         }
 
+        if(count === 0){
 
+            callback();
+            return;
 
+        }
 
-        element.innerHTML =
-            "";
+        element.innerHTML = "";
 
+        let shown = 0;
 
+        function showNext(){
 
-        let index = 0;
+            const div =
+                document.createElement("div");
 
+            div.className =
+                "forge-progress-message";
 
+            div.textContent =
+                randomMessage(artisan);
 
-        const interval =
-            setInterval(() => {
+            element.innerHTML = "";
 
+            element.appendChild(div);
 
-                if(index >= lines.length){
+            shown++;
 
+            if(shown >= count){
 
-                    clearInterval(
-                        interval
-                    );
+                setTimeout(callback,180);
 
+            }
+            else{
 
-                    return;
+                setTimeout(showNext,180);
 
+            }
 
-                }
+        }
 
-
-
-                const message =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                message.className =
-                    "forge-progress-message";
-
-
-
-                message.textContent =
-                    lines[index];
-
-
-
-                element.appendChild(
-                    message
-                );
-
-
-
-                index++;
-
-
-            },350);
-
-
-
-        return interval;
-
+        showNext();
 
     }
-
-
-
-
-
-
-
-    function clear(timer, elementID){
-
-
-        if(timer){
-
-            clearInterval(timer);
-
-        }
-
-
-
-        const element =
-            document.getElementById(
-                elementID
-            );
-
-
-
-        if(element){
-
-            element.innerHTML =
-                "";
-
-        }
-
-
-    }
-
-
-
 
 
     return {
 
-
-        start,
-
-        clear
-
+        run
 
     };
-
-
 
 })();

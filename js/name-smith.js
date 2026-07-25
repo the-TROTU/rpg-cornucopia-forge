@@ -171,108 +171,41 @@ const language =
 
 
 
-        setTimeout(() => {
+        ForgeProgress.run(
+    "nameSmith",
+    "forge-progress",
+    () => {
 
+        const result =
+            ForgeName.generate({
 
-            const culture =
-                document
-                    .getElementById(
-                        "forge-culture"
-                    )
-                    .value;
+                pack:"fantasy-core",
 
+                culture,
 
+                gender,
 
-            const gender =
-                document
-                    .getElementById(
-                        "forge-gender"
-                    )
-                    .value;
+                surname,
 
+                title:includeTitle,
 
+                trueName:includeTrueName
 
-            const surname =
-                document
-                    .getElementById(
-                        "forge-surname"
-                    )
-                    .checked;
+            });
 
+        if(result){
 
+            displayResult(result);
 
-            const includeTitle =
-                document
-                    .getElementById(
-                        "forge-title"
-                    )
-                    .checked;
+        }
 
+        button.textContent =
+            "⚒ Forge Another";
 
+        button.disabled = false;
 
-            const includeTrueName =
-                document
-                    .getElementById(
-                        "forge-true-name"
-                    )
-                    .checked;
-
-
-
-
-            const result =
-                ForgeName.generate({
-
-                    pack:
-                        "fantasy-core",
-
-                    culture,
-
-                    gender,
-
-                    surname,
-
-                    title: includeTitle,
-
-                    trueName: includeTrueName
-
-                });
-
-console.log(result);
-
-            if(result){
-
-                ForgeProgress.clear(
-                progress,
-                "forge-progress"
-                );
-
-
-            displayResult(
-                result
-            );
-
-            }
-            else{
-
-                console.error(
-                    "Name generation failed."
-                );
-
-            }
-
-
-
-            button.textContent =
-                "⚒ Forge Another";
-
-
-            button.disabled =
-                false;
-
-
-
-        },300);
+    }
+);,300);
 
 
     }

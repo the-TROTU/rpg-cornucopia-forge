@@ -246,7 +246,6 @@ const language =
 
 }
 
-
     /*
         Display the forged creation
     */

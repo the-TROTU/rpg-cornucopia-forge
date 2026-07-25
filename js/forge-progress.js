@@ -156,3 +156,5 @@ const ForgeProgress = (() => {
     };
 
 })();
+
+console.log("ForgeProgress awakened.");

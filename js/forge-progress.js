@@ -87,12 +87,12 @@ const ForgeProgress = (() => {
 
         let count = 0;
 
-        if(roll < 0.50){
+        if(roll < 0){
 
             count = 0;
 
         }
-        else if(roll < 0.90){
+        else if(roll < 0.80){
 
             count = 1;
 

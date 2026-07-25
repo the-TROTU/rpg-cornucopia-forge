@@ -149,63 +149,102 @@ const language =
 
     function forgeName(){
 
+    const button =
+        document.getElementById(
+            "forge-name-button"
+        );
 
-        const button =
-            document.getElementById(
-                "forge-name-button"
-            );
+    button.textContent =
+        "Forging...";
 
-
-        button.textContent =
-            "Forging...";
-
-
-        button.disabled =
-            true;
-
-        const progress =
-            ForgeProgress.start(
-            "nameSmith",
-             "forge-progress"
-            );
+    button.disabled =
+        true;
 
 
+    const culture =
+        document
+            .getElementById(
+                "forge-culture"
+            )
+            .value;
 
-        ForgeProgress.run(
-    "nameSmith",
-    "forge-progress",
-    () => {
 
-        const result =
-            ForgeName.generate({
+    const gender =
+        document
+            .getElementById(
+                "forge-gender"
+            )
+            .value;
 
-                pack:"fantasy-core",
 
-                culture,
+    const surname =
+        document
+            .getElementById(
+                "forge-surname"
+            )
+            .checked;
 
-                gender,
 
-                surname,
+    const includeTitle =
+        document
+            .getElementById(
+                "forge-title"
+            )
+            .checked;
 
-                title:includeTitle,
 
-                trueName:includeTrueName
+    const includeTrueName =
+        document
+            .getElementById(
+                "forge-true-name"
+            )
+            .checked;
 
-            });
 
-        if(result){
+    ForgeProgress.run(
 
-            displayResult(result);
+        "nameSmith",
+
+        "forge-progress",
+
+        () => {
+
+            const result =
+                ForgeName.generate({
+
+                    pack:"fantasy-core",
+
+                    culture,
+
+                    gender,
+
+                    surname,
+
+                    title:includeTitle,
+
+                    trueName:includeTrueName
+
+                });
+
+
+            if(result){
+
+                displayResult(result);
+
+            }
+
+
+            button.textContent =
+                "⚒ Forge Another";
+
+            button.disabled =
+                false;
 
         }
 
-        button.textContent =
-            "⚒ Forge Another";
+    );
 
-        button.disabled = false;
-
-    }
-);,300);
+};
 
 
     }

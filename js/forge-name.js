@@ -1,22 +1,22 @@
 /*======================================================
 
-RPG Cornucopia
-The Forge
+   RPG CORNUCOPIA
+   THE FORGE
 
 File:
     forge-name.js
 
 Version:
-    1.1.0
+    2.0.0
 
 Purpose:
-    Generates names using language packs.
+    Intelligent Name Smith Engine
 
-    Name Smith v1.1
-    - Absolute user controls
-    - Blueprint system
-    - True Name support
-    - Artisan standard output
+    Pass 1:
+    - Candidate forging
+    - Name scoring
+    - Repetition awareness
+    - Improved uniqueness
 
 ======================================================*/
 
@@ -24,7 +24,9 @@ Purpose:
 const ForgeName = (() => {
 
 
+
     function generate(options = {}) {
+
 
 
         const generationSeed =
@@ -32,9 +34,11 @@ const ForgeName = (() => {
             ForgeSeed.create();
 
 
+
         ForgeRandom.setSeed(
             generationSeed
         );
+
 
 
         const packID =
@@ -42,15 +46,18 @@ const ForgeName = (() => {
             "fantasy-core";
 
 
+
         const cultureID =
             options.culture ||
             "common";
+
 
 
         const language =
             ForgeLanguage.get(
                 packID
             );
+
 
 
         if(!language){
@@ -65,8 +72,10 @@ const ForgeName = (() => {
         }
 
 
+
         const culture =
             language.cultures[cultureID];
+
 
 
         if(!culture){
@@ -82,21 +91,15 @@ const ForgeName = (() => {
 
 
 
-        /*
-        ================================================
-        Forge Instructions
-        The user decides.
-        The Forge obeys.
-        ================================================
-        */
-
 
         const includeSurname =
             options.surname === true;
 
 
+
         const includeTitle =
             options.title === true;
+
 
 
         const revealTrueName =
@@ -104,14 +107,10 @@ const ForgeName = (() => {
 
 
 
-        /*
-        ================================================
-        Select naming pool
-        ================================================
-        */
 
 
         let namePool;
+
 
 
         if(
@@ -134,29 +133,26 @@ const ForgeName = (() => {
 
 
 
+
         /*
-        ================================================
-        Create given name
-        ================================================
+        ============================================
+        NEW:
+        The Name Smith forges several candidates
+        and selects the strongest.
+        ============================================
         */
 
 
         const given =
-            buildWord(
+            forgeBestName(
                 namePool,
                 culture.profile
             );
 
 
 
-        /*
-        ================================================
-        Optional surname
-        ================================================
-        */
-
-
         let surname = null;
+
 
 
         if(
@@ -173,14 +169,8 @@ const ForgeName = (() => {
 
 
 
-        /*
-        ================================================
-        Optional title
-        ================================================
-        */
-
-
         let title = null;
+
 
 
         if(
@@ -199,14 +189,8 @@ const ForgeName = (() => {
 
 
 
-        /*
-        ================================================
-        Optional true name
-        ================================================
-        */
-
-
         let trueName = null;
+
 
 
         if(
@@ -214,7 +198,7 @@ const ForgeName = (() => {
         ){
 
             trueName =
-                buildWord(
+                forgeBestName(
                     namePool,
                     culture.profile
                 );
@@ -222,12 +206,6 @@ const ForgeName = (() => {
         }
 
 
-
-        /*
-        ================================================
-        Build final product
-        ================================================
-        */
 
 
         const product = {
@@ -237,9 +215,17 @@ const ForgeName = (() => {
 
 
             fullName:
+
                 surname
-                ? `${given} ${surname}`
-                : given
+
+                ?
+
+                `${given} ${surname}`
+
+                :
+
+                given
+
 
         };
 
@@ -253,12 +239,14 @@ const ForgeName = (() => {
         }
 
 
+
         if(title){
 
             product.title =
                 title;
 
         }
+
 
 
         if(trueName){
@@ -268,13 +256,6 @@ const ForgeName = (() => {
 
         }
 
-
-
-        /*
-        ================================================
-        Return Forge Standard Object
-        ================================================
-        */
 
 
         return {
@@ -304,140 +285,192 @@ const ForgeName = (() => {
 
     }
 
+    /*
+    ================================================
+    Candidate Selection Engine
+    ================================================
+    */
+
+
+    function forgeBestName(
+        namePool,
+        profile
+    ){
+
+        const attempts = 8;
+
+        const candidates = [];
+
+
+
+        for(
+            let i = 0;
+            i < attempts;
+            i++
+        ){
+
+            const candidate =
+                buildWord(
+                    namePool,
+                    profile
+                );
+
+
+            candidates.push({
+
+                name:
+                    candidate,
+
+                score:
+                    scoreName(
+                        candidate
+                    )
+
+            });
+
+
+        }
+
+
+
+        candidates.sort(
+
+            (a,b) =>
+                b.score - a.score
+
+        );
+
+
+
+        return candidates[0].name;
+
+
+    }
+
 
 
 
 
     /*
     ================================================
-    Word Builder
+    Name Evaluation
+
+    Strange is acceptable.
+    Broken is not.
+
     ================================================
     */
 
 
-    function buildWord(parts, profile = {}){
+    function scoreName(
+        name
+    ){
 
-
-        let structureOptions = [];
-
-
-        const lengths =
-            profile.syllableLength || [];
+        let score = 100;
 
 
 
-        lengths.forEach(item => {
-
-
-            if(item.value === 1 ||
-               item.value === 2){
-
-                structureOptions.push({
-
-                    value:"open-end",
-
-                    weight:item.weight
-
-                });
-
-            }
-
-
-            if(item.value === 3){
-
-                structureOptions.push({
-
-                    value:"open-middle-end",
-
-                    weight:item.weight
-
-                });
-
-            }
-
-
-            if(item.value >= 4){
-
-                structureOptions.push({
-
-                    value:"open-middle-middle-end",
-
-                    weight:item.weight
-
-                });
-
-            }
-
-
-        });
+        const lower =
+            name.toLowerCase();
 
 
 
-        if(structureOptions.length === 0){
 
-            structureOptions = [
+        /*
+            Penalize excessive repetition
 
-                {
-                    value:"open-middle-end",
-                    weight:100
-                }
+            Borborik survives.
+            Borborborborik does not.
+        */
 
-            ];
+
+        if(
+            /(.)\1\1/.test(
+                lower
+            )
+        ){
+
+            score -= 25;
 
         }
 
 
 
-        const structure =
-            ForgeRandom.weighted(
-                structureOptions
-            );
 
 
-
-        let word = "";
-
-
-
-        switch(structure.value){
+        /*
+            Penalize impossible
+            consonant clusters
+        */
 
 
-            case "open-end":
+        if(
+            /[bcdfghjklmnpqrstvwxyz]{4,}/i
+            .test(name)
+        ){
 
-                word =
-                    pick(parts.openings) +
-                    pick(parts.endings);
-
-                break;
-
-
-
-            case "open-middle-end":
-
-                word =
-                    pick(parts.openings) +
-                    pick(parts.middles) +
-                    pick(parts.endings);
-
-                break;
-
-
-
-            case "open-middle-middle-end":
-
-                word =
-                    pick(parts.openings) +
-                    pick(parts.middles) +
-                    pick(parts.middles) +
-                    pick(parts.endings);
-
-                break;
-
+            score -= 30;
 
         }
 
 
-        return clean(word);
+
+
+
+        /*
+            Penalize excessive vowels
+        */
+
+
+        if(
+            /[aeiou]{4,}/i
+            .test(name)
+        ){
+
+            score -= 20;
+
+        }
+
+
+
+
+
+        /*
+            Reward memorable length
+        */
+
+
+        if(
+            name.length >= 5 &&
+            name.length <= 12
+        ){
+
+            score += 10;
+
+        }
+
+
+
+
+
+        /*
+            Reward distinctive openings
+
+            This keeps fantasy flavor.
+        */
+
+
+        if(
+            name.length > 7
+        ){
+
+            score += 5;
+
+        }
+
+
+
+        return score;
 
 
     }
@@ -446,13 +479,42 @@ const ForgeName = (() => {
 
 
 
-    function buildSurname(parts){
+    /*
+    ================================================
+    Existing Name Construction
+    ================================================
+    */
+
+
+    function buildWord(
+        pool,
+        profile
+    ){
+
+        const opening =
+            pick(
+                pool.openings
+            );
+
+
+        const middle =
+            pick(
+                pool.middles
+            );
+
+
+        const ending =
+            pick(
+                pool.endings
+            );
+
 
 
         return clean(
 
-            pick(parts.openings) +
-            pick(parts.endings)
+            opening +
+            middle +
+            ending
 
         );
 
@@ -463,13 +525,17 @@ const ForgeName = (() => {
 
 
 
-    function pick(list){
+    function buildSurname(
+        surnamePool
+    ){
 
+        return clean(
 
-        return ForgeRandom
-            .weighted(list)
-            .text;
+            pick(
+                surnamePool
+            )
 
+        );
 
     }
 
@@ -477,50 +543,49 @@ const ForgeName = (() => {
 
 
 
-    function clean(word){
+    function pick(
+        array
+    ){
+
+        return array[
+
+            Math.floor(
+
+                Math.random()
+                *
+                array.length
+
+            )
+
+        ];
+
+    }
 
 
-        word =
-            word.trim();
 
 
 
-        word =
-            word.replace(
+    function clean(
+        word
+    ){
+
+        return word
+
+            .replace(
                 /(.)\1\1+/g,
                 "$1$1"
+            )
+
+            .replace(
+                /([aeiou])\1\1+/gi,
+                "$1$1"
+            )
+
+            .replace(
+                /^./,
+                c =>
+                    c.toUpperCase()
             );
-
-
-
-        word =
-            word.replace(
-                /aa+/gi,
-                "a"
-            );
-
-
-        word =
-            word.replace(
-                /ee+/gi,
-                "e"
-            );
-
-
-        word =
-            word.replace(
-                /ii+/gi,
-                "i"
-            );
-
-
-
-        return (
-            word.charAt(0).toUpperCase()
-            +
-            word.slice(1)
-        );
-
 
     }
 
@@ -535,6 +600,7 @@ const ForgeName = (() => {
 
 
     };
+
 
 
 })();

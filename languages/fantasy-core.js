@@ -78,9 +78,9 @@ ForgeLanguage.register({
                     { text:"a", weight:5 }
 
                 ]
-		}
+		},
 
-            },
+    
 
 	male: {
 
@@ -214,7 +214,8 @@ female: {
 
     ]
 
-},
+}
+            }
 
 
             surname: {

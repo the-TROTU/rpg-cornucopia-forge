@@ -53,15 +53,7 @@ ForgeLanguage.register({
                 openings: [
 
                     { text:"Al", weight:5 },
-                    { text:"Bar", weight:5 },
-                    { text:"Cor", weight:5 },
-                    { text:"Dar", weight:5 },
-                    { text:"El", weight:5 },
-                    { text:"Gar", weight:5 },
-                    { text:"Hal", weight:5 },
-                    { text:"Mar", weight:5 },
-                    { text:"Ran", weight:5 },
-                    { text:"Tor", weight:5 }
+                    { text:"Bar", weight:5 }
 
                 ],
 

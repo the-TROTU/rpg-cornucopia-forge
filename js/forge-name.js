@@ -617,19 +617,67 @@ return clean(word);
 
 
 
-    function buildSurname(
-        surnamePool
+   function buildSurname(
+    surnamePool
+){
+
+    if(!surnamePool){
+
+        return "";
+
+    }
+
+
+
+    if(
+        Array.isArray(
+            surnamePool
+        )
+    ){
+
+        return clean(
+            pick(
+                surnamePool
+            )
+        );
+
+    }
+
+
+
+    if(
+        surnamePool.prefixes &&
+        surnamePool.roots &&
+        surnamePool.endings
     ){
 
         return clean(
 
-            pick(
-                surnamePool
-            )
+            pick(surnamePool.prefixes) +
+
+            pick(surnamePool.roots) +
+
+            pick(surnamePool.endings)
 
         );
 
     }
+
+
+
+    if(
+        surnamePool.text
+    ){
+
+        return surnamePool.text;
+
+    }
+
+
+
+    return "";
+
+}
 
 
 

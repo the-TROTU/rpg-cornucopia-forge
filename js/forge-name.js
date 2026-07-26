@@ -503,131 +503,194 @@ console.log(
 
 
     function buildWord(
-        pool,
-        profile
-    ){
+    pool,
+    profile
+){
 
-        let structureOptions = [];
-
-const lengths =
-    profile.syllableLength || [];
+    let structureOptions = [];
 
 
-lengths.forEach(item => {
+    const lengths =
+        profile.syllableLength || [];
+
+
+    lengths.forEach(item => {
+
+
+        if(
+            item.value === 1 ||
+            item.value === 2
+        ){
+
+            structureOptions.push({
+
+                value:"open-end",
+                weight:item.weight
+
+            });
+
+        }
+
+
+        if(
+            item.value === 3
+        ){
+
+            structureOptions.push({
+
+                value:"open-middle-end",
+                weight:item.weight
+
+            });
+
+        }
+
+
+        if(
+            item.value >= 4
+        ){
+
+            structureOptions.push({
+
+                value:"open-middle-middle-end",
+                weight:item.weight
+
+            });
+
+        }
+
+    });
+
+
 
     if(
-        item.value === 1 ||
-        item.value === 2
+        structureOptions.length === 0
     ){
-
-        structureOptions.push({
-
-            value:"open-end",
-            weight:item.weight
-
-        });
-
-    }
-
-
-    if(item.value === 3){
 
         structureOptions.push({
 
             value:"open-middle-end",
-            weight:item.weight
+            weight:100
 
         });
 
     }
 
 
-    if(item.value >= 4){
 
-        structureOptions.push({
-
-            value:"open-middle-middle-end",
-            weight:item.weight
-
-        });
-
-    }
-
-});
-
-
-if(
-    structureOptions.length === 0
-){
-
-    structureOptions.push({
-
-        value:"open-middle-end",
-        weight:100
-
-    });
-
-}
-
-
-const structure =
-    ForgeRandom.weighted(
-        structureOptions
-    );
-
-
-let word = "";
-
-
-switch(structure.value){
-
-
-    case "open-end":
-
-        word =
-            pick(pool.openings) +
-            pick(pool.endings);
-
-        break;
-
-
-    case "open-middle-end":
-
-        word =
-            pick(pool.openings) +
-            pick(pool.middles) +
-            pick(pool.endings);
-
-        break;
-
-
-    case "open-middle-middle-end":
-
-        word =
-            pick(pool.openings) +
-            pick(pool.middles) +
-            pick(pool.middles) +
-            pick(pool.endings);
-
-        break;
-
-}
-
-
-return clean(word);
-
-
-
-        return clean(
-
-            opening +
-            middle +
-            ending
-
+    const structure =
+        ForgeRandom.weighted(
+            structureOptions
         );
 
 
+
+    const opening =
+        pick(
+            pool.openings
+        );
+
+
+    const ending =
+        pick(
+            pool.endings
+        );
+
+
+    const middle =
+        pool.middles
+        ?
+        pick(
+            pool.middles
+        )
+        :
+        "";
+
+
+
+    const middle2 =
+        pool.middles
+        ?
+        pick(
+            pool.middles
+        )
+        :
+        "";
+
+
+
+    let word = "";
+
+
+
+    switch(
+        structure.value
+    ){
+
+
+        case "open-end":
+
+            word =
+                mergeParts(
+                    opening,
+                    ending
+                );
+
+            break;
+
+
+
+        case "open-middle-end":
+
+            word =
+                mergeParts(
+                    opening,
+                    middle
+                );
+
+
+            word =
+                mergeParts(
+                    word,
+                    ending
+                );
+
+            break;
+
+
+
+        case "open-middle-middle-end":
+
+            word =
+                mergeParts(
+                    opening,
+                    middle
+                );
+
+
+            word =
+                mergeParts(
+                    word,
+                    middle2
+                );
+
+
+            word =
+                mergeParts(
+                    word,
+                    ending
+                );
+
+            break;
+
+
     }
+
+
+
+    return clean(word);
+
+}
 
 
 
@@ -711,6 +774,42 @@ return clean(word);
 }
 
 
+
+    function mergeParts(
+    first,
+    second
+    ){
+
+    if(!first){
+        return second;
+    }
+
+    if(!second){
+        return first;
+    }
+
+
+    let result =
+        first + second;
+
+
+    result =
+        result.replace(
+            /([aeiou])\1+/gi,
+            "$1"
+        );
+
+
+    result =
+        result.replace(
+            /([a-z])\1{2,}/gi,
+            "$1$1"
+        );
+
+
+    return result;
+
+}
 
 
 

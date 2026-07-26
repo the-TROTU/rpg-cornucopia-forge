@@ -321,7 +321,9 @@ ForgeLanguage.register({
             }
 
         },
-	elven: {
+	    
+        
+        elven: {
 
     name: "Elven",
 
@@ -654,7 +656,5 @@ dragonkin: {
 
 }
 
-    }
-}
 
 });

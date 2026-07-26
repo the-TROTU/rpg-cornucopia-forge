@@ -129,15 +129,27 @@ console.log(
         ){
 
             namePool =
-                culture.given[
-                    options.gender
-                ];
+                culture.given[options.gender];
 
         }
-        else{
+
+        else if(
+            culture.given.neutral
+        ){
 
             namePool =
                 culture.given.neutral;
+
+        }
+
+        else{
+
+            console.error(
+                "No valid name pool found for culture:",
+                cultureID
+            );
+
+            return null;
 
         }
 

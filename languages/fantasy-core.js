@@ -44,49 +44,14 @@ ForgeLanguage.register({
 		namingStyle:"simple"
 
             },
+            
+            given:{
 
+    male:{
 
-            given: {
-
-    		neutral: {
-
-                openings: [
-
-                    { text:"Al", weight:5 },
-                    { text:"Bar", weight:5 }
-
-                ],
-
-
-                middles: [
-
-                    { text:"an", weight:8 },
-                    { text:"el", weight:8 },
-                    { text:"or", weight:8 },
-                    { text:"in", weight:8 },
-                    { text:"ar", weight:8 }
-
-                ],
-
-
-                endings: [
-
-                    { text:"ic", weight:5 },
-                    { text:"on", weight:5 },
-                    { text:"us", weight:5 },
-                    { text:"en", weight:5 },
-                    { text:"a", weight:5 }
-
-                ]
-		},
-
-    
-
-	male: {
-
-    openings:[
-
-{text:"Al",weight:10},
+        openings:[
+            // Male openings go here
+            {text:"Al",weight:10},
 {text:"Ald",weight:8},
 {text:"Ar",weight:8},
 {text:"Bar",weight:6},
@@ -136,11 +101,11 @@ ForgeLanguage.register({
 {text:"Wes",weight:5},
 {text:"Wil",weight:6},
 {text:"Xan",weight:3}
-],
+        ],
 
-    middles:[
-
-{text:"a",weight:8},
+        middles:[
+            // Male middles go here
+            {text:"a",weight:8},
 {text:"ae",weight:3},
 {text:"an",weight:10},
 {text:"ar",weight:10},
@@ -160,11 +125,11 @@ ForgeLanguage.register({
 {text:"ul",weight:4},
 {text:"ur",weight:4},
 {text:"vin",weight:4}
-],
+        ],
 
-    endings:[
-
-{text:"an",weight:8},
+        endings:[
+            // Male endings go here
+            {text:"an",weight:8},
 {text:"ar",weight:8},
 {text:"as",weight:5},
 {text:"en",weight:8},
@@ -183,39 +148,68 @@ ForgeLanguage.register({
 {text:"rick",weight:3},
 {text:"ton",weight:6},
 {text:"vin",weight:4}
-]
+        ]
 
-},
+    },
 
-female: {
 
-    openings:[
+    female:{
 
-        {text:"Ari",weight:5},
+        openings:[
+            // Female openings go here
+             {text:"Ari",weight:5},
         {text:"El",weight:5},
         {text:"Lia",weight:5},
         {text:"Mar",weight:5}
+        ],
 
-    ],
-
-    middles:[
-
-        {text:"el",weight:5},
+        middles:[
+            // Female middles go here
+            {text:"el",weight:5},
         {text:"ia",weight:5},
         {text:"an",weight:5}
+        ],
 
-    ],
-
-    endings:[
-
-        {text:"a",weight:5},
+        endings:[
+            // Female endings go here
+            {text:"a",weight:5},
         {text:"elle",weight:5},
         {text:"ine",weight:5}
+        ]
 
-    ]
+    },
+
+
+    neutral:{
+
+        openings:[
+            // Existing neutral list stays here
+             { text:"Al", weight:5 },
+                    { text:"Bar", weight:5 }
+        ],
+
+        middles:[
+            // Existing neutral list stays here
+            { text:"an", weight:8 },
+                    { text:"el", weight:8 },
+                    { text:"or", weight:8 },
+                    { text:"in", weight:8 },
+                    { text:"ar", weight:8 }
+        ],
+
+        endings:[
+            // Existing neutral list stays here
+              { text:"ic", weight:5 },
+                    { text:"on", weight:5 },
+                    { text:"us", weight:5 },
+                    { text:"en", weight:5 },
+                    { text:"a", weight:5 }
+        ]
+
+    }
 
 }
-            }
+
 
 
             surname: {

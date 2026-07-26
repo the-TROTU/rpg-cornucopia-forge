@@ -206,10 +206,7 @@ ForgeLanguage.register({
                     { text:"a", weight:5 }
         ]
 
-        }
-    }
-
-}
+        },
 
 
 

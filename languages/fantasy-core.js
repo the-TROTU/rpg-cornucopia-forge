@@ -116,6 +116,7 @@ ForgeLanguage.register({
 {text:"Kael",weight:4},
 {text:"Kel",weight:5},
 {text:"Lan",weight:6},
+{text:"Lin",weight:6},
 {text:"Lor",weight:5},
 {text:"Luc",weight:7},
 {text:"Mal",weight:8},
@@ -188,6 +189,7 @@ ForgeLanguage.register({
 {text:"ick",weight:4},
 {text:"ric",weight:8},
 {text:"rick",weight:3},
+{text:"ton",weight:6},
 {text:"vin",weight:4}
 ]
 

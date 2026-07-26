@@ -491,22 +491,114 @@ const ForgeName = (() => {
         profile
     ){
 
-        const opening =
-            pick(
-                pool.openings
-            );
+        let structureOptions = [];
+
+const lengths =
+    profile.syllableLength || [];
 
 
-        const middle =
-            pick(
-                pool.middles
-            );
+lengths.forEach(item => {
+
+    if(
+        item.value === 1 ||
+        item.value === 2
+    ){
+
+        structureOptions.push({
+
+            value:"open-end",
+            weight:item.weight
+
+        });
+
+    }
 
 
-        const ending =
-            pick(
-                pool.endings
-            );
+    if(item.value === 3){
+
+        structureOptions.push({
+
+            value:"open-middle-end",
+            weight:item.weight
+
+        });
+
+    }
+
+
+    if(item.value >= 4){
+
+        structureOptions.push({
+
+            value:"open-middle-middle-end",
+            weight:item.weight
+
+        });
+
+    }
+
+});
+
+
+if(
+    structureOptions.length === 0
+){
+
+    structureOptions.push({
+
+        value:"open-middle-end",
+        weight:100
+
+    });
+
+}
+
+
+const structure =
+    ForgeRandom.weighted(
+        structureOptions
+    );
+
+
+let word = "";
+
+
+switch(structure.value){
+
+
+    case "open-end":
+
+        word =
+            pick(pool.openings) +
+            pick(pool.endings);
+
+        break;
+
+
+    case "open-middle-end":
+
+        word =
+            pick(pool.openings) +
+            pick(pool.middles) +
+            pick(pool.endings);
+
+        break;
+
+
+    case "open-middle-middle-end":
+
+        word =
+            pick(pool.openings) +
+            pick(pool.middles) +
+            pick(pool.middles) +
+            pick(pool.endings);
+
+        break;
+
+}
+
+
+return clean(word);
 
 
 
@@ -544,22 +636,34 @@ const ForgeName = (() => {
 
 
     function pick(
-        array
-    ){
+    array
+){
 
-        return array[
+    if(!array || array.length === 0){
 
-            Math.floor(
-
-                Math.random()
-                *
-                array.length
-
-            )
-
-        ];
+        return "";
 
     }
+
+
+    const result =
+        ForgeRandom.weighted(
+            array
+        );
+
+
+    if(
+        typeof result === "string"
+    ){
+
+        return result;
+
+    }
+
+
+    return result.text;
+
+}
 
 
 

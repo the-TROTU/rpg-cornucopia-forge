@@ -628,54 +628,35 @@ return clean(word);
     }
 
 
-
-    if(
-        Array.isArray(
-            surnamePool
-        )
-    ){
-
-        return clean(
-            pick(
-                surnamePool
-            )
-        );
-
-    }
+    let surname = "";
 
 
 
     if(
-        surnamePool.prefixes &&
-        surnamePool.roots &&
+        surnamePool.openings &&
         surnamePool.endings
     ){
 
-        return clean(
+        surname =
 
-            pick(surnamePool.prefixes) +
+            pick(
+                surnamePool.openings
+            )
 
-            pick(surnamePool.roots) +
+            +
 
-            pick(surnamePool.endings)
+            pick(
+                surnamePool.endings
+            );
 
-        );
 
     }
 
 
+    return clean(
+        surname
+    );
 
-    if(
-        surnamePool.text
-    ){
-
-        return surnamePool.text;
-
-    }
-
-
-
-    return "";
 
 }
 

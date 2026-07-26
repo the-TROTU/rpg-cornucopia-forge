@@ -485,7 +485,17 @@ console.log(
             score -= 25;
 
         }
+        /*
+            Penalize repeated sound fragments
+        */
 
+        if(
+            /(ic.*ick|an.*an|ar.*ar|el.*el)/i.test(name)
+        ){
+
+            score -= 15;
+
+        }
         return score;
 
 

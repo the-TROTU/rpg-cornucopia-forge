@@ -116,33 +116,42 @@ const ForgeProgress = (() => {
 
         function showNext(){
 
-            const div =
-                document.createElement("div");
+    const div =
+        document.createElement("div");
 
-            div.className =
-                "forge-progress-message";
+    div.className =
+        "forge-progress-message";
 
-            div.textContent =
-                randomMessage(artisan);
+    div.textContent =
+        randomMessage(artisan);
 
-            element.innerHTML = "";
 
-            element.appendChild(div);
+    element.innerHTML = "";
 
-            shown++;
+    element.appendChild(div);
 
-            if(shown >= count){
 
-                setTimeout(callback,180);
+    shown++;
 
-            }
-            else{
 
-                setTimeout(showNext,180);
+    if(shown >= count){
 
-            }
+        setTimeout(
+            callback,
+            350
+        );
 
-        }
+    }
+    else{
+
+        setTimeout(
+            showNext,
+            350
+        );
+
+    }
+
+}
 
         showNext();
 

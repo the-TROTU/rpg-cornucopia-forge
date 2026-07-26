@@ -76,6 +76,16 @@ const ForgeName = (() => {
         const culture =
             language.cultures[cultureID];
 
+            console.log(
+    "Requested gender:",
+    options.gender
+);
+
+console.log(
+    "Culture given structure:",
+    culture.given
+);
+
 
 
         if(!culture){

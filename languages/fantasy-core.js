@@ -92,30 +92,104 @@ ForgeLanguage.register({
 
 	male: {
 
-    openings: [
+    openings:[
 
-        {text:"Ald",weight:5},
-        {text:"Bran",weight:5},
-        {text:"Ced",weight:5},
-        {text:"Garr",weight:5}
-
-    ],
+{text:"Al",weight:10},
+{text:"Ald",weight:8},
+{text:"Ar",weight:8},
+{text:"Bar",weight:6},
+{text:"Bren",weight:6},
+{text:"Cal",weight:8},
+{text:"Ced",weight:7},
+{text:"Cor",weight:10},
+{text:"Dar",weight:8},
+{text:"Dav",weight:5},
+{text:"Ed",weight:7},
+{text:"Edric",weight:3},
+{text:"Fen",weight:6},
+{text:"Gar",weight:8},
+{text:"Garr",weight:5},
+{text:"Hal",weight:8},
+{text:"Hen",weight:5},
+{text:"Ian",weight:7},
+{text:"Jar",weight:6},
+{text:"Kael",weight:4},
+{text:"Kel",weight:5},
+{text:"Lan",weight:6},
+{text:"Lor",weight:5},
+{text:"Luc",weight:7},
+{text:"Mal",weight:8},
+{text:"Mar",weight:8},
+{text:"Mic",weight:6},
+{text:"Nath",weight:5},
+{text:"Nic",weight:6},
+{text:"Oren",weight:4},
+{text:"Perr",weight:3},
+{text:"Quin",weight:4},
+{text:"Ran",weight:8},
+{text:"Ren",weight:6},
+{text:"Roder",weight:3},
+{text:"Row",weight:6},
+{text:"Sam",weight:7},
+{text:"Seb",weight:5},
+{text:"Ste",weight:5},
+{text:"Tal",weight:7},
+{text:"Tar",weight:6},
+{text:"Theo",weight:5},
+{text:"Ther",weight:3},
+{text:"Tor",weight:10},
+{text:"Val",weight:8},
+{text:"Var",weight:6},
+{text:"Wes",weight:5},
+{text:"Wil",weight:6},
+{text:"Xan",weight:3}
+],
 
     middles:[
 
-        {text:"er",weight:5},
-        {text:"an",weight:5},
-        {text:"ic",weight:5}
-
-    ],
+{text:"a",weight:8},
+{text:"ae",weight:3},
+{text:"an",weight:10},
+{text:"ar",weight:10},
+{text:"ard",weight:4},
+{text:"el",weight:10},
+{text:"en",weight:8},
+{text:"er",weight:7},
+{text:"ic",weight:10},
+{text:"il",weight:5},
+{text:"in",weight:10},
+{text:"ir",weight:5},
+{text:"on",weight:10},
+{text:"or",weight:10},
+{text:"ric",weight:6},
+{text:"rin",weight:5},
+{text:"ron",weight:5},
+{text:"ul",weight:4},
+{text:"ur",weight:4},
+{text:"vin",weight:4}
+],
 
     endings:[
 
-        {text:"on",weight:5},
-        {text:"ald",weight:5},
-        {text:"ric",weight:5}
-
-    ]
+{text:"an",weight:8},
+{text:"ar",weight:8},
+{text:"as",weight:5},
+{text:"en",weight:8},
+{text:"er",weight:7},
+{text:"ic",weight:10},
+{text:"ian",weight:7},
+{text:"in",weight:7},
+{text:"is",weight:5},
+{text:"on",weight:10},
+{text:"or",weight:10},
+{text:"us",weight:6},
+{text:"ald",weight:4},
+{text:"ard",weight:4},
+{text:"ick",weight:4},
+{text:"ric",weight:8},
+{text:"rick",weight:3},
+{text:"vin",weight:4}
+]
 
 },
 

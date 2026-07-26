@@ -478,7 +478,13 @@ console.log(
 
         }
 
+        if(
+            /(ric.*ric|an.*an|el.*el|on.*on)/i.test(name)
+        ){
 
+            score -= 25;
+
+        }
 
         return score;
 
@@ -708,31 +714,38 @@ return clean(word);
 
 
 
-    function clean(
-        word
-    ){
+    function clean(word){
 
-        return word
-
+        word = word
             .replace(
                 /(.)\1\1+/g,
                 "$1$1"
-            )
-
-            .replace(
-                /([aeiou])\1\1+/gi,
-                "$1$1"
-            )
-
-            .replace(
-                /^./,
-                c =>
-                    c.toUpperCase()
             );
 
+
+        word = word
+            .replace(
+                /([aeiou])\1+/gi,
+                "$1"
+            );
+
+
+        word = word
+            .replace(
+                /([aeiou])([aeiou])/gi,
+                "$1$2"
+            );
+
+
+        word =
+            word.charAt(0).toUpperCase()
+            +
+            word.slice(1);
+
+
+        return word;
+
     }
-
-
 
 
 

@@ -599,58 +599,107 @@ ForgeLanguage.register({
 
     male: {
 
-        openings: [
+    openings:[
 
-            {text:"Ael",weight:8},
-            {text:"Aer",weight:7},
-            {text:"Cael",weight:8},
-            {text:"Elar",weight:7},
-            {text:"Fael",weight:5},
-            {text:"Lorien",weight:4},
-            {text:"Maer",weight:6},
-            {text:"Nael",weight:7},
-            {text:"Sael",weight:6},
-            {text:"Syl",weight:8},
-            {text:"Thael",weight:5},
-            {text:"Vael",weight:8},
-            {text:"Calen",weight:7},
-            {text:"Ery",weight:5},
-            {text:"Ith",weight:4}
+        {text:"Ael",weight:8},
+        {text:"Aer",weight:7},
+        {text:"Cael",weight:8},
+        {text:"Cyr",weight:5},
+        {text:"Dael",weight:5},
+        {text:"Elar",weight:7},
+        {text:"Ery",weight:6},
+        {text:"Fael",weight:5},
+        {text:"Ith",weight:4},
+        {text:"Laer",weight:6},
+        {text:"Lorien",weight:4},
+        {text:"Maer",weight:6},
+        {text:"Nael",weight:7},
+        {text:"Oryn",weight:5},
+        {text:"Rael",weight:6},
+        {text:"Sael",weight:7},
+        {text:"Syl",weight:8},
+        {text:"Thael",weight:5},
+        {text:"Thalan",weight:5},
+        {text:"Vael",weight:8},
+        {text:"Varyn",weight:5},
+        {text:"Yll",weight:4},
+        {text:"Arian",weight:5},
+        {text:"Cele",weight:5},
+        {text:"Elendir",weight:3},
+        {text:"Faeron",weight:4},
+        {text:"Gal",weight:6},
+        {text:"Isil",weight:4},
+        {text:"Luth",weight:5},
+        {text:"Myth",weight:3},
+        {text:"Nym",weight:4},
+        {text:"Olor",weight:4},
+        {text:"Quen",weight:4},
+        {text:"Ryn",weight:5},
+        {text:"Silar",weight:5},
+        {text:"Talan",weight:5},
+        {text:"Ther",weight:4},
+        {text:"Uvael",weight:3},
+        {text:"Val",weight:6},
+        {text:"Yavar",weight:3}
 
-        ],
+    ],
 
 
-        middles:[
+    middles:[
 
-            {text:"an",weight:8},
-            {text:"ar",weight:7},
-            {text:"iel",weight:8},
-            {text:"ion",weight:7},
-            {text:"ith",weight:6},
-            {text:"orin",weight:5},
-            {text:"ael",weight:8},
-            {text:"wyn",weight:5},
-            {text:"ir",weight:6},
-            {text:"el",weight:8}
+        {text:"a",weight:5},
+        {text:"ae",weight:4},
+        {text:"an",weight:8},
+        {text:"ar",weight:8},
+        {text:"el",weight:9},
+        {text:"en",weight:6},
+        {text:"ien",weight:5},
+        {text:"iel",weight:8},
+        {text:"il",weight:6},
+        {text:"in",weight:7},
+        {text:"ion",weight:7},
+        {text:"ir",weight:6},
+        {text:"ith",weight:7},
+        {text:"la",weight:5},
+        {text:"lin",weight:5},
+        {text:"lor",weight:5},
+        {text:"mir",weight:4},
+        {text:"or",weight:6},
+        {text:"ran",weight:5},
+        {text:"rin",weight:5},
+        {text:"thal",weight:4},
+        {text:"ther",weight:4},
+        {text:"var",weight:5},
+        {text:"viel",weight:4},
+        {text:"wyn",weight:5}
 
-        ],
+    ],
 
 
-        endings:[
+    endings:[
 
-            {text:"ion",weight:8},
-            {text:"iel",weight:8},
-            {text:"or",weight:5},
-            {text:"as",weight:4},
-            {text:"ith",weight:7},
-            {text:"ien",weight:6},
-            {text:"ael",weight:7},
-            {text:"oril",weight:4},
-            {text:"an",weight:6}
+        {text:"ael",weight:7},
+        {text:"an",weight:6},
+        {text:"ar",weight:5},
+        {text:"as",weight:4},
+        {text:"el",weight:6},
+        {text:"en",weight:6},
+        {text:"iel",weight:9},
+        {text:"ien",weight:6},
+        {text:"ion",weight:8},
+        {text:"ir",weight:5},
+        {text:"ith",weight:7},
+        {text:"or",weight:5},
+        {text:"ran",weight:4},
+        {text:"ril",weight:4},
+        {text:"ryn",weight:4},
+        {text:"thal",weight:3},
+        {text:"viel",weight:3},
+        {text:"wyn",weight:5}
 
-        ]
+    ]
 
-    },
+},
 
 
 

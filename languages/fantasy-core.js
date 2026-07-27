@@ -205,7 +205,7 @@ ForgeLanguage.register({
                     { text:"en", weight:5 },
                     { text:"a", weight:5 }
         ]
-
+    }
         },
 
 

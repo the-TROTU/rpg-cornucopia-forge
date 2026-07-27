@@ -808,48 +808,99 @@ ForgeLanguage.register({
 
     neutral: {
 
-        openings:[
+    openings:[
 
-            {text:"Ae",weight:8},
-            {text:"Elar",weight:7},
-            {text:"Lia",weight:7},
-            {text:"Syl",weight:8},
-            {text:"Vael",weight:8},
-            {text:"Cae",weight:7},
-            {text:"Ith",weight:5},
-            {text:"Ryn",weight:5},
-            {text:"Ari",weight:6}
+        {text:"Ae",weight:8},
+        {text:"Ael",weight:8},
+        {text:"Aeri",weight:6},
+        {text:"Cael",weight:8},
+        {text:"Cae",weight:6},
+        {text:"Elar",weight:8},
+        {text:"Elya",weight:5},
+        {text:"Fael",weight:6},
+        {text:"Ith",weight:5},
+        {text:"Lia",weight:7},
+        {text:"Lorien",weight:4},
+        {text:"Mael",weight:6},
+        {text:"Nae",weight:6},
+        {text:"Rael",weight:6},
+        {text:"Ryn",weight:7},
+        {text:"Sael",weight:7},
+        {text:"Syl",weight:8},
+        {text:"Thael",weight:5},
+        {text:"Vael",weight:8},
+        {text:"Vae",weight:6},
+        {text:"Yll",weight:4},
+        {text:"Ari",weight:6},
+        {text:"Calen",weight:5},
+        {text:"Elan",weight:6},
+        {text:"Iriel",weight:4},
+        {text:"Luth",weight:5},
+        {text:"Myth",weight:3},
+        {text:"Oryn",weight:5},
+        {text:"Silar",weight:5},
+        {text:"Tae",weight:5}
 
-        ],
+    ],
 
 
-        middles:[
+    middles:[
 
-            {text:"la",weight:7},
-            {text:"ri",weight:7},
-            {text:"el",weight:8},
-            {text:"an",weight:6},
-            {text:"ith",weight:6},
-            {text:"ael",weight:7},
-            {text:"wyn",weight:5}
+        {text:"a",weight:6},
+        {text:"ae",weight:5},
+        {text:"al",weight:6},
+        {text:"an",weight:8},
+        {text:"ar",weight:8},
+        {text:"el",weight:9},
+        {text:"en",weight:6},
+        {text:"ia",weight:7},
+        {text:"iel",weight:8},
+        {text:"ien",weight:6},
+        {text:"il",weight:5},
+        {text:"in",weight:7},
+        {text:"ion",weight:7},
+        {text:"ir",weight:5},
+        {text:"ith",weight:7},
+        {text:"la",weight:5},
+        {text:"lin",weight:5},
+        {text:"lor",weight:5},
+        {text:"ra",weight:5},
+        {text:"riel",weight:6},
+        {text:"rin",weight:5},
+        {text:"thal",weight:4},
+        {text:"ther",weight:4},
+        {text:"var",weight:5},
+        {text:"wyn",weight:5}
 
-        ],
+    ],
 
 
-        endings:[
+    endings:[
 
-            {text:"ion",weight:8},
-            {text:"iel",weight:8},
-            {text:"ael",weight:7},
-            {text:"ith",weight:6},
-            {text:"wyn",weight:5},
-            {text:"en",weight:5}
+        {text:"ael",weight:8},
+        {text:"an",weight:6},
+        {text:"ar",weight:6},
+        {text:"el",weight:7},
+        {text:"en",weight:7},
+        {text:"iel",weight:9},
+        {text:"ien",weight:7},
+        {text:"ion",weight:8},
+        {text:"ir",weight:5},
+        {text:"ith",weight:8},
+        {text:"or",weight:5},
+        {text:"rael",weight:4},
+        {text:"ril",weight:4},
+        {text:"rin",weight:5},
+        {text:"thal",weight:4},
+        {text:"viel",weight:4},
+        {text:"wyn",weight:6},
+        {text:"yra",weight:4},
+        {text:"eth",weight:5},
+        {text:"is",weight:4}
 
-        ]
+    ]
 
-    }
-
-},
+}
 
 
     surname: {

@@ -351,7 +351,7 @@ ForgeLanguage.register({
             { text:"al", weight:8 },
             { text:"an", weight:10 },
             { text:"ar", weight:10 },
-            { text:"d", weight:5 }
+            { text:"d", weight:5 },
             { text:"el", weight:10 },
             { text:"en", weight:8 },
             { text:"er", weight:6 },
@@ -363,10 +363,10 @@ ForgeLanguage.register({
             { text:"ra", weight:5 },
             { text:"rin", weight:5 },
             { text:"ron", weight:6 },
-            { text:"s", weight:7 }
-            { text:"ss", weight:4 }
-            { text:"t", weight:6 }
-            { text:"tt", weight:4 }
+            { text:"s", weight:7 },
+            { text:"ss", weight:4 },
+            { text:"t", weight:6 },
+            { text:"tt", weight:4 },
             { text:"ul", weight:4 },
             { text:"ur", weight:4 },
             { text:"ven", weight:5 }
@@ -389,8 +389,8 @@ ForgeLanguage.register({
             { text:"us", weight:6 },
             { text:"yn", weight:4 },
             { text:"ir", weight:5 },
-            { text:"eth", weight:4 }
-            { text:"oth", weight:4 }
+            { text:"eth", weight:4 },
+            { text:"oth", weight:4 },
             { text:"ock", weight:4 }
         ]
     }

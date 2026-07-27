@@ -1427,7 +1427,207 @@ dragonkin: {
 
     given: {
 
-        neutral: {
+        male: {
+
+    openings:[
+
+        {text:"Vael",weight:8},
+        {text:"Vaelor",weight:6},
+        {text:"Zyr",weight:7},
+        {text:"Zarek",weight:5},
+        {text:"Kael",weight:7},
+        {text:"Kaeros",weight:5},
+        {text:"Thar",weight:8},
+        {text:"Tharos",weight:6},
+        {text:"Azh",weight:6},
+        {text:"Azrak",weight:5},
+        {text:"Xyr",weight:5},
+        {text:"Xyron",weight:5},
+        {text:"Vor",weight:6},
+        {text:"Vorak",weight:5},
+        {text:"Rhae",weight:5},
+        {text:"Khar",weight:6},
+        {text:"Drak",weight:6},
+        {text:"Tyr",weight:5},
+        {text:"Nyth",weight:4},
+        {text:"Oryx",weight:4},
+        {text:"Syl",weight:4},
+        {text:"Vrax",weight:4},
+        {text:"Zaul",weight:3},
+        {text:"Myr",weight:4},
+        {text:"Kor",weight:5},
+        {text:"Rhogar",weight:3},
+        {text:"Vel",weight:5},
+        {text:"Irix",weight:3},
+        {text:"Ashor",weight:4},
+        {text:"Khaen",weight:4}
+
+    ],
+
+
+    middles:[
+
+        {text:"ael",weight:8},
+        {text:"ath",weight:7},
+        {text:"or",weight:8},
+        {text:"ith",weight:7},
+        {text:"rax",weight:6},
+        {text:"uun",weight:4},
+        {text:"yx",weight:4},
+        {text:"vyr",weight:6},
+        {text:"ion",weight:7},
+        {text:"aris",weight:5},
+        {text:"eth",weight:5},
+        {text:"kael",weight:4},
+        {text:"dras",weight:4},
+        {text:"zhul",weight:3},
+        {text:"mor",weight:4},
+        {text:"thul",weight:3},
+        {text:"rax",weight:5},
+        {text:"aur",weight:4},
+        {text:"zar",weight:4},
+        {text:"vor",weight:5}
+
+    ],
+
+
+    endings:[
+
+        {text:"ath",weight:8},
+        {text:"ael",weight:7},
+        {text:"arion",weight:6},
+        {text:"ion",weight:8},
+        {text:"or",weight:7},
+        {text:"oras",weight:5},
+        {text:"vyr",weight:6},
+        {text:"yx",weight:5},
+        {text:"kaar",weight:4},
+        {text:"drake",weight:4},
+        {text:"thor",weight:4},
+        {text:"zhul",weight:3},
+        {text:"uun",weight:4},
+        {text:"eth",weight:5},
+        {text:"rax",weight:5},
+        {text:"vok",weight:3},
+        {text:"myr",weight:4},
+        {text:"azar",weight:4},
+        {text:"gor",weight:4},
+        {text:"thys",weight:3}
+
+    ]
+
+},
+
+
+    female:{
+
+        openings:[
+            // Female openings go here
+            {text:"Ari",weight:8},
+            {text:"Ada",weight:5},
+            {text:"Ala",weight:4},
+            {text:"Ama",weight:4},
+            {text:"Bel",weight:6},
+            {text:"Bri",weight:5},
+            {text:"Cala",weight:5},
+            {text:"Can",weight:6},
+            {text:"Cel",weight:6},
+            {text:"Cin",weight:5},
+            {text:"Dara",weight:5},
+            {text:"Ela",weight:8},
+            {text:"El",weight:7},
+            {text:"Eli",weight:6},
+            {text:"Eva",weight:5},
+            {text:"Fara",weight:4},
+            {text:"Feli",weight:4},
+            {text:"Gia",weight:5},
+            {text:"Hel",weight:5},
+            {text:"Ila",weight:5},
+            {text:"Ina",weight:5},
+            {text:"Isa",weight:5},
+            {text:"Jara",weight:4},
+            {text:"Jan",weight:5},
+            {text:"Lia",weight:8},
+            {text:"Lina",weight:6},
+            {text:"Lora",weight:5},
+            {text:"Luna",weight:4},
+            {text:"Mara",weight:8},
+            {text:"Mari",weight:6},
+            {text:"Mela",weight:5},
+            {text:"Nara",weight:5},
+            {text:"Neria",weight:4},
+            {text:"Nora",weight:5},
+            {text:"Rena",weight:5},
+            {text:"Ria",weight:5},
+            {text:"Sin",weight:5},
+            {text:"Sara",weight:6},
+            {text:"Sel",weight:5},
+            {text:"Talia",weight:6},
+            {text:"Vera",weight:5},
+            {text:"Yara",weight:4}
+        ],
+
+        middles:[
+            // Female middles go here
+            {text:"a",weight:8},
+            {text:"ae",weight:1},
+            {text:"al",weight:6},
+            {text:"an",weight:7},
+            {text:"ara",weight:5},
+            {text:"bel",weight:5},
+            {text:"el",weight:8},
+            {text:"ela",weight:5},
+            {text:"en",weight:6},
+            {text:"ia",weight:8},
+            {text:"iel",weight:4},
+            {text:"in",weight:6},
+            {text:"ira",weight:5},
+            {text:"is",weight:4},
+            {text:"la",weight:7},
+            {text:"len",weight:5},
+            {text:"lia",weight:6},
+            {text:"lin",weight:5},
+            {text:"mar",weight:5},
+            {text:"mel",weight:5},
+            {text:"nar",weight:4},
+            {text:"ra",weight:7},
+            {text:"ria",weight:6},
+            {text:"rin",weight:4},
+            {text:"sel",weight:5},
+            {text:"thel",weight:3},
+            {text:"wen",weight:4}
+        ],
+
+        endings:[
+            // Female endings go here
+            {text:"a",weight:8},
+            {text:"ae",weight:2},
+            {text:"al",weight:4},
+            {text:"ara",weight:5},
+            {text:"elle",weight:6},
+            {text:"ena",weight:6},
+            {text:"ene",weight:4},
+            {text:"dice",weight:4},
+            {text:"dy",weight:4},
+            {text:"ia",weight:8},
+            {text:"iel",weight:4},
+            {text:"ine",weight:7},
+            {text:"ira",weight:5},
+            {text:"is",weight:4},
+            {text:"lyn",weight:4},
+            {text:"na",weight:5},
+            {text:"ora",weight:6},
+            {text:"ra",weight:5},
+            {text:"ria",weight:6},
+            {text:"rose",weight:3},
+            {text:"wen",weight:4},
+            {text:"wyn",weight:3}
+        ]
+
+    },
+
+
+    neutral: {
 
     openings:[
 

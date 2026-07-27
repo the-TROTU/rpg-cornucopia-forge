@@ -900,7 +900,7 @@ ForgeLanguage.register({
 
     ]
 
-}
+},
 
 
     surname: {

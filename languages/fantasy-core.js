@@ -705,50 +705,104 @@ ForgeLanguage.register({
 
     female: {
 
-        openings:[
+    openings:[
 
-            {text:"Aela",weight:8},
-            {text:"Ari",weight:6},
-            {text:"Caeli",weight:7},
-            {text:"Elya",weight:8},
-            {text:"Faela",weight:5},
-            {text:"Lira",weight:7},
-            {text:"Maelia",weight:6},
-            {text:"Naeva",weight:7},
-            {text:"Syl",weight:8},
-            {text:"Vaela",weight:7},
-            {text:"Yllia",weight:5}
+        {text:"Aela",weight:8},
+        {text:"Aelia",weight:6},
+        {text:"Ari",weight:6},
+        {text:"Caeli",weight:8},
+        {text:"Calia",weight:5},
+        {text:"Cele",weight:5},
+        {text:"Eila",weight:7},
+        {text:"Elya",weight:8},
+        {text:"Faela",weight:6},
+        {text:"Fira",weight:4},
+        {text:"Ilya",weight:5},
+        {text:"Lia",weight:7},
+        {text:"Lira",weight:8},
+        {text:"Maela",weight:7},
+        {text:"Maeria",weight:5},
+        {text:"Naeva",weight:8},
+        {text:"Nalia",weight:5},
+        {text:"Nym",weight:4},
+        {text:"Raela",weight:6},
+        {text:"Riala",weight:5},
+        {text:"Saela",weight:7},
+        {text:"Syl",weight:8},
+        {text:"Sylia",weight:6},
+        {text:"Thaela",weight:5},
+        {text:"Vaela",weight:8},
+        {text:"Vaeria",weight:5},
+        {text:"Yllia",weight:5},
+        {text:"Ariella",weight:4},
+        {text:"Elira",weight:6},
+        {text:"Isila",weight:4},
+        {text:"Lunara",weight:4},
+        {text:"Myra",weight:5},
+        {text:"Seri",weight:5},
+        {text:"Thalia",weight:5},
+        {text:"Vanya",weight:4}
 
-        ],
+    ],
 
 
-        middles:[
+    middles:[
 
-            {text:"ria",weight:8},
-            {text:"lith",weight:6},
-            {text:"iel",weight:8},
-            {text:"wen",weight:6},
-            {text:"ael",weight:7},
-            {text:"ria",weight:7},
-            {text:"thil",weight:5},
-            {text:"wyn",weight:5}
+        {text:"a",weight:6},
+        {text:"ae",weight:5},
+        {text:"al",weight:6},
+        {text:"an",weight:7},
+        {text:"ara",weight:5},
+        {text:"el",weight:9},
+        {text:"ela",weight:7},
+        {text:"ia",weight:8},
+        {text:"iel",weight:8},
+        {text:"ien",weight:5},
+        {text:"il",weight:5},
+        {text:"ira",weight:6},
+        {text:"ith",weight:7},
+        {text:"la",weight:6},
+        {text:"lia",weight:7},
+        {text:"lith",weight:5},
+        {text:"na",weight:5},
+        {text:"riel",weight:7},
+        {text:"ria",weight:8},
+        {text:"sil",weight:4},
+        {text:"thel",weight:5},
+        {text:"thil",weight:4},
+        {text:"va",weight:5},
+        {text:"wen",weight:6},
+        {text:"wyn",weight:5}
 
-        ],
+    ],
 
 
-        endings:[
+    endings:[
 
-            {text:"a",weight:7},
-            {text:"iel",weight:8},
-            {text:"elle",weight:6},
-            {text:"ia",weight:7},
-            {text:"wyn",weight:5},
-            {text:"ara",weight:6},
-            {text:"eth",weight:5}
+        {text:"a",weight:7},
+        {text:"ae",weight:4},
+        {text:"ael",weight:6},
+        {text:"ara",weight:7},
+        {text:"elle",weight:8},
+        {text:"ena",weight:5},
+        {text:"eth",weight:5},
+        {text:"ia",weight:8},
+        {text:"iel",weight:10},
+        {text:"ielle",weight:7},
+        {text:"ien",weight:6},
+        {text:"ira",weight:6},
+        {text:"ith",weight:5},
+        {text:"lia",weight:7},
+        {text:"lune",weight:4},
+        {text:"ria",weight:6},
+        {text:"wen",weight:6},
+        {text:"wyn",weight:5},
+        {text:"yra",weight:5},
+        {text:"ielyn",weight:3}
 
-        ]
+    ]
 
-    },
+},
 
 
 

@@ -246,7 +246,7 @@ ForgeLanguage.register({
         middles:[
             // Female middles go here
             {text:"a",weight:8},
-            {text:"ae",weight:3},
+            {text:"ae",weight:1},
             {text:"al",weight:6},
             {text:"an",weight:7},
             {text:"ara",weight:5},
@@ -277,7 +277,7 @@ ForgeLanguage.register({
         endings:[
             // Female endings go here
             {text:"a",weight:8},
-            {text:"ae",weight:3},
+            {text:"ae",weight:2},
             {text:"al",weight:4},
             {text:"ara",weight:5},
             {text:"elle",weight:6},

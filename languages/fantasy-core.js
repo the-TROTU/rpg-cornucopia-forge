@@ -1429,41 +1429,76 @@ dragonkin: {
 
         neutral: {
 
-            openings: [
+    openings:[
 
-                {text:"Vael",weight:8},
-                {text:"Zyr",weight:6},
-                {text:"Kael",weight:7},
-                {text:"Thar",weight:5},
-                {text:"Azh",weight:4},
-                {text:"Xyr",weight:3}
+        {text:"Vael",weight:8},
+        {text:"Vaelor",weight:6},
+        {text:"Vyr",weight:5},
+        {text:"Zyr",weight:7},
+        {text:"Zyra",weight:5},
+        {text:"Kael",weight:7},
+        {text:"Kaelor",weight:5},
+        {text:"Thar",weight:8},
+        {text:"Tharion",weight:6},
+        {text:"Azh",weight:5},
+        {text:"Azhar",weight:6},
+        {text:"Xyr",weight:5},
+        {text:"Xyrael",weight:4},
+        {text:"Rhae",weight:5},
+        {text:"Rhaelor",weight:4},
+        {text:"Myth",weight:4},
+        {text:"Nyx",weight:4},
+        {text:"Or",weight:5},
+        {text:"Orath",weight:5},
+        {text:"Syl",weight:4},
+        {text:"Tyr",weight:5},
+        {text:"Vorn",weight:5},
+        {text:"Kyr",weight:4},
+        {text:"Zar",weight:5},
+        {text:"Aurel",weight:4}
 
-            ],
-
-
-            middles:[
-
-                {text:"ael",weight:8},
-                {text:"ith",weight:7},
-                {text:"or",weight:6},
-                {text:"rax",weight:5},
-                {text:"uun",weight:3}
-
-            ],
-
-
-            endings:[
-
-                {text:"ion",weight:8},
-                {text:"ath",weight:7},
-                {text:"yr",weight:5},
-                {text:"yx",weight:4},
-                {text:"ael",weight:5}
-
-            ]
+    ],
 
 
-        }
+    middles:[
+
+        {text:"ael",weight:8},
+        {text:"ath",weight:7},
+        {text:"ith",weight:7},
+        {text:"or",weight:7},
+        {text:"rax",weight:6},
+        {text:"uun",weight:4},
+        {text:"yrr",weight:4},
+        {text:"var",weight:6},
+        {text:"ion",weight:8},
+        {text:"iel",weight:6},
+        {text:"aris",weight:5},
+        {text:"eth",weight:5},
+        {text:"aryn",weight:5},
+        {text:"ul",weight:4},
+        {text:"yx",weight:3}
+
+    ],
+
+
+    endings:[
+
+        {text:"ion",weight:8},
+        {text:"ath",weight:8},
+        {text:"yr",weight:6},
+        {text:"yx",weight:5},
+        {text:"ael",weight:7},
+        {text:"ith",weight:6},
+        {text:"oras",weight:5},
+        {text:"uun",weight:4},
+        {text:"arion",weight:5},
+        {text:"vyr",weight:4},
+        {text:"eth",weight:5},
+        {text:"yxia",weight:3}
+
+    ]
+
+}
 
     },
 

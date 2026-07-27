@@ -903,29 +903,85 @@ ForgeLanguage.register({
 
     surname: {
 
-        openings: [
+    openings:[
 
-            {text:"Moon",weight:5},
-            {text:"Silver",weight:5},
-            {text:"Star",weight:5},
-            {text:"Dawn",weight:5},
-            {text:"Mist",weight:5}
+        {text:"Moon",weight:8},
+        {text:"Silver",weight:8},
+        {text:"Star",weight:7},
+        {text:"Dawn",weight:7},
+        {text:"Mist",weight:7},
+        {text:"Sun",weight:5},
+        {text:"Bright",weight:5},
+        {text:"Crystal",weight:4},
+        {text:"Ember",weight:4},
+        {text:"Frost",weight:5},
+        {text:"Golden",weight:5},
+        {text:"Green",weight:5},
+        {text:"High",weight:4},
+        {text:"Lunar",weight:4},
+        {text:"Night",weight:6},
+        {text:"River",weight:5},
+        {text:"Rose",weight:4},
+        {text:"Shadow",weight:5},
+        {text:"Sky",weight:6},
+        {text:"Snow",weight:4},
+        {text:"Spring",weight:4},
+        {text:"Storm",weight:4},
+        {text:"Sunrise",weight:3},
+        {text:"Twilight",weight:5},
+        {text:"Velvet",weight:3},
+        {text:"Wild",weight:4},
+        {text:"Wind",weight:6},
+        {text:"Winter",weight:4},
+        {text:"Willow",weight:7},
+        {text:"Oak",weight:5}
 
-        ],
+    ],
 
 
-        endings: [
+    endings:[
 
-            {text:"whisper",weight:5},
-            {text:"song",weight:5},
-            {text:"leaf",weight:5},
-            {text:"shade",weight:5},
-            {text:"fall",weight:5}
+        {text:"whisper",weight:8},
+        {text:"song",weight:8},
+        {text:"leaf",weight:8},
+        {text:"shade",weight:7},
+        {text:"fall",weight:7},
+        {text:"bloom",weight:5},
+        {text:"branch",weight:4},
+        {text:"brook",weight:5},
+        {text:"dancer",weight:3},
+        {text:"dream",weight:5},
+        {text:"flower",weight:4},
+        {text:"glen",weight:5},
+        {text:"grove",weight:8},
+        {text:"heart",weight:5},
+        {text:"hollow",weight:4},
+        {text:"keeper",weight:3},
+        {text:"light",weight:7},
+        {text:"melody",weight:4},
+        {text:"mist",weight:4},
+        {text:"moon",weight:5},
+        {text:"path",weight:4},
+        {text:"petal",weight:4},
+        {text:"rain",weight:4},
+        {text:"river",weight:5},
+        {text:"root",weight:3},
+        {text:"rose",weight:5},
+        {text:"shadow",weight:5},
+        {text:"silence",weight:3},
+        {text:"star",weight:6},
+        {text:"thorn",weight:4},
+        {text:"veil",weight:6},
+        {text:"wood",weight:7},
+        {text:"wooden",weight:3},
+        {text:"song",weight:7},
+        {text:"bough",weight:4},
+        {text:"branch",weight:4},
+        {text:"crest",weight:4}
 
-        ]
+    ]
 
-    }
-
+}
 },
 
 dwarven: {

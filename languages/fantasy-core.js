@@ -897,7 +897,7 @@ ForgeLanguage.register({
         {text:"is",weight:4}
 
     ]
-    }
+}
         },
 
 

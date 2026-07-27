@@ -1012,70 +1012,373 @@ dwarven: {
 
     given: {
 	
-	neutral: {
+	male: {
 
-        openings:[
+    openings:[
 
-            {text:"Bor",weight:8},
-            {text:"Dur",weight:8},
-            {text:"Kar",weight:7},
-            {text:"Thar",weight:6},
-            {text:"Brom",weight:6},
-            {text:"Gor",weight:5}
+        {text:"Bor",weight:8},
+        {text:"Borin",weight:6},
+        {text:"Brom",weight:8},
+        {text:"Bran",weight:5},
+        {text:"Dain",weight:7},
+        {text:"Dar",weight:6},
+        {text:"Dorn",weight:8},
+        {text:"Dur",weight:9},
+        {text:"Fald",weight:5},
+        {text:"Farin",weight:6},
+        {text:"Gald",weight:5},
+        {text:"Gar",weight:6},
+        {text:"Garin",weight:6},
+        {text:"Gor",weight:7},
+        {text:"Grim",weight:8},
+        {text:"Hal",weight:5},
+        {text:"Harn",weight:6},
+        {text:"Kald",weight:7},
+        {text:"Kar",weight:8},
+        {text:"Korin",weight:6},
+        {text:"Mor",weight:7},
+        {text:"Mord",weight:5},
+        {text:"Narin",weight:5},
+        {text:"Orrik",weight:6},
+        {text:"Rogar",weight:6},
+        {text:"Thar",weight:8},
+        {text:"Thorin",weight:6},
+        {text:"Tor",weight:7},
+        {text:"Ulf",weight:5},
+        {text:"Var",weight:6},
+        {text:"Varr",weight:4},
+        {text:"Wulf",weight:4}
 
-        ],
+    ],
 
 
-        middles:[
+    middles:[
 
-            {text:"in",weight:7},
-            {text:"an",weight:7},
-            {text:"grim",weight:5},
-            {text:"or",weight:7}
+        {text:"a",weight:5},
+        {text:"an",weight:8},
+        {text:"ar",weight:8},
+        {text:"bar",weight:4},
+        {text:"din",weight:7},
+        {text:"dor",weight:7},
+        {text:"gar",weight:8},
+        {text:"grim",weight:6},
+        {text:"in",weight:8},
+        {text:"ir",weight:6},
+        {text:"mar",weight:5},
+        {text:"or",weight:8},
+        {text:"rik",weight:8},
+        {text:"rin",weight:6},
+        {text:"rok",weight:5},
+        {text:"thor",weight:5},
+        {text:"um",weight:5},
+        {text:"var",weight:6},
+        {text:"vin",weight:5}
 
-        ],
+    ],
 
 
-        endings:[
+    endings:[
 
-            {text:"ik",weight:8},
-            {text:"ar",weight:8},
-            {text:"in",weight:8},
-            {text:"or",weight:5},
-            {text:"um",weight:4}
+        {text:"ak",weight:7},
+        {text:"ar",weight:8},
+        {text:"din",weight:7},
+        {text:"dor",weight:8},
+        {text:"gar",weight:8},
+        {text:"grim",weight:7},
+        {text:"ik",weight:8},
+        {text:"in",weight:8},
+        {text:"ir",weight:6},
+        {text:"or",weight:7},
+        {text:"rak",weight:5},
+        {text:"rin",weight:6},
+        {text:"rok",weight:5},
+        {text:"thor",weight:5},
+        {text:"um",weight:4},
+        {text:"var",weight:5}
 
-        ]
-	
-	}
+    ]
 
-    },
+},
+
+female: {
+
+    openings:[
+
+        {text:"Aela",weight:8},
+        {text:"Aelia",weight:6},
+        {text:"Ari",weight:6},
+        {text:"Caeli",weight:8},
+        {text:"Calia",weight:5},
+        {text:"Cele",weight:5},
+        {text:"Eila",weight:7},
+        {text:"Elya",weight:8},
+        {text:"Faela",weight:6},
+        {text:"Fira",weight:4},
+        {text:"Ilya",weight:5},
+        {text:"Lia",weight:7},
+        {text:"Lira",weight:8},
+        {text:"Maela",weight:7},
+        {text:"Maeria",weight:5},
+        {text:"Naeva",weight:8},
+        {text:"Nalia",weight:5},
+        {text:"Nym",weight:4},
+        {text:"Raela",weight:6},
+        {text:"Riala",weight:5},
+        {text:"Saela",weight:7},
+        {text:"Syl",weight:8},
+        {text:"Sylia",weight:6},
+        {text:"Thaela",weight:5},
+        {text:"Vaela",weight:8},
+        {text:"Vaeria",weight:5},
+        {text:"Yllia",weight:5},
+        {text:"Ariella",weight:4},
+        {text:"Elira",weight:6},
+        {text:"Isila",weight:4},
+        {text:"Lunara",weight:4},
+        {text:"Myra",weight:5},
+        {text:"Seri",weight:5},
+        {text:"Thalia",weight:5},
+        {text:"Vanya",weight:4}
+
+    ],
+
+
+    middles:[
+
+        {text:"a",weight:6},
+        {text:"ae",weight:5},
+        {text:"al",weight:6},
+        {text:"an",weight:7},
+        {text:"ara",weight:5},
+        {text:"el",weight:9},
+        {text:"ela",weight:7},
+        {text:"ia",weight:8},
+        {text:"iel",weight:8},
+        {text:"ien",weight:5},
+        {text:"il",weight:5},
+        {text:"ira",weight:6},
+        {text:"ith",weight:7},
+        {text:"la",weight:6},
+        {text:"lia",weight:7},
+        {text:"lith",weight:5},
+        {text:"na",weight:5},
+        {text:"riel",weight:7},
+        {text:"ria",weight:8},
+        {text:"sil",weight:4},
+        {text:"thel",weight:5},
+        {text:"thil",weight:4},
+        {text:"va",weight:5},
+        {text:"wen",weight:6},
+        {text:"wyn",weight:5}
+
+    ],
+
+
+    endings:[
+
+        {text:"a",weight:7},
+        {text:"ae",weight:4},
+        {text:"ael",weight:6},
+        {text:"ara",weight:7},
+        {text:"elle",weight:8},
+        {text:"ena",weight:5},
+        {text:"eth",weight:5},
+        {text:"ia",weight:8},
+        {text:"iel",weight:10},
+        {text:"ielle",weight:7},
+        {text:"ien",weight:6},
+        {text:"ira",weight:6},
+        {text:"ith",weight:5},
+        {text:"lia",weight:7},
+        {text:"lune",weight:4},
+        {text:"ria",weight:6},
+        {text:"wen",weight:6},
+        {text:"wyn",weight:5},
+        {text:"yra",weight:5},
+        {text:"ielyn",weight:3}
+
+    ]
+
+},
+
+  neutral: {
+
+    openings:[
+
+        {text:"Ae",weight:8},
+        {text:"Ael",weight:8},
+        {text:"Aeri",weight:6},
+        {text:"Cael",weight:8},
+        {text:"Cae",weight:6},
+        {text:"Elar",weight:8},
+        {text:"Elya",weight:5},
+        {text:"Fael",weight:6},
+        {text:"Ith",weight:5},
+        {text:"Lia",weight:7},
+        {text:"Lorien",weight:4},
+        {text:"Mael",weight:6},
+        {text:"Nae",weight:6},
+        {text:"Rael",weight:6},
+        {text:"Ryn",weight:7},
+        {text:"Sael",weight:7},
+        {text:"Syl",weight:8},
+        {text:"Thael",weight:5},
+        {text:"Vael",weight:8},
+        {text:"Vae",weight:6},
+        {text:"Yll",weight:4},
+        {text:"Ari",weight:6},
+        {text:"Calen",weight:5},
+        {text:"Elan",weight:6},
+        {text:"Iriel",weight:4},
+        {text:"Luth",weight:5},
+        {text:"Myth",weight:3},
+        {text:"Oryn",weight:5},
+        {text:"Silar",weight:5},
+        {text:"Tae",weight:5}
+
+    ],
+
+
+    middles:[
+
+        {text:"a",weight:6},
+        {text:"ae",weight:5},
+        {text:"al",weight:6},
+        {text:"an",weight:8},
+        {text:"ar",weight:8},
+        {text:"el",weight:9},
+        {text:"en",weight:6},
+        {text:"ia",weight:7},
+        {text:"iel",weight:8},
+        {text:"ien",weight:6},
+        {text:"il",weight:5},
+        {text:"in",weight:7},
+        {text:"ion",weight:7},
+        {text:"ir",weight:5},
+        {text:"ith",weight:7},
+        {text:"la",weight:5},
+        {text:"lin",weight:5},
+        {text:"lor",weight:5},
+        {text:"ra",weight:5},
+        {text:"riel",weight:6},
+        {text:"rin",weight:5},
+        {text:"thal",weight:4},
+        {text:"ther",weight:4},
+        {text:"var",weight:5},
+        {text:"wyn",weight:5}
+
+    ],
+
+
+    endings:[
+
+        {text:"ael",weight:8},
+        {text:"an",weight:6},
+        {text:"ar",weight:6},
+        {text:"el",weight:7},
+        {text:"en",weight:7},
+        {text:"iel",weight:9},
+        {text:"ien",weight:7},
+        {text:"ion",weight:8},
+        {text:"ir",weight:5},
+        {text:"ith",weight:8},
+        {text:"or",weight:5},
+        {text:"rael",weight:4},
+        {text:"ril",weight:4},
+        {text:"rin",weight:5},
+        {text:"thal",weight:4},
+        {text:"viel",weight:4},
+        {text:"wyn",weight:6},
+        {text:"yra",weight:4},
+        {text:"eth",weight:5},
+        {text:"is",weight:4}
+
+    ]
+}
+        },
 
 
     surname: {
 
-        openings:[
+    openings:[
 
-            {text:"Stone",weight:7},
-            {text:"Iron",weight:7},
-            {text:"Oak",weight:5},
-            {text:"Deep",weight:5},
-            {text:"Hammer",weight:5}
+        {text:"Moon",weight:8},
+        {text:"Silver",weight:8},
+        {text:"Star",weight:7},
+        {text:"Dawn",weight:7},
+        {text:"Mist",weight:7},
+        {text:"Sun",weight:5},
+        {text:"Bright",weight:5},
+        {text:"Crystal",weight:4},
+        {text:"Ember",weight:4},
+        {text:"Frost",weight:5},
+        {text:"Golden",weight:5},
+        {text:"Green",weight:5},
+        {text:"High",weight:4},
+        {text:"Lunar",weight:4},
+        {text:"Night",weight:6},
+        {text:"River",weight:5},
+        {text:"Rose",weight:4},
+        {text:"Shadow",weight:5},
+        {text:"Sky",weight:6},
+        {text:"Snow",weight:4},
+        {text:"Spring",weight:4},
+        {text:"Storm",weight:4},
+        {text:"Sunrise",weight:3},
+        {text:"Twilight",weight:5},
+        {text:"Velvet",weight:3},
+        {text:"Wild",weight:4},
+        {text:"Wind",weight:6},
+        {text:"Winter",weight:4},
+        {text:"Willow",weight:7},
+        {text:"Oak",weight:5}
 
-        ],
+    ],
 
 
-        endings:[
+    endings:[
 
-            {text:"beard",weight:8},
-            {text:"forge",weight:5},
-            {text:"hand",weight:5},
-            {text:"shield",weight:5},
-            {text:"heart",weight:5}
+        {text:"whisper",weight:8},
+        {text:"song",weight:8},
+        {text:"leaf",weight:8},
+        {text:"shade",weight:7},
+        {text:"fall",weight:7},
+        {text:"bloom",weight:5},
+        {text:"branch",weight:4},
+        {text:"brook",weight:5},
+        {text:"dancer",weight:3},
+        {text:"dream",weight:5},
+        {text:"flower",weight:4},
+        {text:"glen",weight:5},
+        {text:"grove",weight:8},
+        {text:"heart",weight:5},
+        {text:"hollow",weight:4},
+        {text:"keeper",weight:3},
+        {text:"light",weight:7},
+        {text:"melody",weight:4},
+        {text:"mist",weight:4},
+        {text:"moon",weight:5},
+        {text:"path",weight:4},
+        {text:"petal",weight:4},
+        {text:"rain",weight:4},
+        {text:"river",weight:5},
+        {text:"root",weight:3},
+        {text:"rose",weight:5},
+        {text:"shadow",weight:5},
+        {text:"silence",weight:3},
+        {text:"star",weight:6},
+        {text:"thorn",weight:4},
+        {text:"veil",weight:6},
+        {text:"wood",weight:7},
+        {text:"wooden",weight:3},
+        {text:"song",weight:7},
+        {text:"bough",weight:4},
+        {text:"branch",weight:4},
+        {text:"crest",weight:4}
 
-        ]
+ ]
 
-    }
-
+}
 },
 
 dragonkin: {

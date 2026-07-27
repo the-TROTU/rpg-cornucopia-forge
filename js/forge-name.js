@@ -754,7 +754,7 @@ console.log(
     }
 
 
-    return clean(
+    return cleanSurname(
         surname
     );
 
@@ -762,8 +762,24 @@ console.log(
 }
 
 
+function cleanSurname(word){
+
+    word = word
+        .replace(
+            /(.)\1\1+/g,
+            "$1$1"
+        );
 
 
+    word =
+        word.charAt(0).toUpperCase()
+        +
+        word.slice(1);
+
+
+    return word;
+
+}
 
     function pick(
     array

@@ -307,26 +307,91 @@ ForgeLanguage.register({
 
         openings:[
             // Existing neutral list stays here
-             { text:"Al", weight:5 },
-                    { text:"Bar", weight:5 }
+            { text:"Al", weight:8 },
+            { text:"Ar", weight:6 },
+            { text:"Bar", weight:5 },
+            { text:"Bel", weight:5 },
+            { text:"Cal", weight:6 },
+            { text:"Cor", weight:7 },
+            { text:"Dar", weight:5 },
+            { text:"Eli", weight:6 },
+            { text:"Fen", weight:5 },
+            { text:"Gal", weight:5 },
+            { text:"Hal", weight:5 },
+            { text:"Ira", weight:5 },
+            { text:"Jor", weight:5 },
+            { text:"Kai", weight:6 },
+            { text:"Kel", weight:6 },
+            { text:"Lan", weight:7 },
+            { text:"Lin", weight:7 },
+            { text:"Lor", weight:6 },
+            { text:"Mar", weight:7 },
+            { text:"Ner", weight:5 },
+            { text:"Or", weight:5 },
+            { text:"Perr", weight:4 },
+            { text:"Quin", weight:5 },
+            { text:"Ral", weight:5 },
+            { text:"Ren", weight:6 },
+            { text:"Rin", weight:5 },
+            { text:"Row", weight:5 },
+            { text:"Sar", weight:5 },
+            { text:"Tal", weight:6 },
+            { text:"Th", weight:7 },
+            { text:"Tor", weight:5 },
+            { text:"Val", weight:7 },
+            { text:"Var", weight:5 },
+            { text:"Wil", weight:4 }
         ],
 
         middles:[
             // Existing neutral list stays here
             { text:"an", weight:8 },
-                    { text:"el", weight:8 },
-                    { text:"or", weight:8 },
-                    { text:"in", weight:8 },
-                    { text:"ar", weight:8 }
+            { text:"a", weight:5 },
+            { text:"ae", weight:3 },
+            { text:"al", weight:8 },
+            { text:"an", weight:10 },
+            { text:"ar", weight:10 },
+            { text:"d", weight:5 }
+            { text:"el", weight:10 },
+            { text:"en", weight:8 },
+            { text:"er", weight:6 },
+            { text:"ia", weight:5 },
+            { text:"il", weight:6 },
+            { text:"in", weight:10 },
+            { text:"ir", weight:5 },
+            { text:"or", weight:10 },
+            { text:"ra", weight:5 },
+            { text:"rin", weight:5 },
+            { text:"ron", weight:6 },
+            { text:"s", weight:7 }
+            { text:"ss", weight:4 }
+            { text:"t", weight:6 }
+            { text:"tt", weight:4 }
+            { text:"ul", weight:4 },
+            { text:"ur", weight:4 },
+            { text:"ven", weight:5 }
         ],
 
         endings:[
             // Existing neutral list stays here
-              { text:"ic", weight:5 },
-                    { text:"on", weight:5 },
-                    { text:"us", weight:5 },
-                    { text:"en", weight:5 },
-                    { text:"a", weight:5 }
+            { text:"a", weight:5 },
+            { text:"an", weight:8 },
+            { text:"ar", weight:8 },
+            { text:"el", weight:8 },
+            { text:"en", weight:8 },
+            { text:"er", weight:6 },
+            { text:"ian", weight:5 },
+            { text:"ic", weight:8 },
+            { text:"in", weight:7 },
+            { text:"is", weight:5 },
+            { text:"on", weight:10 },
+            { text:"or", weight:8 },
+            { text:"us", weight:6 },
+            { text:"yn", weight:4 },
+            { text:"ir", weight:5 },
+            { text:"eth", weight:4 }
+            { text:"oth", weight:4 }
+            { text:"ock", weight:4 }
         ]
     }
         },

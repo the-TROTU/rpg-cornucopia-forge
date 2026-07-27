@@ -1689,28 +1689,104 @@ dragonkin: {
 
     surname: {
 
-        openings:[
+    openings:[
 
-            {text:"Ember",weight:5},
-            {text:"Storm",weight:5},
-            {text:"Scale",weight:5},
-            {text:"Ash",weight:5},
-            {text:"Ancient",weight:3}
+        {text:"Ash",weight:6},
+        {text:"Ancient",weight:3},
+        {text:"Blaze",weight:6},
+        {text:"Blood",weight:5},
+        {text:"Celestial",weight:3},
+        {text:"Cinder",weight:6},
+        {text:"Cloud",weight:3},
+        {text:"Crystal",weight:5},
+        {text:"Dawn",weight:5},
+        {text:"Deep",weight:3},
+        {text:"Dream",weight:3},
+        {text:"Earth",weight:4},
+        {text:"Ebon",weight:5},
+        {text:"Echo",weight:3},
+        {text:"Ember",weight:8},
+        {text:"Eternal",weight:2},
+        {text:"Fire",weight:7},
+        {text:"Flame",weight:8},
+        {text:"Frost",weight:6},
+        {text:"Ghost",weight:3},
+        {text:"Gold",weight:3},
+        {text:"Heaven",weight:2},
+        {text:"Ice",weight:5},
+        {text:"Inferno",weight:5},
+        {text:"Iron",weight:4},
+        {text:"Ivory",weight:3},
+        {text:"Moon",weight:4},
+        {text:"Night",weight:5},
+        {text:"Obsidian",weight:5},
+        {text:"Pyre",weight:5},
+        {text:"Royal",weight:2},
+        {text:"Rune",weight:4},
+        {text:"Scarlet",weight:4},
+        {text:"Shadow",weight:6},
+        {text:"Silver",weight:4},
+        {text:"Sky",weight:3},
+        {text:"Soul",weight:5},
+        {text:"Star",weight:6},
+        {text:"Stone",weight:3},
+        {text:"Storm",weight:8},
+        {text:"Sun",weight:4},
+        {text:"Tempest",weight:6},
+        {text:"Thunder",weight:7},
+        {text:"Twilight",weight:4},
+        {text:"Void",weight:7},
+        {text:"Wild",weight:3},
+        {text:"Winter",weight:3},
+        {text:"World",weight:6}
 
-        ],
+    ],
 
 
-        endings:[
+    endings:[
 
-            {text:"wing",weight:5},
-            {text:"claw",weight:5},
-            {text:"flame",weight:5},
-            {text:"heart",weight:5},
-            {text:"crest",weight:5}
+        {text:"binder",weight:4},
+        {text:"born",weight:5},
+        {text:"breaker",weight:6},
+        {text:"breath",weight:7},
+        {text:"caller",weight:5},
+        {text:"claw",weight:8},
+        {text:"crest",weight:7},
+        {text:"crown",weight:5},
+        {text:"drake",weight:6},
+        {text:"fang",weight:8},
+        {text:"fire",weight:6},
+        {text:"flame",weight:8},
+        {text:"flight",weight:4},
+        {text:"forge",weight:3},
+        {text:"gaze",weight:4},
+        {text:"guardian",weight:3},
+        {text:"heart",weight:8},
+        {text:"keeper",weight:5},
+        {text:"lord",weight:4},
+        {text:"maw",weight:5},
+        {text:"rage",weight:5},
+        {text:"reaver",weight:4},
+        {text:"roar",weight:6},
+        {text:"scale",weight:8},
+        {text:"seer",weight:4},
+        {text:"shadow",weight:4},
+        {text:"shaper",weight:5},
+        {text:"song",weight:3},
+        {text:"spire",weight:4},
+        {text:"storm",weight:5},
+        {text:"talon",weight:7},
+        {text:"thorn",weight:4},
+        {text:"walker",weight:4},
+        {text:"watcher",weight:4},
+        {text:"whisper",weight:4},
+        {text:"wing",weight:8},
+        {text:"wrath",weight:7},
+        {text:"wyrm",weight:6}
 
-        ]
+    ]
 
-    }
+}
 
 }
 

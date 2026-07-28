@@ -1488,6 +1488,111 @@ dragonkin: {
         weight:1
     },
 
+{
+        text:"Scales of Iron",
+        weight:5
+    },
+
+    {
+        text:"Scales of Gold",
+        weight:2
+    },
+
+    {
+        text:"The Darkness",
+        weight:3
+    },
+
+    {
+        text:"The Ancient Horror",
+        weight:2
+    },
+
+      {
+        text:"Fate's End",
+        weight:5
+    },
+
+    {
+        text:"History's Witness",
+        weight:2
+    },
+
+    {
+        text:"Sage of the Void",
+        weight:3
+    },
+
+    {
+        text:"Demons' Fear",
+        weight:5
+    },
+
+    {
+        text:"The Worst",
+        weight:2
+    },
+
+    {
+        text:"Devourer of Gods",
+        weight:3
+    },
+
+    {
+        text:"Eater of Cupcakes",
+        weight:2
+    },
+
+      {
+        text:"Plague of Fire",
+        weight:5
+    },
+
+    {
+        text:"The Lost",
+        weight:2
+    },
+
+    {
+        text:"Hope's Sorrow",
+        weight:3
+    },
+
+    {
+        text:"Time Drifter",
+        weight:5
+    },
+
+    {
+        text:"Gold Claw",
+        weight:1
+    },
+
+    {
+        text:"Guardian of the Garden",
+        weight:3
+    },
+
+    {
+        text:"The All Keeper",
+        weight:2
+    },
+
+      {
+        text:"Titan of Terror",
+        weight:5
+    },
+
+    {
+        text:"Thunder Nugget",
+        weight:2
+    },
+
+    {
+        text:"Treasure Magnet",
+        weight:1
+    },
+
     {
         text:"The Forgotten",
         weight:2

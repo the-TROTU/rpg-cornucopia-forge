@@ -1434,7 +1434,7 @@ dragonkin: {
     },
 
     {
-        text:"Lord of the Inferno",
+        text:"Blood of the Inferno",
         weight:2
     },
 

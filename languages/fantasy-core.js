@@ -1459,7 +1459,7 @@ dragonkin: {
     },
 
     {
-        text:"All the Wrath, Non of the Fun Stuff",
+        text:"All Wrath, No Fun",
         weight:1
     },
 

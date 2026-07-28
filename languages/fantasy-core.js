@@ -1419,6 +1419,76 @@ dragonkin: {
     },
 
     {
+        text:"The Cosmic Eye",
+        weight:5
+    },
+
+    {
+        text:"Last of the First",
+        weight:2
+    },
+
+    {
+        text:"Fire's Heart",
+        weight:3
+    },
+
+    {
+        text:"Lord of the Inferno",
+        weight:2
+    },
+
+      {
+        text:"The Blight of Dawn",
+        weight:5
+    },
+
+    {
+        text:"Gnawer of Roots",
+        weight:2
+    },
+
+    {
+        text:"Bane of the World Tree",
+        weight:3
+    },
+
+    {
+        text:"Keeper of Fates",
+        weight:5
+    },
+
+    {
+        text:"All the Wrath, Non of the Fun Stuff",
+        weight:1
+    },
+
+    {
+        text:"Herald of the Makers",
+        weight:3
+    },
+
+    {
+        text:"Knights' Bane",
+        weight:2
+    },
+
+      {
+        text:"King Eater",
+        weight:5
+    },
+
+    {
+        text:"Herald of the End",
+        weight:2
+    },
+
+    {
+        text:"Blames Your Mama",
+        weight:1
+    },
+
+    {
         text:"The Forgotten",
         weight:2
     }

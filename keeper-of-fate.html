@@ -66,140 +66,65 @@ The one who counts the falling stars.
 
 
 
+
 <!-- MAIN WORKSPACE -->
+
 
 <div class="forge-grid">
 
 
+<!-- LEFT PANEL -->
 
-
-
-<!-- DICE CONTROLS -->
-
-
-<div class="forge-panel">
-
+<div class="forge-panel keeper-output-panel">
 
 <h2>
 Consult the Bones
 </h2>
 
 
-
 <label class="forge-label">
 Choose Your Fate
 </label>
 
-
-<select
-id="dice-type"
-class="forge-select"
->
-
-
-<option value="2">
-d2
-</option>
-
-
-<option value="4">
-d4
-</option>
-
-
-<option value="6"
-selected>
-d6
-</option>
-
-
-<option value="8">
-d8
-</option>
-
-
-<option value="10">
-d10
-</option>
-
-
-<option value="12">
-d12
-</option>
-
-
-<option value="20">
-d20
-</option>
-
-
-<option value="100">
-d100
-</option>
-
-
+<select id="dice-type" class="forge-select">
+<option value="2">d2</option>
+<option value="4">d4</option>
+<option value="6" selected>d6</option>
+<option value="8">d8</option>
+<option value="10">d10</option>
+<option value="12">d12</option>
+<option value="20">d20</option>
+<option value="100">d100</option>
 </select>
-
-
-
 
 
 <label class="forge-label">
 Number of Bones
 </label>
 
-
-<input
+<input 
 id="dice-count"
 class="forge-select"
 type="number"
 value="1"
 min="1"
-max="100"
->
-
-
-
+max="100">
 
 
 <label class="forge-label">
 Fate Modifier
 </label>
 
-
-<input
+<input 
 id="dice-modifier"
 class="forge-select"
 type="number"
-value="0"
->
+value="0">
 
 
-<button
-id="roll-dice-button"
-class="forge-button"
->
-
+<button id="roll-dice-button" class="forge-button">
 🐉 Cast the Bones
-
 </button>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- RESULT -->
-
-
-<div class="forge-panel">
 
 
 <h2>
@@ -207,37 +132,12 @@ The Keeper Speaks
 </h2>
 
 
+<div id="dice-result" class="forge-result">
 
-<div
-id="dice-result"
-class="forge-result"
->
 <div id="forge-progress"></div>
 
 The bones await.
 
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-
 </div>
 
 
@@ -246,6 +146,91 @@ The bones await.
 
 
 
+
+<!-- RIGHT PANEL -->
+
+<div class="forge-panel expression-panel">
+
+
+<h2>
+Forge a Fate Expression
+</h2>
+
+
+<label class="forge-label">
+Expression
+</label>
+
+
+<input
+id="expression-input"
+class="forge-select"
+type="text"
+placeholder="Example: attack=1d20+5[fire]"
+>
+
+
+<button
+id="expression-roll-button"
+class="forge-button">
+🐉 Resolve Expression
+</button>
+
+
+
+<div class="rune-shelf">
+
+<h3>
+Rune Shelf
+</h3>
+
+
+<div class="rune-grid">
+
+<button class="rune-button" data-tag="fire">🔥 Fire</button>
+
+<button class="rune-button" data-tag="cold">❄ Cold</button>
+
+<button class="rune-button" data-tag="attack">⚔ Attack</button>
+
+<button class="rune-button" data-tag="defense">🛡 Defense</button>
+
+<button class="rune-button" data-tag="magic">✨ Magic</button>
+
+<button class="rune-button" data-tag="curse">☠ Curse</button>
+
+<button class="rune-button" data-tag="nature">🌲 Nature</button>
+
+<button class="rune-button" data-tag="critical">🎯 Critical</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+<!-- ======================================
+     FATE HISTORY
+====================================== -->
+
+<div class="forge-result">
+
+<h2>
+Recent Prophecies
+</h2>
+
+
+<div id="fate-history">
+
+The Keeper remembers nothing yet.
+
+</div>
+
+</div>
 
 
 <!-- ======================================
@@ -260,6 +245,8 @@ The bones await.
 <script src="js/forge-seed.js"></script>
 
 <script src="js/forge-dice.js"></script>
+
+<script src="js/forge-expression.js"></script>
 
 <script src="js/forge-signatures.js"></script>
 

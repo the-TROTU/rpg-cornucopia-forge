@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+RPG Cornucopia • The Cartographer
+</title>
+
+<link rel="stylesheet"
+      href="css/forge.css">
+
+</head>
+
+<body>
+
+<div id="rpg-forge">
+
+<div class="forge-container">
+
+<div class="forge-workshop">
+
+<!-- ======================================
+HEADER
+====================================== -->
+
+<div class="forge-header">
+
+<img
+src="assets/images/RPGCornLogo2.svg"
+alt="RPG Cornucopia"
+class="forge-logo">
+
+<div class="forge-emblem">
+🗺️🐉
+</div>
+
+<h1 class="forge-title">
+The Cartographer
+</h1>
+
+<p class="forge-subtitle">
+"The world remembers where stories began."
+</p>
+
+</div>
+
+<!-- ======================================
+MAIN LAYOUT
+====================================== -->
+
+<div class="forge-grid cartographer-layout">
+
+<!-- ======================================
+MAP PANEL
+====================================== -->
+
+<div class="forge-panel map-panel">
+
+<h2>
+World Canvas
+</h2>
+
+<div class="map-toolbar">
+
+<button
+id="generate-world"
+class="forge-button small-button">
+Generate World
+</button>
+
+<button
+id="new-seed"
+class="forge-button small-button">
+New Seed
+</button>
+
+<button
+id="export-map"
+class="forge-button small-button">
+Export
+</button>
+
+</div>
+
+<div class="map-canvas-container">
+
+<canvas
+id="world-canvas"
+width="900"
+height="700">
+</canvas>
+
+</div>
+
+</div>
+
+<!-- ======================================
+CONTROL PANEL
+====================================== -->
+
+<div class="forge-panel control-panel">
+
+<h2>
+World Settings
+</h2>
+
+<label class="forge-label">
+Seed
+</label>
+
+<input
+id="world-seed"
+class="forge-select"
+type="text"
+placeholder="Random">
+
+<label class="forge-label">
+World Size
+</label>
+
+<select
+id="world-size"
+class="forge-select">
+
+<option value="small">
+Small
+</option>
+
+<option value="medium"
+selected>
+Medium
+</option>
+
+<option value="large">
+Large
+</option>
+
+<option value="continent">
+Continent
+</option>
+
+</select>
+
+<label class="forge-label">
+Terrain Style
+</label>
+
+<select
+id="terrain-style"
+class="forge-select">
+
+<option value="balanced"
+selected>
+Balanced
+</option>
+
+<option value="mountain">
+Mountainous
+</option>
+
+<option value="forest">
+Forested
+</option>
+
+<option value="islands">
+Archipelago
+</option>
+
+<option value="desert">
+Arid
+</option>
+
+<option value="frozen">
+Frozen
+</option>
+
+</select>
+
+<label class="forge-label">
+Climate
+</label>
+
+<select
+id="world-climate"
+class="forge-select">
+
+<option value="temperate"
+selected>
+Temperate
+</option>
+
+<option value="tropical">
+Tropical
+</option>
+
+<option value="cold">
+Cold
+</option>
+
+<option value="mixed">
+Mixed
+</option>
+
+</select>
+
+<label class="forge-label">
+Map Display
+</label>
+
+<select
+id="map-mode"
+class="forge-select">
+
+<option value="terrain"
+selected>
+Terrain
+</option>
+
+<option value="grid">
+Square Grid
+</option>
+
+<option value="hex">
+Hex Grid
+</option>
+
+<option value="terrain-grid">
+Terrain + Grid
+</option>
+
+<option value="terrain-hex">
+Terrain + Hex
+</option>
+
+</select>
+
+<label class="forge-label">
+Civilization
+</label>
+
+<select
+id="civilization-level"
+class="forge-select">
+
+<option value="wild">
+Untamed
+</option>
+
+<option value="frontier"
+selected>
+Frontier
+</option>
+
+<option value="settled">
+Settled
+</option>
+
+<option value="kingdoms">
+Kingdoms
+</option>
+
+</select>
+
+<div class="cartographer-summary">
+
+<h3>
+World Information
+</h3>
+
+<div id="world-summary">
+
+Awaiting generation...
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ======================================
+REGION PANEL
+====================================== -->
+
+<div class="forge-panel">
+
+<h2>
+The Cartographer's Journal
+</h2>
+
+<div id="cartographer-journal">
+
+No lands have yet been charted.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ======================================
+SCRIPTS
+====================================== -->
+
+<script src="js/forge-core.js"></script>
+<script src="js/forge-random.js"></script>
+
+<script src="js/forge-map.js"></script>
+<script src="js/forge-world.js"></script>
+<script src="js/forge-terrain.js"></script>
+<script src="js/forge-camera.js"></script>
+<script src="js/forge-export.js"></script>
+
+<script src="js/cartographer.js"></script>
+
+</body>
+
+</html>

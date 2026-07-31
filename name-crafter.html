@@ -44,12 +44,12 @@ alt="RPG Cornucopia"
 />
 
 <h1 class="forge-title">
-RPG Cornucopia<sup style="font-size:20%;">TM</sup>
+The Name Smith
 </h1>
 
 
 <p class="forge-subtitle">
-Your one-stop resource for rpg on-line tools. Whether you need a name, a new map, or you just forgot your dice we've got you. Don't see what you need. Let us know. We're always adding more resources.
+Every legend begins with a name.
 </p>
 
 
@@ -61,56 +61,166 @@ Your one-stop resource for rpg on-line tools. Whether you need a name, a new map
 
 <!-- CONTROLS -->
 
+<div class="forge-grid">
+
+
 
 <div class="forge-panel">
 
 
 <h2>
-Choose Your Artisan
+Choose Your Craft
 </h2>
 
 
 
-<a href="keeper-of-fate.html">
+
+<label class="forge-label">
+Culture
+</label>
+
+
+<select
+id="forge-culture"
+class="forge-select"
+>
+</select>
+
+
+
+
+
+<label class="forge-label">
+Naming Style
+</label>
+
+
+<select
+id="forge-gender"
+class="forge-select"
+>
+
+<option value="neutral">
+Neutral
+</option>
+
+<option value="male">
+Male
+</option>
+
+<option value="female">
+Female
+</option>
+
+</select>
+
+
+
+
+
+<div class="forge-option">
+
+<label>
+
+<input
+type="checkbox"
+id="forge-surname"
+>
+
+Include surname
+
+</label>
+
+</div>
+
+
+
+
+
+<div class="forge-option">
+
+<label>
+
+<input
+type="checkbox"
+id="forge-title"
+>
+
+Include title
+
+</label>
+
+</div>
+
+
+
+
+
+<div class="forge-option">
+
+<label>
+
+<input
+type="checkbox"
+id="forge-true-name"
+>
+
+Reveal true name
+
+</label>
+
+</div>
+
+
+
+
+
 <button
 id="forge-name-button"
 class="forge-button"
 >
 
-🐉🎲 Keeper of Fate
+⚒ Forge Name
 
 </button>
-</a>
 
-<a href="name-crafter.html">
-<button
-id="forge-name-button"
-class="forge-button"
+
+
+</div>
+
+
+
+
+
+
+
+<!-- RESULT -->
+
+<div class="forge-panel">
+
+
+<h2>
+The Anvil
+</h2>
+
+
+
+<div
+id="forge-progress"
+class="forge-progress"
+></div>
+
+
+<div
+id="forge-result"
+class="forge-result"
 >
-
-⚒ The Name Crafter
-
-</button>
-</a>
-
-</button>
-</a>
-
-<a href="cartographer.html">
-<button
-id="forge-name-button"
-class="forge-button"
->
-
-🗺️ The Cartographer 
-
-</button>
-</a>
-
-
+The forge awaits.
 </div>
 
 
+
+</div>
 
 
 
@@ -128,7 +238,7 @@ class="forge-button"
 
 </div>
 
-<a href="keeper-of-fate.html"></a>
+<a href="index.html">Click here</a>
 
 
 

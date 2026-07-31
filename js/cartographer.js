@@ -28,7 +28,14 @@ INITIALIZE
 
 function initialize(){
 
-    ForgeMap.initialize("map-canvas");
+    document.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+        ForgeMap.initialize();
+
+    }
+    );
 
     const button =
         document.getElementById(

@@ -173,7 +173,10 @@ function generateWorld(){
             options
         );
 
-
+        console.log(
+            "GENERATED WORLD:",
+            currentWorld
+        );
 
 
     ForgeRenderer.render(

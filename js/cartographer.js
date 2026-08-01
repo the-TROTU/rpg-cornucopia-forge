@@ -7,46 +7,55 @@
 
  Interface Controller
 
- Version 1.0.0
+ Version 2.0
 
- "Every world begins with a single line."
+ "The map waits.
+ The ink remembers."
 
 =========================================================
 */
 
-const Cartographer = (() => {
+
+const Cartographer = (()=>{
+
 
 let currentWorld = null;
 
-let currentSeed = "";
 
 
+/*
+=========================================================
+ INITIALIZE
+=========================================================
+*/
 
-/*=======================================================
-INITIALIZE
-=======================================================*/
-ForgeRenderer.initialize();
-ForgeRenderer.render();
 
 function initialize(){
 
-    document.addEventListener(
-    "DOMContentLoaded",
-    ()=>{
 
-        ForgeMap.initialize();
-
-    }
+    console.log(
+        "Cartographer awakened."
     );
 
-    const button =
+
+
+    ForgeRenderer.initialize(
+        "world-canvas"
+    );
+
+
+
+    const generateButton =
         document.getElementById(
-            "generate-map"
+            "generate-world"
         );
 
-    if(button){
 
-        button.addEventListener(
+
+    if(generateButton){
+
+
+        generateButton.addEventListener(
 
             "click",
 
@@ -54,151 +63,318 @@ function initialize(){
 
         );
 
+
     }
 
-    window.addEventListener(
 
-        "resize",
 
-        ()=>{
+    const seedButton =
+        document.getElementById(
+            "new-seed"
+        );
 
-            ForgeMap.resize();
 
-            ForgeMap.render();
 
-        }
+    if(seedButton){
 
-    );
 
-    generateWorld();
+        seedButton.addEventListener(
+
+            "click",
+
+            ()=>{
+
+                document.getElementById(
+                    "world-seed"
+                ).value =
+                    "";
+
+                generateWorld();
+
+            }
+
+        );
+
+
+    }
+
+
 
 }
 
 
 
-/*=======================================================
-GENERATE WORLD
-=======================================================*/
+
+/*
+=========================================================
+ GENERATE WORLD
+=========================================================
+*/
+
 
 function generateWorld(){
 
-    currentSeed =
-        createSeed();
 
-    const seedBox =
-        document.getElementById(
-            "world-seed"
-        );
 
-    if(seedBox){
+    const options={
 
-        seedBox.value =
-            currentSeed;
 
-    }
+
+        seed:
+
+            document.getElementById(
+                "world-seed"
+            ).value
+            ||
+            null,
+
+
+
+        size:
+
+            document.getElementById(
+                "world-size"
+            ).value,
+
+
+
+        style:
+
+            document.getElementById(
+                "terrain-style"
+            ).value,
+
+
+
+        climate:
+
+            document.getElementById(
+                "world-climate"
+            ).value,
+
+
+
+        civilization:
+
+            document.getElementById(
+                "civilization-level"
+            ).value
+
+
+    };
+
+
+
+
 
     currentWorld =
-        ForgeWorld.generate({
 
-            width:60,
+        ForgeMapData.generate(
+            options
+        );
 
-            height:40,
 
-            seed:currentSeed
 
-        });
 
-    ForgeMap.setWorld(
-
+    ForgeRenderer.render(
         currentWorld
-
     );
 
-    ForgeMap.render();
+
 
     updateSummary();
+
+
+
+    updateJournal();
+
+
 
 }
 
 
 
-/*=======================================================
-WORLD SUMMARY
-=======================================================*/
+
+/*
+=========================================================
+ WORLD SUMMARY
+=========================================================
+*/
+
 
 function updateSummary(){
 
-    const summary =
+
+    const box =
         document.getElementById(
             "world-summary"
         );
 
-    if(!summary){
+
+
+    if(!box || !currentWorld){
 
         return;
 
     }
 
-    summary.innerHTML =
 
-    `
-    <strong>Seed</strong><br>
 
-    ${currentSeed}
+    box.innerHTML = `
 
-    <br><br>
 
-    <strong>Size</strong><br>
+<strong>
+Blueprint:
+</strong>
 
-    60 × 40
+${currentWorld.blueprint}
 
-    <br><br>
 
-    <strong>Tiles</strong><br>
+<br><br>
 
-    ${60*40}
-    `;
+
+<strong>
+Seed:
+</strong>
+
+${currentWorld.seed}
+
+
+<br><br>
+
+
+<strong>
+Features:
+</strong>
+
+${currentWorld.features.length}
+
+
+<br><br>
+
+
+<strong>
+Settlements:
+</strong>
+
+${currentWorld.settlements.length}
+
+
+
+`;
+
+
 
 }
 
 
 
-/*=======================================================
-SEED
-=======================================================*/
 
-function createSeed(){
+/*
+=========================================================
+ JOURNAL
+=========================================================
+*/
 
-    return Math.random()
 
-        .toString(36)
+function updateJournal(){
 
-        .substring(2,10)
 
-        .toUpperCase();
+    const journal =
+        document.getElementById(
+            "cartographer-journal"
+        );
+
+
+
+    if(!journal || !currentWorld){
+
+        return;
+
+    }
+
+
+
+    journal.innerHTML = `
+
+
+<h3>
+
+${currentWorld.blueprint}
+
+</h3>
+
+
+<p>
+
+A new world has been charted.
+
+</p>
+
+
+<p>
+
+The Cartographer recorded:
+
+</p>
+
+
+<ul>
+
+${
+
+currentWorld.features
+.map(
+
+feature=>
+
+`
+
+<li>
+
+${feature.type}
+
+</li>
+
+`
+
+)
+
+.join("")
+
+}
+
+</ul>
+
+
+`;
+
+
 
 }
 
 
 
-/*=======================================================
-PUBLIC
-=======================================================*/
 
 return{
 
+
     initialize
 
+
 };
+
 
 })();
 
 
 
+
+
 document.addEventListener(
 
-    "DOMContentLoaded",
+"DOMContentLoaded",
 
-    Cartographer.initialize
+Cartographer.initialize
 
 );

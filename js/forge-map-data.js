@@ -4,18 +4,22 @@
  RPG CORNUCOPIA
  THE FORGE
 
- MAP BLUEPRINT ENGINE
+ CARTOGRAPHER WORLD DATA
 
- Version 1.0
+ Version 2.0
 
  "Before ink touches parchment,
-  the world must first exist."
+ the world must exist."
 
 =========================================================
 */
 
 
 const ForgeMapData = (()=>{
+
+
+let currentWorld = null;
+
 
 
 /*
@@ -29,9 +33,7 @@ function randomFrom(list){
 
     return list[
         Math.floor(
-            Math.random()
-            *
-            list.length
+            Math.random()*list.length
         )
     ];
 
@@ -39,197 +41,37 @@ function randomFrom(list){
 
 
 
-function randomId(){
+function randomRange(min,max){
+
+    return Math.floor(
+
+        Math.random()
+        *
+        (
+            max-min+1
+        )
+
+    )+min;
+
+}
+
+
+
+
+/*
+=========================================================
+ BLUEPRINT GENERATION
+=========================================================
+*/
+
+
+function createBlueprint(){
+
 
     return Date.now()
     .toString(36)
     .toUpperCase();
 
-}
-
-
-
-/*
-=========================================================
- NAME GENERATION
-
- Placeholder fantasy-neutral names
-
- Later this can become
- Forge-Naming Engine
-
-=========================================================
-*/
-
-
-function generateName(){
-
-    const first=[
-
-        "Ash",
-        "Val",
-        "Elder",
-        "Storm",
-        "Raven",
-        "Thorn",
-        "Silver",
-        "Black",
-        "Green",
-        "Mist"
-
-    ];
-
-
-    const second=[
-
-        "haven",
-        "reach",
-        "fall",
-        "mere",
-        "watch",
-        "hold",
-        "vale",
-        "wood",
-        "spire",
-        "march"
-
-    ];
-
-
-    return randomFrom(first)
-    +
-    randomFrom(second);
-
-}
-
-
-
-
-/*
-=========================================================
- REGION CREATION
-=========================================================
-*/
-
-
-function createRegion(type){
-
-
-    return {
-
-        id:
-            randomId(),
-
-
-        name:
-            generateName(),
-
-
-        type,
-
-
-        discovered:
-            false,
-
-
-        landmarks:[],
-
-
-        notes:
-            "Uncharted territory."
-
-    };
-
-
-}
-
-
-
-
-/*
-=========================================================
- LANDMARK CREATION
-=========================================================
-*/
-
-
-function createLandmark(type){
-
-
-    const names={
-
-
-        mountain:
-            [
-            "The Silent Peak",
-            "The Broken Crown",
-            "The Old Spine"
-            ],
-
-
-        forest:
-            [
-            "Whispering Woods",
-            "The Deep Green",
-            "The Ancient Grove"
-            ],
-
-
-        settlement:
-            [
-            "Riverside Hamlet",
-            "Stonewatch",
-            "The Hidden Village"
-            ],
-
-
-        ruins:
-            [
-            "Forgotten Keep",
-            "Lost Sanctuary",
-            "The Fallen Hall"
-            ]
-
-
-    };
-
-
-
-    return {
-
-
-        id:
-            randomId(),
-
-
-        type,
-
-
-        name:
-            randomFrom(
-                names[type]
-                ||
-                [
-                "Unknown Site"
-                ]
-            ),
-
-
-        x:
-            Math.random(),
-
-
-        y:
-            Math.random(),
-
-
-        discovered:false,
-
-
-        history:[]
-
-    };
-
 
 }
 
@@ -239,18 +81,42 @@ function createLandmark(type){
 
 /*
 =========================================================
- CREATE WORLD BLUEPRINT
+ WORLD CREATION
 =========================================================
 */
 
 
-function createWorld(options={}){
+function generate(options={}){
 
 
     const seed =
-        options.seed
-        ||
-        randomId();
+        options.seed ||
+        createBlueprint();
+
+
+
+    const size =
+        options.size ||
+        "medium";
+
+
+
+    const style =
+        options.style ||
+        "balanced";
+
+
+
+    const climate =
+        options.climate ||
+        "temperate";
+
+
+
+    const civilization =
+        options.civilization ||
+        "frontier";
+
 
 
 
@@ -258,46 +124,33 @@ function createWorld(options={}){
 
 
         blueprint:
+            createBlueprint(),
 
-            seed,
+
+
+        seed,
+
 
 
         created:
-
             new Date()
             .toISOString(),
 
 
 
-        cartographer:
-
-            options.cartographer
-            ||
-            "oldExplorer",
+        settings:{
 
 
+            size,
 
-        style:
+            style,
 
-            options.style
-            ||
-            "ancient",
+            climate,
 
-
-
-        regions:[],
+            civilization
 
 
-        landmarks:[],
-
-
-        rivers:[],
-
-
-        roads:[],
-
-
-        settlements:[],
+        },
 
 
 
@@ -306,8 +159,7 @@ function createWorld(options={}){
             {
 
                 event:
-                "The first chart was created.",
-
+                "World charted",
 
                 date:
                 new Date()
@@ -315,74 +167,58 @@ function createWorld(options={}){
 
             }
 
-        ]
+        ],
+
+
+
+        features:
+        [],
+
+
+
+        settlements:
+        [],
+
+
+
+        landmarks:
+        []
+
+
 
     };
 
 
 
-    /*
-    Create initial regions
-    */
 
 
-    const regionCount =
-        options.regions
-        ||
-        5;
+    createTerrain(
 
-
-
-    for(
-        let i=0;
-        i<regionCount;
-        i++
-    ){
-
-
-        world.regions.push(
-
-            createRegion(
-                "wild"
-            )
-
-        );
-
-
-    }
-
-
-
-    /*
-    Initial landmarks
-    */
-
-
-    world.landmarks.push(
-
-        createLandmark(
-            "mountain"
-        )
+        world
 
     );
 
 
-    world.landmarks.push(
 
-        createLandmark(
-            "forest"
-        )
+    createSettlements(
+
+        world
+
+    );
+
+
+
+    createLandmarks(
+
+        world
 
     );
 
 
-    world.landmarks.push(
 
-        createLandmark(
-            "settlement"
-        )
 
-    );
+    currentWorld =
+        world;
 
 
 
@@ -397,44 +233,134 @@ function createWorld(options={}){
 
 /*
 =========================================================
- MAP HISTORY
-
- Future redrawing system
-
+ TERRAIN
 =========================================================
 */
 
 
-function addHistory(
-
-    world,
-
-    note,
-
-    artist
-
-){
+function createTerrain(world){
 
 
-    world.history.push({
+    const terrainCount =
+
+        world.settings.size==="small"
+        ? 8
+        :
+        world.settings.size==="large"
+        ? 25
+        :
+        15;
 
 
-        event:
-            note,
 
 
-        artist:
-            artist
-            ||
-            world.cartographer,
+    for(
+        let i=0;
+        i<terrainCount;
+        i++
+    ){
 
 
-        date:
-            new Date()
-            .toISOString()
+        const terrain =
+
+            chooseTerrain(
+                world.settings.style,
+                world.settings.climate
+            );
 
 
-    });
+
+        world.features.push({
+
+            type:terrain,
+
+            x:randomRange(
+                80,
+                820
+            ),
+
+            y:randomRange(
+                80,
+                620
+            )
+
+        });
+
+
+    }
+
+
+}
+
+
+
+
+
+function chooseTerrain(style,climate){
+
+
+    if(style==="mountain"){
+
+        return randomFrom([
+
+            "mountain",
+            "mountain",
+            "forest"
+
+        ]);
+
+    }
+
+
+
+    if(style==="forest"){
+
+        return randomFrom([
+
+            "forest",
+            "forest",
+            "swamp"
+
+        ]);
+
+    }
+
+
+
+    if(style==="desert"){
+
+        return randomFrom([
+
+            "ruin",
+            "mountain"
+
+        ]);
+
+    }
+
+
+
+    if(climate==="cold"){
+
+        return randomFrom([
+
+            "mountain",
+            "ruin"
+
+        ]);
+
+    }
+
+
+
+    return randomFrom([
+
+        "mountain",
+        "forest",
+        "swamp",
+        "ruin"
+
+    ]);
 
 
 }
@@ -445,25 +371,254 @@ function addHistory(
 
 /*
 =========================================================
- PUBLIC API
+ SETTLEMENTS
 =========================================================
 */
+
+
+function createSettlements(world){
+
+
+    const amount =
+
+        world.settings.civilization==="wild"
+        ? 1
+        :
+        world.settings.civilization==="kingdoms"
+        ? 8
+        :
+        4;
+
+
+
+    for(
+        let i=0;
+        i<amount;
+        i++
+    ){
+
+
+        const settlement={
+
+
+            name:
+            generateName(),
+
+
+
+            type:
+            randomFrom([
+
+                "village",
+                "town",
+                "castle"
+
+            ]),
+
+
+
+            x:
+            randomRange(
+                100,
+                800
+            ),
+
+
+
+            y:
+            randomRange(
+                100,
+                600
+            )
+
+        };
+
+
+
+        world.settlements.push(
+            settlement
+        );
+
+
+
+        world.features.push({
+
+            type:
+            settlement.type==="castle"
+            ?
+            "castle"
+            :
+            "village",
+
+            x:
+            settlement.x,
+
+            y:
+            settlement.y
+
+        });
+
+
+    }
+
+
+}
+
+
+
+
+
+/*
+=========================================================
+ LANDMARKS
+=========================================================
+*/
+
+
+function createLandmarks(world){
+
+
+    const landmarks=[
+
+        "temple",
+
+        "ruin",
+
+        "castle"
+
+    ];
+
+
+
+    for(
+        let i=0;
+        i<3;
+        i++
+    ){
+
+
+        world.landmarks.push({
+
+            type:
+            randomFrom(
+                landmarks
+            ),
+
+            x:
+            randomRange(
+                100,
+                800
+            ),
+
+            y:
+            randomRange(
+                100,
+                600
+            )
+
+
+        });
+
+
+        world.features.push(
+
+            world.landmarks[
+                world.landmarks.length-1
+            ]
+
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+/*
+=========================================================
+ NAME GENERATOR
+=========================================================
+*/
+
+
+function generateName(){
+
+
+    const first=[
+
+        "Ash",
+        "Raven",
+        "Elder",
+        "Storm",
+        "Iron",
+        "Silver",
+        "Black",
+        "Green"
+
+    ];
+
+
+    const second=[
+
+        "fall",
+        "mere",
+        "watch",
+        "hold",
+        "haven",
+        "rest",
+        "ford"
+
+    ];
+
+
+
+    return (
+
+        randomFrom(first)
+
+        +
+
+        randomFrom(second)
+
+    );
+
+
+}
+
+
+
+
+
+/*
+=========================================================
+ ACCESS
+=========================================================
+*/
+
+
+function getWorld(){
+
+    return currentWorld;
+
+}
+
+
+
 
 
 return{
 
 
-    createWorld,
+    generate,
 
-    createRegion,
-
-    createLandmark,
-
-    addHistory
+    getWorld
 
 
 };
-
 
 
 })();

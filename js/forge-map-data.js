@@ -111,19 +111,13 @@ function generate(options={}){
 
 
 
-    createCivilization(
-        world
-    );
+   ForgeGeography.generate(world);
 
+    createTerrain(world);
 
-    createLandmarks(
-        world
-    );
+    createSettlements(world);
 
-
-    createRoads(
-        world
-    );
+    createLandmarks(world);
 
 
 

@@ -29,15 +29,12 @@ let ctx=null;
 */
 
 
-function initialize(
-    canvasID="world-canvas"
-){
+function initialize(canvasID="world-canvas"){
 
 
-    canvas =
-        document.getElementById(
-            canvasID
-        );
+    canvas=document.getElementById(
+        canvasID
+    );
 
 
     if(!canvas){
@@ -51,14 +48,34 @@ function initialize(
     }
 
 
-
-    ctx =
-        canvas.getContext(
-            "2d"
-        );
+    ctx=canvas.getContext("2d");
 
 
     return true;
+
+}
+
+
+
+/*
+=========================================================
+ PAPER
+=========================================================
+*/
+
+
+function drawPaper(){
+
+
+    ctx.fillStyle="#efe2bd";
+
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
 
 }
@@ -78,7 +95,7 @@ function render(world){
     if(!ctx){
 
         console.error(
-            "Renderer not ready."
+            "Renderer not initialized"
         );
 
         return;
@@ -87,17 +104,25 @@ function render(world){
 
 
 
-    clear();
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
 
     drawPaper();
 
 
 
-    if(!world){
+    if(
+        !world ||
+        !world.geography
+    ){
 
         console.warn(
-            "No world supplied."
+            "No geography found"
         );
 
         return;
@@ -106,146 +131,157 @@ function render(world){
 
 
 
-    drawLand(
-        world.land
-    );
-
-
-    drawTerrain(
-        world.terrain
-    );
-
-
-    drawRoads(
-        world.roads
-    );
-
-
-    drawFeatures(
-        world.features
+    drawGeography(
+        world.geography
     );
 
 
 }
-
-
 
 
 
 /*
 =========================================================
- PAPER
+ GEOGRAPHY
 =========================================================
 */
 
 
-function clear(){
+function drawGeography(geo){
 
 
-    ctx.clearRect(
+    drawLakes(
+        geo.lakes
+    );
 
-        0,
 
-        0,
+    drawRivers(
+        geo.rivers
+    );
 
-        canvas.width,
 
-        canvas.height
-
+    drawMountains(
+        geo.mountains
     );
 
 
 }
-
-
-
-function drawPaper(){
-
-
-    ctx.fillStyle =
-        "#efe2bd";
-
-
-    ctx.fillRect(
-
-        0,
-
-        0,
-
-        canvas.width,
-
-        canvas.height
-
-    );
-
-
-}
-
-
 
 
 
 /*
 =========================================================
- LAND
+ MOUNTAINS
 =========================================================
 */
 
 
-function drawLand(land){
+function drawMountains(mountains){
 
 
-    if(!land){
+    ctx.strokeStyle="#332016";
 
-        return;
-
-    }
-
-
-
-    ctx.strokeStyle =
-        "#33200f";
-
-
-    ctx.lineWidth =
-        2;
+    ctx.lineWidth=2;
 
 
 
-    land.continents.forEach(
-        continent=>{
+    mountains.forEach(
+        range=>{
 
 
-            ctx.beginPath();
+            range.points.forEach(
+                point=>{
 
 
-            continent.points.forEach(
-                (point,index)=>{
+                    ctx.beginPath();
 
 
-                    if(index===0){
+                    ctx.moveTo(
+                        point.x-25,
+                        point.y+30
+                    );
 
-                        ctx.moveTo(
-                            point.x,
-                            point.y
-                        );
 
-                    }
-                    else{
+                    ctx.lineTo(
+                        point.x,
+                        point.y-35
+                    );
 
-                        ctx.lineTo(
-                            point.x,
-                            point.y
-                        );
 
-                    }
+                    ctx.lineTo(
+                        point.x+25,
+                        point.y+30
+                    );
+
+
+                    ctx.stroke();
 
 
                 }
             );
 
 
-            ctx.closePath();
+        }
+    );
+
+
+}
+
+
+
+/*
+=========================================================
+ RIVERS
+=========================================================
+*/
+
+
+function drawRivers(rivers){
+
+
+    ctx.strokeStyle="#557a8a";
+
+    ctx.lineWidth=2;
+
+
+
+    rivers.forEach(
+        river=>{
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                river.startX,
+                river.startY
+            );
+
+
+
+            const midX =
+                (
+                    river.startX+
+                    river.endX
+                )/2;
+
+
+
+            ctx.quadraticCurveTo(
+
+                midX,
+
+                (
+                    river.startY+
+                    river.endY
+                )/2,
+
+                river.endX,
+
+                river.endY
+
+            );
+
 
 
             ctx.stroke();
@@ -255,21 +291,41 @@ function drawLand(land){
     );
 
 
+}
 
-    land.islands.forEach(
-        island=>{
+
+
+/*
+=========================================================
+ LAKES
+=========================================================
+*/
+
+
+function drawLakes(lakes){
+
+
+    ctx.strokeStyle="#557a8a";
+
+
+    lakes.forEach(
+        lake=>{
 
 
             ctx.beginPath();
 
 
-            ctx.arc(
+            ctx.ellipse(
 
-                island.x,
+                lake.x,
 
-                island.y,
+                lake.y,
 
-                island.size,
+                lake.size,
+
+                lake.size*.6,
+
+                0,
 
                 0,
 
@@ -286,280 +342,6 @@ function drawLand(land){
 
 
 }
-
-
-
-
-
-/*
-=========================================================
- TERRAIN
-=========================================================
-*/
-
-
-function drawTerrain(terrain){
-
-
-    if(!terrain){
-
-        return;
-
-    }
-
-
-
-    terrain.mountains.forEach(
-        mountain=>{
-
-
-            ForgeSymbols.draw(
-
-                ctx,
-
-                "mountain",
-
-                mountain.x,
-
-                mountain.y
-
-            );
-
-
-        }
-    );
-
-
-
-    terrain.forests.forEach(
-        forest=>{
-
-
-            ForgeSymbols.draw(
-
-                ctx,
-
-                "forest",
-
-                forest.x,
-
-                forest.y
-
-            );
-
-
-        }
-    );
-
-
-
-    terrain.hills.forEach(
-        hill=>{
-
-
-            ForgeSymbols.draw(
-
-                ctx,
-
-                "mountain",
-
-                hill.x,
-
-                hill.y
-
-            );
-
-
-        }
-    );
-
-
-
-    drawRivers(
-        terrain.rivers
-    );
-
-
-}
-
-
-
-
-
-/*
-=========================================================
- RIVERS
-=========================================================
-*/
-
-
-function drawRivers(rivers){
-
-
-    if(!rivers){
-
-        return;
-
-    }
-
-
-
-    ctx.strokeStyle =
-        "#526b78";
-
-
-    ctx.lineWidth =
-        1.5;
-
-
-
-    rivers.forEach(
-        river=>{
-
-
-            ctx.beginPath();
-
-
-            ctx.moveTo(
-
-                river.startX,
-
-                river.startY
-
-            );
-
-
-            ctx.bezierCurveTo(
-
-                river.startX+50,
-
-                river.startY+100,
-
-                river.endX-50,
-
-                river.endY-100,
-
-                river.endX,
-
-                river.endY
-
-            );
-
-
-            ctx.stroke();
-
-
-        }
-    );
-
-
-}
-
-
-
-
-
-/*
-=========================================================
- ROADS
-=========================================================
-*/
-
-
-function drawRoads(roads){
-
-
-    if(!roads){
-
-        return;
-
-    }
-
-
-
-    ctx.strokeStyle =
-        "#8b6a3e";
-
-
-    roads.forEach(
-        road=>{
-
-
-            ctx.beginPath();
-
-
-            ctx.moveTo(
-
-                road.from.x,
-
-                road.from.y
-
-            );
-
-
-            ctx.lineTo(
-
-                road.to.x,
-
-                road.to.y
-
-            );
-
-
-            ctx.stroke();
-
-
-        }
-    );
-
-
-}
-
-
-
-
-
-/*
-=========================================================
- FEATURES
-=========================================================
-*/
-
-
-function drawFeatures(features){
-
-
-    if(!features){
-
-        return;
-
-    }
-
-
-
-    features.forEach(
-        feature=>{
-
-
-            ForgeSymbols.draw(
-
-                ctx,
-
-                feature.type,
-
-                feature.x,
-
-                feature.y
-
-            );
-
-
-        }
-    );
-
-
-}
-
 
 
 

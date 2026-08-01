@@ -180,7 +180,7 @@ function generateWorld(){
 
 
     ForgeRenderer.render(
-        currentWorld
+    ForgeMapData.getWorld()
     );
 
 

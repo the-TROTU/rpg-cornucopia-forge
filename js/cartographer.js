@@ -25,6 +25,8 @@ let currentSeed = "";
 /*=======================================================
 INITIALIZE
 =======================================================*/
+ForgeRenderer.initialize();
+ForgeRenderer.render();
 
 function initialize(){
 

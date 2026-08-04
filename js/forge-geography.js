@@ -6,46 +6,15 @@
 
  GEOGRAPHY ENGINE
 
- Version 1.0
+ Version 4.0.0
 
- "Before kingdoms rise,
- the earth must first remember."
+ "Water remembers every height."
 
 =========================================================
 */
 
 
 const ForgeGeography = (()=>{
-
-
-/*
-=========================================================
- HELPERS
-=========================================================
-*/
-
-
-function randomRange(min,max){
-
-    return Math.floor(
-        Math.random() *
-        (max-min+1)
-    ) + min;
-
-}
-
-
-
-function randomFrom(list){
-
-    return list[
-        Math.floor(
-            Math.random()*list.length
-        )
-    ];
-
-}
-
 
 
 /*
@@ -58,10 +27,14 @@ function randomFrom(list){
 function generate(world){
 
 
-    if(!world){
+    if(
+        !world ||
+        !world.elevation ||
+        !world.terrain
+    ){
 
         console.error(
-            "ForgeGeography: No world supplied."
+            "ForgeGeography: Missing world data."
         );
 
         return null;
@@ -70,13 +43,7 @@ function generate(world){
 
 
 
-    world.geography = {
-
-
-        elevation:[],
-
-
-        mountains:[],
+    const geography={
 
 
         rivers:[],
@@ -85,248 +52,36 @@ function generate(world){
         lakes:[],
 
 
-        biomes:[]
+        valleys:[],
+
+
+        watersheds:[]
 
 
     };
 
 
 
-    createElevation(world);
-
-
-    createMountains(world);
-
-
-    createRivers(world);
-
-
-    createLakes(world);
-
-
-    createBiomes(world);
-
-
-
-    return world;
-
-
-}
-
-
-
-
-
-/*
-=========================================================
- ELEVATION
-=========================================================
-*/
-
-
-function createElevation(world){
-
-
-    for(
-        let i=0;
-        i<40;
-        i++
-    ){
-
-
-        world.geography.elevation.push({
-
-            x:randomRange(
-                50,
-                850
-            ),
-
-            y:randomRange(
-                50,
-                650
-            ),
-
-            height:
-            Math.random()
-
-
-        });
-
-
-    }
-
-
-}
-
-
-
-
-
-/*
-=========================================================
- MOUNTAINS
-=========================================================
-*/
-
-
-function createMountains(world){
-
-
-    const count =
-        randomRange(
-            3,
-            6
-        );
-
-
-
-    for(
-        let i=0;
-        i<count;
-        i++
-    ){
-
-
-        const range={
-
-
-            name:
-            randomFrom([
-
-                "Stormspire Range",
-                "Ironfang Mountains",
-                "The Broken Peaks",
-                "The Elder Heights"
-
-            ]),
-
-
-
-            points:[]
-
-        };
-
-
-
-        const startX =
-            randomRange(
-                100,
-                700
-            );
-
-
-        const startY =
-            randomRange(
-                120,
-                450
-            );
-
-
-
-        for(
-            let p=0;
-            p<6;
-            p++
-        ){
-
-
-            range.points.push({
-
-                x:
-                startX+(p*35),
-
-                y:
-                startY+
-                randomRange(
-                    -50,
-                    50
-                )
-
-            });
-
-
-        }
-
-
-
-        world.geography.mountains.push(
-            range
-        );
-
-
-    }
-
-
-}
-
-
-
-
-
-/*
-=========================================================
- RIVERS
-=========================================================
-*/
-
-
-function createRivers(world){
-
-
-    world.geography.mountains
-    .forEach(
-        mountain=>{
-
-
-            if(
-                Math.random()>.35
-            ){
-
-                const source =
-                    mountain.points[
-                        Math.floor(
-                            mountain.points.length/2
-                        )
-                    ];
-
-
-
-                world.geography.rivers.push({
-
-                    startX:
-                    source.x,
-
-                    startY:
-                    source.y,
-
-                    endX:
-                    randomRange(
-                        100,
-                        800
-                    ),
-
-                    endY:
-                    650,
-
-
-                    name:
-                    randomFrom([
-
-                        "Silver Run",
-                        "The Veiled River",
-                        "Blackwater",
-                        "The Whispering Flow"
-
-                    ])
-
-                });
-
-
-            }
-
-
-        }
+    createLakes(
+        world,
+        geography
     );
+
+
+    createRivers(
+        world,
+        geography
+    );
+
+
+    createValleys(
+        world,
+        geography
+    );
+
+
+
+    return geography;
 
 
 }
@@ -342,50 +97,54 @@ function createRivers(world){
 */
 
 
-function createLakes(world){
+function createLakes(
+    world,
+    geography
+){
 
 
-    const amount =
-        randomRange(
-            1,
-            4
-        );
+    world.elevation.cells.forEach(
+
+        cell=>{
+
+
+            if(
+                !cell.land
+            ){
+
+                return;
+
+            }
 
 
 
-    for(
-        let i=0;
-        i<amount;
-        i++
-    ){
+            if(
+                cell.height < .15 &&
+                Math.random()>.97
+            ){
 
 
-        world.geography.lakes.push({
+                geography.lakes.push({
 
-            x:
-            randomRange(
-                150,
-                750
-            ),
+                    x:cell.x,
 
+                    y:cell.y,
 
-            y:
-            randomRange(
-                150,
-                550
-            ),
+                    size:
+                    randomRange(
+                        3,
+                        8
+                    )
 
-
-            size:
-            randomRange(
-                15,
-                50
-            )
-
-        });
+                });
 
 
-    }
+            }
+
+
+        }
+
+    );
 
 
 }
@@ -396,59 +155,374 @@ function createLakes(world){
 
 /*
 =========================================================
- BIOMES
+ RIVERS
 =========================================================
 */
 
 
-function createBiomes(world){
+function createRivers(
+    world,
+    geography
+){
 
 
-    world.geography.biomes.push(
-
-        {
-
-            name:
-            "Northern Wilds",
-
-            type:
-            "forest",
-
-            influence:
-            "mountain"
-
-        },
+    const mountains =
+        world.terrain.mountains;
 
 
-        {
 
-            name:
-            "The Open Plains",
+    mountains.forEach(
 
-            type:
-            "grassland",
-
-            influence:
-            "river"
-
-        },
+        mountain=>{
 
 
-        {
+            if(
+                Math.random()>.5
+            ){
 
-            name:
-            "The Forgotten Marsh",
+                return;
 
-            type:
-            "swamp",
+            }
 
-            influence:
-            "water"
+
+
+            const river =
+                followDownhill(
+                    world,
+                    mountain
+                );
+
+
+
+            if(
+                river.length>2
+            ){
+
+                geography.rivers.push(
+                    river
+                );
+
+            }
+
 
         }
 
     );
 
+
+}
+
+
+
+
+
+/*
+=========================================================
+ FOLLOW WATER
+=========================================================
+*/
+
+
+function followDownhill(
+    world,
+    start
+){
+
+
+    let current = {
+
+        x:start.x,
+
+        y:start.y
+
+    };
+
+
+
+    const path=[];
+
+
+
+    for(
+        let i=0;
+        i<40;
+        i++
+    ){
+
+
+        path.push({
+
+            x:current.x,
+
+            y:current.y
+
+        });
+
+
+
+        const next =
+            lowestNeighbor(
+                world,
+                current
+            );
+
+
+
+        if(
+            !next
+        ){
+
+            break;
+
+        }
+
+
+
+        current = next;
+
+
+
+    }
+
+
+
+    return path;
+
+
+}
+
+
+
+
+
+/*
+=========================================================
+ LOWEST NEIGHBOR
+=========================================================
+*/
+
+
+function lowestNeighbor(
+    world,
+    position
+){
+
+
+    const cell =
+        findCell(
+            world,
+            position
+        );
+
+
+
+    if(!cell){
+
+        return null;
+
+    }
+
+
+
+    const neighbors =
+        getNeighbors(
+            world.elevation,
+            cell
+        );
+
+
+
+    let lowest=null;
+
+
+
+    neighbors.forEach(
+
+        n=>{
+
+
+            if(
+                !lowest ||
+                n.height <
+                lowest.height
+            ){
+
+                lowest=n;
+
+            }
+
+
+        }
+
+    );
+
+
+
+    if(
+        lowest &&
+        lowest.height <
+        cell.height
+    ){
+
+        return {
+
+            x:lowest.x,
+
+            y:lowest.y
+
+        };
+
+    }
+
+
+
+    return null;
+
+
+}
+
+
+
+
+
+/*
+=========================================================
+ VALLEYS
+=========================================================
+*/
+
+
+function createValleys(
+    world,
+    geography
+){
+
+
+    world.terrain.hills.forEach(
+
+        hill=>{
+
+
+            if(
+                Math.random()>.7
+            ){
+
+                geography.valleys.push({
+
+                    x:hill.x,
+
+                    y:hill.y
+
+                });
+
+            }
+
+
+        }
+
+    );
+
+
+}
+
+
+
+
+
+/*
+=========================================================
+ HELPERS
+=========================================================
+*/
+
+
+function findCell(
+    world,
+    pos
+){
+
+
+    return world.elevation.cells.find(
+
+        c=>
+
+        c.x===pos.x &&
+        c.y===pos.y
+
+    );
+
+
+}
+
+
+
+function getNeighbors(
+    elevation,
+    cell
+){
+
+
+    const result=[];
+
+
+    [
+
+        [1,0],
+        [-1,0],
+        [0,1],
+        [0,-1]
+
+    ]
+    .forEach(
+
+        d=>{
+
+
+            const found =
+                elevation.cells.find(
+
+                    c=>
+
+                    c.x===cell.x+d[0]
+                    &&
+                    c.y===cell.y+d[1]
+
+                );
+
+
+            if(found){
+
+                result.push(found);
+
+            }
+
+
+        }
+
+    );
+
+
+    return result;
+
+}
+
+
+
+
+function randomRange(
+    min,
+    max
+){
+
+    return Math.floor(
+
+        Math.random()
+        *
+        (
+            max-min+1
+        )
+
+    )+min;
 
 }
 

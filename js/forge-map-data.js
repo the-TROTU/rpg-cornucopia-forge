@@ -4,12 +4,12 @@
  RPG CORNUCOPIA
  THE FORGE
 
- CARTOGRAPHER WORLD DATA
+ CARTOGRAPHER WORLD CORE
 
- Version 3.0
+ Version 4.0.0
 
- "The earth is born.
- Civilizations leave their fingerprints."
+ "Before the map is drawn,
+ the world must first exist."
 
 =========================================================
 */
@@ -31,26 +31,51 @@ let currentWorld=null;
 function generate(options={}){
 
 
-    const land =
-        ForgeLand.generate(
-            900,
-            700
-        );
+    const world = {
 
 
-    const terrain =
-        ForgeTerrain.generate(
-            land,
-            options.climate || "temperate"
-        );
+        engine:{
+
+            version:
+            "4.0.0",
+
+            generated:
+            new Date()
+            .toISOString(),
+
+            modules:{
 
 
+                land:
+                "4.0.0",
 
-    const world={
+
+                elevation:
+                "4.0.0",
+
+
+                terrain:
+                "4.0.0",
+
+
+                geography:
+                "4.0.0",
+
+
+                civilization:
+                "pending"
+
+
+            }
+
+
+        },
+
 
 
         blueprint:
             createBlueprint(),
+
 
 
         seed:
@@ -59,40 +84,13 @@ function generate(options={}){
 
 
 
-        land,
-
-        terrain,
-
-
-        features:[],
-
-
-        settlements:[],
-
-
-        landmarks:[],
-
-
-        roads:[],
-
-
-        history:[
-
-            {
-
-                event:
-                "World charted",
-
-                date:
-                new Date()
-                .toISOString()
-
-            }
-
-        ],
-
-
         settings:{
+
+
+            size:
+            options.size ||
+            "medium",
+
 
             climate:
             options.climate ||
@@ -104,274 +102,98 @@ function generate(options={}){
             "frontier"
 
 
-        }
+        },
+
+
+
+        land:null,
+
+        elevation:null,
+
+        terrain:null,
+
+        geography:null,
+
+        civilization:null,
+
+
+
+        history:[
+
+            {
+
+                event:
+                "World seed created",
+
+                date:
+                new Date()
+                .toISOString()
+
+            }
+
+        ],
+
+
+
+        renderCache:{}
 
 
     };
 
 
 
-   ForgeGeography.generate(world);
+/*
+=========================================================
+ WORLD FORGING PIPELINE
+=========================================================
+*/
 
-    createTerrain(world);
 
-    createSettlements(world);
+    if(
+        typeof ForgeLand !== "undefined"
+    ){
 
-    createLandmarks(world);
+        world.land =
+            ForgeLand.generate(
+                world
+            );
+
+        world.elevation =
+            ForgeElevation.generate(world);
+
+        world.terrain =
+            ForgeTerrain.generate(world);  
+            
+        world.geography =
+            ForgeGeography.generate(world);    
+
+        world.engine.modules.land =
+            "4.0.0";
+
+    }
+
+
+
+    /*
+    Future engines attach here.
+
+    ForgeElevation
+
+    ForgeTerrain
+
+    ForgeGeography
+
+    ForgeCivilization
+
+    */
 
 
 
     currentWorld=world;
 
 
+
     return world;
-
-
-}
-
-
-
-
-
-/*
-=========================================================
- CIVILIZATION
-=========================================================
-*/
-
-
-function createCivilization(world){
-
-
-    const level =
-        world.settings.civilization;
-
-
-
-    const amount =
-        level==="wild"
-        ?
-        1
-        :
-        level==="kingdoms"
-        ?
-        8
-        :
-        4;
-
-
-
-    for(
-        let i=0;
-        i<amount;
-        i++
-    ){
-
-
-        const forest =
-            randomFrom(
-                world.terrain.forests
-            );
-
-
-
-        if(!forest){
-
-            continue;
-
-        }
-
-
-
-        const settlement={
-
-
-            name:
-            generateName(),
-
-
-            type:
-            randomFrom([
-
-                "village",
-                "town",
-                "castle"
-
-            ]),
-
-
-            x:
-            forest.x
-            +
-            randomRange(
-                -60,
-                60
-            ),
-
-
-            y:
-            forest.y
-            +
-            randomRange(
-                -60,
-                60
-            )
-
-
-        };
-
-
-
-        world.settlements.push(
-            settlement
-        );
-
-
-        world.features.push({
-
-            type:
-            settlement.type==="castle"
-            ?
-            "castle"
-            :
-            "village",
-
-
-            x:
-            settlement.x,
-
-
-            y:
-            settlement.y
-
-
-        });
-
-
-    }
-
-
-}
-
-
-
-
-
-/*
-=========================================================
- LANDMARKS
-=========================================================
-*/
-
-
-function createLandmarks(world){
-
-
-    const possible=[
-
-        "temple",
-
-        "ruin",
-
-        "castle"
-
-    ];
-
-
-
-    for(
-        let i=0;
-        i<5;
-        i++
-    ){
-
-
-        const landmark={
-
-
-            type:
-            randomFrom(
-                possible
-            ),
-
-
-            x:
-            randomRange(
-                100,
-                800
-            ),
-
-
-            y:
-            randomRange(
-                100,
-                600
-            )
-
-
-        };
-
-
-
-        world.landmarks.push(
-            landmark
-        );
-
-
-        world.features.push(
-            landmark
-        );
-
-
-    }
-
-
-}
-
-
-
-
-
-/*
-=========================================================
- ROADS
-=========================================================
-*/
-
-
-function createRoads(world){
-
-
-    if(
-        world.settlements.length<2
-    ){
-
-        return;
-
-    }
-
-
-
-    for(
-        let i=0;
-        i<world.settlements.length-1;
-        i++
-    ){
-
-
-        world.roads.push({
-
-            from:
-            world.settlements[i],
-
-
-            to:
-            world.settlements[i+1]
-
-        });
-
-
-    }
 
 
 }
@@ -389,66 +211,19 @@ function createRoads(world){
 
 function createBlueprint(){
 
-    return Date.now()
-    .toString(36)
-    .toUpperCase();
+    return (
 
-}
+        Date.now()
+        .toString(36)
 
+        +
 
-
-function randomFrom(list){
-
-    return list[
-        Math.floor(
-            Math.random()
-            *
-            list.length
-        )
-    ];
-
-}
-
-
-
-function randomRange(min,max){
-
-    return Math.floor(
         Math.random()
-        *
-        (
-            max-min+1
-        )
+        .toString(36)
+        .substring(2,6)
+
     )
-    +
-    min;
-
-}
-
-
-
-function generateName(){
-
-
-    return randomFrom([
-
-        "Ash",
-        "Raven",
-        "Storm",
-        "Iron",
-        "Silver"
-
-    ])
-    +
-    randomFrom([
-
-        "fall",
-        "mere",
-        "hold",
-        "haven",
-        "ford"
-
-    ]);
+    .toUpperCase();
 
 }
 
@@ -460,6 +235,8 @@ function getWorld(){
     return currentWorld;
 
 }
+
+
 
 
 

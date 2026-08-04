@@ -4,12 +4,11 @@
  RPG CORNUCOPIA
  THE FORGE
 
- LANDMASS GENERATOR
+ LAND GENERATION ENGINE
 
- Version 1.0
+ Version 4.0.0
 
- "Before kingdoms rise,
- the earth must first awaken."
+ "The world rises from the deep."
 
 =========================================================
 */
@@ -20,23 +19,41 @@ const ForgeLand = (()=>{
 
 /*
 =========================================================
- CREATE LANDSCAPE
+ GENERATE LAND
 =========================================================
 */
 
 
-function generate(width=900,height=700){
+function generate(world){
 
 
-    const world={
+    const settings =
+        world.settings || {};
 
 
-        width,
 
-        height,
+    const size =
+        settings.size || "medium";
 
 
-        ocean:true,
+
+    const dimensions =
+        getDimensions(size);
+
+
+
+    const land = {
+
+
+        width:
+        dimensions.width,
+
+
+        height:
+        dimensions.height,
+
+
+        cells:[],
 
 
         continents:[],
@@ -45,26 +62,89 @@ function generate(width=900,height=700){
         islands:[],
 
 
-        coastlines:[],
-
-
-        elevation:[]
+        coastline:[]
 
 
     };
 
 
 
-    createContinents(world);
+    createGrid(
+        land
+    );
 
 
-    createIslands(world);
+
+    createContinents(
+        land
+    );
 
 
-    createElevation(world);
+
+    createIslands(
+        land
+    );
 
 
-    return world;
+
+    traceCoastline(
+        land
+    );
+
+
+
+    return land;
+
+
+}
+
+
+
+
+
+/*
+=========================================================
+ GRID
+=========================================================
+*/
+
+
+function createGrid(land){
+
+
+    for(
+        let y=0;
+        y<land.height;
+        y++
+    ){
+
+
+        for(
+            let x=0;
+            x<land.width;
+            x++
+        ){
+
+
+            land.cells.push({
+
+                x:x,
+
+                y:y,
+
+                land:false,
+
+                continent:null,
+
+                height:0
+
+            });
+
+
+        }
+
+
+    }
 
 
 }
@@ -80,11 +160,14 @@ function generate(width=900,height=700){
 */
 
 
-function createContinents(world){
+function createContinents(land){
 
 
     const count =
-        randomRange(1,3);
+        randomRange(
+            3,
+            6
+        );
 
 
 
@@ -98,47 +181,43 @@ function createContinents(world){
         const continent={
 
 
+            id:i,
+
+
             x:
             randomRange(
-                180,
-                world.width-180
+                20,
+                land.width-20
             ),
 
 
             y:
             randomRange(
-                150,
-                world.height-150
+                20,
+                land.height-20
             ),
 
 
             radius:
-
             randomRange(
-                140,
-                260
-            ),
+                10,
+                25
+            )
 
-
-            points:[]
 
         };
 
 
 
-        createCoastline(
+        land.continents.push(
             continent
         );
 
 
 
-        world.continents.push(
+        growContinent(
+            land,
             continent
-        );
-
-
-        world.coastlines.push(
-            continent.points
         );
 
 
@@ -153,73 +232,63 @@ function createContinents(world){
 
 /*
 =========================================================
- COASTLINE CREATION
+ CONTINENT GROWTH
 =========================================================
 */
 
 
-function createCoastline(continent){
+function growContinent(
+    land,
+    continent
+){
 
 
-    const points=18;
+    land.cells.forEach(
+        cell=>{
 
 
-    for(
-        let i=0;
-        i<points;
-        i++
-    ){
+            const distance =
+                Math.sqrt(
 
+                    Math.pow(
+                        cell.x-continent.x,
+                        2
+                    )
 
-        const angle =
-            (
-                Math.PI*2
-                /
-                points
-            )
-            *
-            i;
+                    +
 
+                    Math.pow(
+                        cell.y-continent.y,
+                        2
+                    )
 
-
-        const variation =
-            randomRange(
-                -40,
-                40
-            );
+                );
 
 
 
-        const radius =
-            continent.radius
-            +
-            variation;
+            const distortion =
+                randomRange(
+                    -5,
+                    5
+                );
 
 
 
-        continent.points.push({
+            if(
+                distance <
+                continent.radius + distortion
+            ){
+
+                cell.land=true;
+
+                cell.continent =
+                    continent.id;
+
+            }
 
 
-            x:
-            continent.x
-            +
-            Math.cos(angle)
-            *
-            radius,
-
-
-            y:
-            continent.y
-            +
-            Math.sin(angle)
-            *
-            radius
-
-
-        });
-
-
-    }
+        }
+    );
 
 
 }
@@ -235,13 +304,13 @@ function createCoastline(continent){
 */
 
 
-function createIslands(world){
+function createIslands(land){
 
 
     const amount =
         randomRange(
-            5,
-            15
+            8,
+            20
         );
 
 
@@ -253,30 +322,77 @@ function createIslands(world){
     ){
 
 
-        world.islands.push({
+        const island={
+
+
+            id:i,
+
 
             x:
             randomRange(
-                50,
-                world.width-50
+                5,
+                land.width-5
             ),
 
 
             y:
             randomRange(
-                50,
-                world.height-50
+                5,
+                land.height-5
             ),
 
 
-            size:
+            radius:
             randomRange(
-                8,
-                30
+                2,
+                5
             )
 
 
-        });
+        };
+
+
+
+        land.islands.push(
+            island
+        );
+
+
+        land.cells.forEach(
+            cell=>{
+
+
+                const distance =
+                    Math.sqrt(
+
+                    Math.pow(
+                        cell.x-island.x,
+                        2
+                    )
+
+                    +
+
+                    Math.pow(
+                        cell.y-island.y,
+                        2
+                    )
+
+                    );
+
+
+
+                if(
+                    distance <
+                    island.radius
+                ){
+
+                    cell.land=true;
+
+                }
+
+
+            }
+        );
 
 
     }
@@ -290,49 +406,55 @@ function createIslands(world){
 
 /*
 =========================================================
- ELEVATION MAP
-
- Future terrain engine uses this.
-
+ COASTLINE
 =========================================================
 */
 
 
-function createElevation(world){
+function traceCoastline(land){
 
 
-    for(
-        let i=0;
-        i<50;
-        i++
-    ){
+    land.cells.forEach(
+        cell=>{
 
 
-        world.elevation.push({
+            if(!cell.land){
+
+                return;
+
+            }
 
 
-            x:
-            randomRange(
-                0,
-                world.width
-            ),
+
+            const neighbors =
+                getNeighbors(
+                    land,
+                    cell
+                );
 
 
-            y:
-            randomRange(
-                0,
-                world.height
-            ),
+
+            const oceanTouch =
+                neighbors.some(
+                    neighbor=>
+                    !neighbor.land
+                );
 
 
-            value:
-            Math.random()
+
+            if(
+                oceanTouch
+            ){
+
+                land.coastline.push(
+                    cell
+                );
+
+            }
 
 
-        });
-
-
-    }
+        }
+    );
 
 
 }
@@ -348,8 +470,116 @@ function createElevation(world){
 */
 
 
-function randomRange(min,max){
+function getNeighbors(
+    land,
+    cell
+){
 
+
+    const result=[];
+
+
+    const directions=[
+
+        [1,0],
+        [-1,0],
+        [0,1],
+        [0,-1]
+
+    ];
+
+
+
+    directions.forEach(
+        dir=>{
+
+
+            const x =
+                cell.x+dir[0];
+
+
+            const y =
+                cell.y+dir[1];
+
+
+
+            const found =
+                land.cells.find(
+                    c=>
+                    c.x===x &&
+                    c.y===y
+                );
+
+
+
+            if(found){
+
+                result.push(
+                    found
+                );
+
+            }
+
+
+        }
+    );
+
+
+    return result;
+
+
+}
+
+
+
+
+
+function getDimensions(size){
+
+
+    if(size==="small"){
+
+        return {
+
+            width:80,
+
+            height:60
+
+        };
+
+    }
+
+
+    if(size==="large"){
+
+        return {
+
+            width:160,
+
+            height:120
+
+        };
+
+    }
+
+
+
+    return {
+
+        width:120,
+
+        height:90
+
+    };
+
+
+}
+
+
+
+
+
+function randomRange(min,max){
 
     return Math.floor(
 
@@ -359,10 +589,7 @@ function randomRange(min,max){
             max-min+1
         )
 
-    )
-    +
-    min;
-
+    )+min;
 
 }
 

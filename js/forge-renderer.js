@@ -6,10 +6,10 @@
 
  CARTOGRAPHER RENDERER
 
- Version 3.0
+ Version 3.2
 
- "The world exists.
- The ink reveals it."
+"From parchment,
+the continents awaken."
 
 =========================================================
 */
@@ -20,7 +20,19 @@ const ForgeRenderer = (()=>{
 
 let canvas=null;
 let ctx=null;
+let renderStyle="ink";
 
+function setStyle(style){
+
+    renderStyle = style || "ink";
+
+}
+
+function randomHeight(){
+
+    return 25 + Math.random()*25;
+
+}
 
 /*
 =========================================================
@@ -67,15 +79,66 @@ function initialize(canvasID="world-canvas"){
 function drawPaper(){
 
 
-    ctx.fillStyle="#efe2bd";
+    ctx.fillStyle =
+    renderStyle==="color"
+    ?
+    "#9fb8c5"
+    :
+    "#efe2bd";
 
 
     ctx.fillRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+);
+
+
+/*
+===============================
+PAPER GRAIN
+===============================
+*/
+
+
+ctx.globalAlpha=.08;
+
+
+for(
+    let i=0;
+    i<300;
+    i++
+){
+
+    ctx.fillStyle =
+        "#7b6345";
+
+
+    ctx.beginPath();
+
+
+    ctx.arc(
+
+        Math.random()*canvas.width,
+
+        Math.random()*canvas.height,
+
+        1,
+
         0,
-        0,
-        canvas.width,
-        canvas.height
+
+        Math.PI*2
+
     );
+
+
+    ctx.fill();
+
+}
+
+
+ctx.globalAlpha=1;
 
 
 }
@@ -132,9 +195,8 @@ function render(world){
 
 
     drawGeography(
-        world.geography
-    );
-
+        world
+    )
 
 }
 
@@ -147,27 +209,311 @@ function render(world){
 */
 
 
-function drawGeography(geo){
+function drawGeography(world){
 
 
-    drawLakes(
-        geo.lakes
-    );
+    if(!world){
+
+        return;
+
+    }
 
 
-    drawRivers(
-        geo.rivers
-    );
+
+    /*
+    ===============================
+    COASTLINE
+    ===============================
+    */
 
 
-    drawMountains(
-        geo.mountains
+   if(
+    world.land &&
+    Array.isArray(world.land.coastline)
+    ){
+
+        world.land.coastline.forEach(
+            coast=>{
+
+                drawCoastline(coast);
+
+            }
+        );
+
+    }
+
+
+
+    /*
+    ===============================
+    ISLANDS
+    ===============================
+    */
+    if(
+        world.land &&
+        world.land.islands
+    ){
+
+        world.land.islands.forEach(
+            island=>{
+
+                if(
+                    island.coastline
+                ){
+
+                    if(
+                        island.coastline
+                    ){
+
+                        drawCoastline(
+                            island.coastline
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+    }
+
+    /*
+    ===============================
+    TERRAIN GEOGRAPHY
+    ===============================
+    */
+
+
+    if(
+        world.geography
+    ){
+
+        drawElevation(
+            world.geography.elevation || []
+        );
+
+
+        drawMountains(
+            world.geography.mountains || []
+        );
+
+
+        drawRivers(
+            world.geography.rivers || []
+        );
+
+
+        drawLakes(
+            world.geography.lakes || []
+        );
+
+
+        drawBiomes(
+            world.geography.biomes || []
+        );
+
+    }
+
+
+}
+
+/*
+=========================================================
+ ELEVATION
+=========================================================
+*/
+
+function drawElevation(points){
+
+
+    ctx.strokeStyle =
+    renderStyle==="color"
+    ?
+    "#c9b98c"
+    :
+    "#b8a47a";
+
+    ctx.lineWidth=1;
+
+
+
+    points.forEach(
+
+        point=>{
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+
+                point.x,
+
+                point.y,
+
+                3 + (point.height * 8),
+
+                0,
+
+                Math.PI*2
+
+            );
+
+
+            ctx.stroke();
+
+
+        }
+
     );
 
 
 }
 
+/*
+=========================================================
+ BIOMES
+=========================================================
+*/
 
+function drawBiomes(biomes){
+
+    return;
+
+}
+
+/*
+=========================================================
+ COASTLINE
+=========================================================
+*/
+
+
+function drawCoastline(points){
+
+
+    if(
+        !points ||
+        points.length===0
+    ){
+
+        return;
+
+    }
+
+
+
+    ctx.beginPath();
+
+
+
+    ctx.moveTo(
+        points[0].x,
+        points[0].y
+    );
+
+
+
+    for(
+        let i=0;
+        i<points.length;
+        i++
+    ){
+
+
+        const current =
+            points[i];
+
+
+        const next =
+            points[
+                (i+1)
+                %
+                points.length
+            ];
+
+
+
+        const midX =
+            (
+                current.x+
+                next.x
+            )
+            /2;
+
+
+
+        const midY =
+            (
+                current.y+
+                next.y
+            )
+            /2;
+
+
+
+        ctx.quadraticCurveTo(
+
+            current.x,
+
+            current.y,
+
+            midX,
+
+            midY
+
+        );
+
+
+    }
+
+
+
+    ctx.closePath();
+
+
+
+    /*
+    ===============================
+    COLOR LAND FILL
+    ===============================
+    */
+
+
+    if(
+        renderStyle==="color"
+    ){
+
+        ctx.fillStyle =
+            "#d8c79b";
+
+        ctx.fill();
+
+    }
+
+
+
+    /*
+    ===============================
+    INK BORDER
+    ===============================
+    */
+
+
+    ctx.strokeStyle =
+        "#20150f";
+
+
+    ctx.lineWidth =
+        3;
+
+
+
+    ctx.stroke();
+
+
+}
 
 /*
 =========================================================
@@ -181,7 +527,7 @@ function drawMountains(mountains){
 
     ctx.strokeStyle="#332016";
 
-    ctx.lineWidth=2;
+    ctx.lineWidth=1.5;
 
 
 
@@ -198,19 +544,23 @@ function drawMountains(mountains){
 
                     ctx.moveTo(
                         point.x-25,
-                        point.y+30
+                        point.y-randomHeight()
                     );
-
 
                     ctx.lineTo(
                         point.x,
-                        point.y-35
+                        point.y-randomHeight()
                     );
 
+                    const next =
+                    points[(i+1)%points.length];
 
-                    ctx.lineTo(
-                        point.x+25,
-                        point.y+30
+
+                    ctx.quadraticCurveTo(
+                        points[i].x,
+                        points[i].y,
+                        (points[i].x + next.x)/2,
+                        (points[i].y + next.y)/2
                     );
 
 
@@ -239,9 +589,15 @@ function drawMountains(mountains){
 function drawRivers(rivers){
 
 
-    ctx.strokeStyle="#557a8a";
+    ctx.strokeStyle =
+        renderStyle==="color"
+        ?
+        "#557a8a"
+        :
+        "#332016";
 
-    ctx.lineWidth=2;
+
+    ctx.lineWidth=1.5;
 
 
 
@@ -258,18 +614,12 @@ function drawRivers(rivers){
             );
 
 
+            ctx.quadraticCurveTo(
 
-            const midX =
                 (
                     river.startX+
                     river.endX
-                )/2;
-
-
-
-            ctx.quadraticCurveTo(
-
-                midX,
+                )/2,
 
                 (
                     river.startY+
@@ -283,13 +633,11 @@ function drawRivers(rivers){
             );
 
 
-
             ctx.stroke();
 
 
         }
     );
-
 
 }
 
@@ -305,7 +653,12 @@ function drawRivers(rivers){
 function drawLakes(lakes){
 
 
-    ctx.strokeStyle="#557a8a";
+    ctx.strokeStyle =
+        renderStyle==="color"
+        ?
+        "#557a8a"
+        :
+        "#332016";
 
 
     lakes.forEach(
@@ -343,16 +696,13 @@ function drawLakes(lakes){
 
 }
 
-
-
-
 return{
-
 
     initialize,
 
-    render
+    render,
 
+    setStyle
 
 };
 

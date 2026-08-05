@@ -31,7 +31,27 @@ let currentWorld=null;
 function generate(options={}){
 
 
+    const blueprint =
+    options.seed ||
+    createBlueprint();
+
+    ForgeRandom.setSeed(
+    blueprint
+    );
+
     const world = {
+
+
+        blueprint:
+
+
+            blueprint,
+
+
+        seed:
+
+
+            blueprint,
 
 
         engine:{
@@ -72,18 +92,6 @@ function generate(options={}){
         },
 
 
-
-        blueprint:
-            createBlueprint(),
-
-
-
-        seed:
-            options.seed ||
-            createBlueprint(),
-
-
-
         settings:{
 
 
@@ -115,6 +123,14 @@ function generate(options={}){
         geography:null,
 
         civilization:null,
+
+        features:[],
+
+        settlements:[],
+
+        landmarks:[],
+
+        roads:[],
 
 
 
@@ -157,6 +173,9 @@ function generate(options={}){
             ForgeLand.generate(
                 world
             );
+        ForgeCoast.generate(
+            world
+        );
 
         world.elevation =
             ForgeElevation.generate(world);
@@ -211,19 +230,32 @@ function generate(options={}){
 
 function createBlueprint(){
 
-    return (
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-        Date.now()
-        .toString(36)
 
-        +
+    let result="";
 
-        Math.random()
-        .toString(36)
-        .substring(2,6)
 
-    )
-    .toUpperCase();
+    for(
+        let i=0;
+        i<12;
+        i++
+    ){
+
+        result +=
+            chars[
+                Math.floor(
+                    Math.random()
+                    *
+                    chars.length
+                )
+            ];
+
+    }
+
+
+    return result;
 
 }
 

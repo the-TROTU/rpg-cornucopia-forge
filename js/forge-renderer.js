@@ -6,7 +6,7 @@
 
  CARTOGRAPHER RENDERER
 
- Version 4.0.0
+ Version 4.1.0
 
  "The world exists.
  The ink reveals it."
@@ -21,9 +21,9 @@ const ForgeRenderer = (()=>{
 let canvas=null;
 let ctx=null;
 
-
-
 let style="ink";
+
+const SCALE=6;
 
 
 
@@ -34,16 +34,10 @@ let style="ink";
 */
 
 
-function initialize(
-    canvasID="world-canvas"
-){
+function initialize(canvasID="world-canvas"){
 
 
-    canvas =
-        document.getElementById(
-            canvasID
-        );
-
+    canvas=document.getElementById(canvasID);
 
 
     if(!canvas){
@@ -57,17 +51,12 @@ function initialize(
     }
 
 
-
-    ctx =
-        canvas.getContext(
-            "2d"
-        );
+    ctx=canvas.getContext("2d");
 
 
     return true;
 
 }
-
 
 
 
@@ -79,9 +68,7 @@ function initialize(
 */
 
 
-function setStyle(
-    selected
-){
+function setStyle(selected){
 
     style =
         selected ||
@@ -92,10 +79,9 @@ function setStyle(
 
 
 
-
 /*
 =========================================================
- RENDER
+ MAIN RENDER
 =========================================================
 */
 
@@ -114,9 +100,7 @@ function render(world){
     }
 
 
-
     drawPaper();
-
 
 
     if(
@@ -134,24 +118,31 @@ function render(world){
 
 
 
-    drawOcean(
-        world
-    );
+    drawOcean();
 
 
-    drawLand(
-        world
+    drawLandMass(
+        world.land
     );
 
 
     drawCoastline(
-        world
+        world.land
     );
 
 
-    if(
-        world.geography
-    ){
+
+    if(world.terrain){
+
+        drawTerrain(
+            world.terrain
+        );
+
+    }
+
+
+
+    if(world.geography){
 
         drawRivers(
             world.geography.rivers || []
@@ -163,18 +154,6 @@ function render(world){
         );
 
     }
-
-
-    if(
-        world.terrain
-    ){
-
-        drawTerrain(
-            world.terrain
-        );
-
-    }
-
 
 
 }
@@ -192,7 +171,12 @@ function render(world){
 
 function drawPaper(){
 
+
     ctx.fillStyle =
+        style==="color"
+        ?
+        "#8fb3c5"
+        :
         "#ead9b5";
 
 
@@ -203,8 +187,8 @@ function drawPaper(){
         canvas.height
     );
 
-}
 
+}
 
 
 
@@ -216,28 +200,22 @@ function drawPaper(){
 */
 
 
-function drawOcean(world){
+function drawOcean(){
 
 
     ctx.fillStyle =
         style==="color"
         ?
-        "#8db7c7"
+        "#86afc1"
         :
-        "#d7c6a0";
-
+        "#ead9b5";
 
 
     ctx.fillRect(
-
         0,
-
         0,
-
         canvas.width,
-
         canvas.height
-
     );
 
 
@@ -249,20 +227,33 @@ function drawOcean(world){
 
 /*
 =========================================================
- LAND CELLS
+ LAND MASS
 =========================================================
 */
 
 
-function drawLand(world){
+function drawLandMass(land){
 
 
-    const cells =
-        world.land.cells;
+    if(
+        !land.cells
+    ){
+
+        return;
+
+    }
+
+
+    ctx.fillStyle =
+        style==="color"
+        ?
+        "#cbb98d"
+        :
+        "#d8c79b";
 
 
 
-    cells.forEach(
+    land.cells.forEach(
 
         cell=>{
 
@@ -276,62 +267,15 @@ function drawLand(world){
             }
 
 
-
-            const elevation =
-                world.elevation.cells.find(
-
-                    e=>
-
-                    e.x===cell.x
-                    &&
-                    e.y===cell.y
-
-                );
-
-
-
-            let shade =
-                220;
-
-
-
-            if(elevation){
-
-                shade -=
-                    elevation.height
-                    *
-                    70;
-
-            }
-
-
-
-            ctx.fillStyle =
-                style==="color"
-
-                ?
-
-                `rgb(
-                    ${shade},
-                    ${shade},
-                    ${shade-20}
-                )`
-
-                :
-
-                "#d8c79b";
-
-
-
             ctx.fillRect(
 
-                cell.x*6,
+                cell.x*SCALE,
 
-                cell.y*6,
+                cell.y*SCALE,
 
-                6,
+                SCALE,
 
-                6
+                SCALE
 
             );
 
@@ -354,47 +298,187 @@ function drawLand(world){
 */
 
 
-function drawCoastline(world){
+function drawCoastline(land){
+
+
+    if(
+        !land.cells
+    ){
+
+        return;
+
+    }
 
 
     ctx.strokeStyle =
-        "#2d2118";
+        "#24170f";
 
 
     ctx.lineWidth=2;
 
 
 
-    world.land.coastline
-    .forEach(
+    land.cells.forEach(
 
-        point=>{
-
-
-            ctx.beginPath();
+        cell=>{
 
 
-            ctx.arc(
+            if(
+                !cell.land
+            ){
 
-                point.x*6,
+                return;
 
-                point.y*6,
+            }
 
-                2,
 
-                0,
+            const neighbors=[
 
-                Math.PI*2
+                [1,0],
+                [-1,0],
+                [0,1],
+                [0,-1]
+
+            ];
+
+
+
+            neighbors.forEach(
+
+                n=>{
+
+
+                    const x =
+                        cell.x+n[0];
+
+
+                    const y =
+                        cell.y+n[1];
+
+
+
+                    const outside =
+                        !land.cells.some(
+
+                            other=>
+
+                            other.x===x &&
+                            other.y===y &&
+                            other.land
+
+                        );
+
+
+
+                    if(outside){
+
+
+                        ctx.beginPath();
+
+
+                        ctx.moveTo(
+
+                            cell.x*SCALE,
+                            cell.y*SCALE
+
+                        );
+
+
+                        ctx.lineTo(
+
+                            (cell.x+n[0])*SCALE,
+                            (cell.y+n[1])*SCALE
+
+                        );
+
+
+                        ctx.stroke();
+
+
+                    }
+
+
+                }
 
             );
-
-
-            ctx.stroke();
 
 
         }
 
     );
+
+
+}
+
+
+
+
+
+/*
+=========================================================
+ TERRAIN
+=========================================================
+*/
+
+
+function drawTerrain(terrain){
+
+
+    ctx.fillStyle =
+        "#24170f";
+
+
+
+    if(
+        terrain.mountains
+    ){
+
+        terrain.mountains.forEach(
+
+            m=>{
+
+
+                ctx.beginPath();
+
+
+                ctx.moveTo(
+
+                    m.x*SCALE,
+
+                    m.y*SCALE-12
+
+                );
+
+
+                ctx.lineTo(
+
+                    m.x*SCALE-8,
+
+                    m.y*SCALE+8
+
+                );
+
+
+                ctx.lineTo(
+
+                    m.x*SCALE+8,
+
+                    m.y*SCALE+8
+
+                );
+
+
+                ctx.closePath();
+
+
+                ctx.fill();
+
+
+            }
+
+        );
+
+    }
 
 
 }
@@ -416,9 +500,9 @@ function drawRivers(rivers){
     ctx.strokeStyle =
         style==="color"
         ?
-        "#3d7fa3"
+        "#497c99"
         :
-        "#3a3025";
+        "#24170f";
 
 
     ctx.lineWidth=2;
@@ -431,9 +515,7 @@ function drawRivers(rivers){
 
 
             if(
-                !Array.isArray(
-                    river
-                )
+                !Array.isArray(river)
             ){
 
                 return;
@@ -441,21 +523,19 @@ function drawRivers(rivers){
             }
 
 
-
             ctx.beginPath();
-
 
 
             river.forEach(
 
-                point=>{
+                p=>{
 
 
                     ctx.lineTo(
 
-                        point.x*6,
+                        p.x*SCALE,
 
-                        point.y*6
+                        p.y*SCALE
 
                     );
 
@@ -463,7 +543,6 @@ function drawRivers(rivers){
                 }
 
             );
-
 
 
             ctx.stroke();
@@ -491,8 +570,7 @@ function drawLakes(lakes){
 
 
     ctx.strokeStyle =
-        "#332016";
-
+        "#24170f";
 
 
     lakes.forEach(
@@ -505,11 +583,11 @@ function drawLakes(lakes){
 
             ctx.arc(
 
-                lake.x*6,
+                lake.x*SCALE,
 
-                lake.y*6,
+                lake.y*SCALE,
 
-                lake.size*2,
+                lake.size,
 
                 0,
 
@@ -527,76 +605,6 @@ function drawLakes(lakes){
 
 
 }
-
-
-
-
-
-/*
-=========================================================
- TERRAIN MARKERS
-=========================================================
-*/
-
-
-function drawTerrain(
-    terrain
-){
-
-
-    ctx.fillStyle =
-        "#332016";
-
-
-    terrain.mountains
-    .forEach(
-
-        mountain=>{
-
-
-            ctx.beginPath();
-
-
-            ctx.moveTo(
-
-                mountain.x*6,
-
-                mountain.y*6-10
-
-            );
-
-
-            ctx.lineTo(
-
-                mountain.x*6-8,
-
-                mountain.y*6+8
-
-            );
-
-
-            ctx.lineTo(
-
-                mountain.x*6+8,
-
-                mountain.y*6+8
-
-            );
-
-
-            ctx.closePath();
-
-
-            ctx.fill();
-
-
-        }
-
-    );
-
-
-}
-
 
 
 

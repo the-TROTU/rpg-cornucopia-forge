@@ -4,338 +4,171 @@
  RPG CORNUCOPIA
  THE FORGE
 
- COASTLINE ENGINE
+ FORGE COAST
 
- Version 1.0
+ Version 2.0.0
 
- "The sea remembers the shape of the land."
+ "The sea defines the shore."
 
 =========================================================
 */
-
 
 const ForgeCoast = (()=>{
 
-
 /*
 =========================================================
- GENERATE COAST
+GENERATE
 =========================================================
 */
-
 
 function generate(world){
 
+    if(
+        !world ||
+        !world.land ||
+        !world.land.cells
+    ){
 
-    if(!world || !world.land){
-
-        console.error(
-            "ForgeCoast: Invalid world."
+        console.warn(
+            "ForgeCoast: Missing land."
         );
 
-        return null;
+        return [];
 
     }
 
+    const width =
+        world.land.width;
 
+    const height =
+        world.land.height;
 
-    world.land.coastline=[];
+    const cells =
+        world.land.cells;
 
+    const lookup =
+        new Map();
 
-    world.land.continents.forEach(
+    cells.forEach(cell=>{
 
-        continent=>{
+        lookup.set(
+            `${cell.x},${cell.y}`,
+            cell
+        );
 
+    });
 
-            continent.coastline =
-                createCoastline(
-                    continent
-                );
+    const coastline=[];
 
+    cells.forEach(cell=>{
 
-            world.land.coastline.push(
-                continent.coastline
-            );
+        if(!cell.land){
 
+            return;
 
         }
 
-    );
+        if(
+            touchesOcean(
+                cell,
+                lookup,
+                width,
+                height
+            )
+        ){
 
+            coastline.push({
 
+                x:cell.x,
+                y:cell.y
 
-    createIslands(world);
+            });
 
+        }
 
+    });
 
-    return world.land;
+    world.land.coastline=
+        coastline;
 
+    return coastline;
 
 }
 
-
-
-
-
 /*
 =========================================================
- CREATE CONTINENT COASTLINE
+TOUCHES OCEAN
 =========================================================
 */
 
-
-function createCoastline(
-    continent
+function touchesOcean(
+    cell,
+    lookup,
+    width,
+    height
 ){
 
+    const dirs=[
 
-    const points=[];
+        [-1,0],
+        [1,0],
+        [0,-1],
+        [0,1],
 
+        [-1,-1],
+        [1,-1],
+        [-1,1],
+        [1,1]
 
-    const count=60;
-
-
-    for(
-        let i=0;
-        i<count;
-        i++
-    ){
-
-
-        const angle =
-            (
-                Math.PI*2
-                /
-                count
-            )
-            *
-            i;
-
-
-
-        const wave =
-            0.8
-            +
-            Math.random()
-            *
-            0.35;
-
-
-
-        points.push({
-
-            x:
-            continent.x
-            +
-            Math.cos(angle)
-            *
-            continent.radius
-            *
-            wave,
-
-
-            y:
-            continent.y
-            +
-            Math.sin(angle)
-            *
-            continent.radius
-            *
-            wave
-
-        });
-
-
-    }
-
-
-    return points;
-
-
-}
-
-
-
-
-
-/*
-=========================================================
- ISLANDS
-=========================================================
-*/
-
-
-function createIslands(world){
-
-
-    world.land.islands=[];
-
-
-    const amount =
-        randomRange(
-            2,
-            6
-        );
-
-
+    ];
 
     for(
         let i=0;
-        i<amount;
+        i<dirs.length;
         i++
     ){
 
+        const nx=
+            cell.x+dirs[i][0];
 
-        world.land.islands.push({
+        const ny=
+            cell.y+dirs[i][1];
 
-            x:
-            randomRange(
-                100,
-                800
-            ),
+        if(
+            nx<0 ||
+            ny<0 ||
+            nx>=width ||
+            ny>=height
+        ){
 
+            return true;
 
-            y:
-            randomRange(
-                100,
-                600
-            ),
+        }
 
-
-            radius:
-            randomRange(
-                20,
-                60
-            ),
-
-
-            coastline:
-            []
-
-        });
-
-
-
-        world.land.islands[
-            world.land.islands.length-1
-        ].coastline =
-            createIslandCoast(
-                world.land.islands[
-                    world.land.islands.length-1
-                ]
+        const neighbor=
+            lookup.get(
+                `${nx},${ny}`
             );
 
+        if(
+            !neighbor ||
+            !neighbor.land
+        ){
+
+            return true;
+
+        }
 
     }
 
+    return false;
 
 }
-
-
-
-
-
-function createIslandCoast(
-    island
-){
-
-
-    const points=[];
-
-
-    for(
-        let i=0;
-        i<30;
-        i++
-    ){
-
-
-        const angle =
-            (
-                Math.PI*2
-                /
-                30
-            )
-            *
-            i;
-
-
-
-        const distortion =
-            .75
-            +
-            Math.random()
-            *.5;
-
-
-
-        points.push({
-
-            x:
-            island.x
-            +
-            Math.cos(angle)
-            *
-            island.radius
-            *
-            distortion,
-
-
-            y:
-            island.y
-            +
-            Math.sin(angle)
-            *
-            island.radius
-            *
-            distortion
-
-        });
-
-
-    }
-
-
-    return points;
-
-
-}
-
-
-
-
-
-/*
-=========================================================
- HELPERS
-=========================================================
-*/
-
-
-function randomRange(min,max){
-
-    return Math.floor(
-        Math.random()
-        *
-        (
-            max-min+1
-        )
-    )
-    +min;
-
-}
-
-
-
-
 
 return{
 
-
     generate
 
-
 };
-
 
 })();

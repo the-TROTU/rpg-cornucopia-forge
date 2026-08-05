@@ -169,9 +169,7 @@ function generateWorld(){
 
     currentWorld =
 
-        ForgeMapData.generate(
-            options
-        );
+        ForgeWorldEngine.generate(options);
 
         console.log(
             "GENERATED WORLD:",
@@ -180,7 +178,7 @@ function generateWorld(){
 
 
     ForgeRenderer.render(
-    ForgeMapData.getWorld()
+    currentWorld
     );
 
 
@@ -250,7 +248,9 @@ ${currentWorld.seed}
 Features:
 </strong>
 
-${currentWorld.features.length}
+${currentWorld.features 
+    ? currentWorld.features.length 
+    : 0}
 
 
 <br><br>
@@ -260,7 +260,9 @@ ${currentWorld.features.length}
 Settlements:
 </strong>
 
-${currentWorld.settlements.length}
+${currentWorld.settlements
+    ? currentWorld.settlements.length
+    : 0}
 
 
 

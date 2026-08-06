@@ -85,7 +85,22 @@ function generate(world){
         land
     );
 
+    /*
+    ===============================
+    MARK COAST CELLS
+    ===============================
+    */
 
+    land.cells.forEach(cell=>{
+
+        cell.coast =
+            cell.land &&
+            isCoastCell(
+                cell,
+                land
+            );
+
+    });
 
     traceCoastline(
         land
@@ -95,6 +110,45 @@ function generate(world){
 
     return land;
 
+
+}
+
+
+function isCoastCell(cell,land){
+
+    const dirs=[
+
+        [1,0],
+        [-1,0],
+        [0,1],
+        [0,-1]
+
+    ];
+
+    for(const d of dirs){
+
+        const neighbor=
+            land.cells.find(
+
+                c=>
+
+                c.x===cell.x+d[0] &&
+                c.y===cell.y+d[1]
+
+            );
+
+        if(
+            !neighbor ||
+            !neighbor.land
+        ){
+
+            return true;
+
+        }
+
+    }
+
+    return false;
 
 }
 
@@ -126,13 +180,15 @@ function createGrid(land){
         ){
 
 
-            land.cells.push({
+           land.cells.push({
 
                 x:x,
 
                 y:y,
 
                 land:false,
+
+                coast:false,
 
                 continent:null,
 

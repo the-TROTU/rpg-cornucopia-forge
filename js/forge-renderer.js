@@ -88,73 +88,39 @@ function setStyle(selected){
 
 function render(world){
 
-
     if(!ctx){
 
-        console.error(
-            "Renderer not initialized."
-        );
-
+        console.error("Renderer not initialized.");
         return;
 
     }
 
+    if(!world || !world.land){
+
+        console.warn("No world data.");
+        return;
+
+    }
 
     drawPaper();
 
-
-    if(
-        !world ||
-        !world.land
-    ){
-
-        console.warn(
-            "No world data."
-        );
-
-        return;
-
-    }
-
-
-
     drawOcean();
 
+    drawLandMass(world.land);
 
-    drawLandMass(
-        world.land
-    );
+    drawCoastline(world.land);
 
+    drawElevation(world);
 
-    drawCoastline(
-        world.land
-    );
+    drawRivers(world.geography?.rivers || []);
 
+    drawLakes(world.geography?.lakes || []);
 
+    drawTerrain(world.terrain);
 
-    if(world.terrain){
+    drawSettlements(world.settlements || []);
 
-        drawTerrain(
-            world.terrain
-        );
-
-    }
-
-
-
-    if(world.geography){
-
-        drawRivers(
-            world.geography.rivers || []
-        );
-
-
-        drawLakes(
-            world.geography.lakes || []
-        );
-
-    }
-
+    drawLabels(world);
 
 }
 
@@ -202,14 +168,14 @@ function drawPaper(){
 
 function drawOcean(){
 
-
     ctx.fillStyle =
-        style==="color"
-        ?
-        "#86afc1"
-        :
-        "#ead9b5";
+        "#d8c7a2";
 
+    if(style==="color"){
+
+        ctx.fillStyle="#9ec4d2";
+
+    }
 
     ctx.fillRect(
         0,
@@ -217,7 +183,6 @@ function drawOcean(){
         canvas.width,
         canvas.height
     );
-
 
 }
 
@@ -267,16 +232,21 @@ function drawLandMass(land){
             }
 
 
-            ctx.fillRect(
-
+           ctx.fillRect(
                 cell.x*SCALE,
-
                 cell.y*SCALE,
-
                 SCALE,
-
                 SCALE
+            );
 
+            ctx.strokeStyle="#2b2118";
+            ctx.lineWidth=.15;
+
+            ctx.strokeRect(
+                cell.x*SCALE,
+                cell.y*SCALE,
+                SCALE,
+                SCALE
             );
 
 
@@ -314,7 +284,7 @@ function drawCoastline(land){
         "#24170f";
 
 
-    ctx.lineWidth=2;
+    ctx.lineWidth = 3;
 
 
 
@@ -525,25 +495,19 @@ function drawRivers(rivers){
 
             ctx.beginPath();
 
-
-            river.forEach(
-
-                p=>{
-
-
-                    ctx.lineTo(
-
-                        p.x*SCALE,
-
-                        p.y*SCALE
-
-                    );
-
-
-                }
-
+            ctx.moveTo(
+                river[0].x * SCALE,
+                river[0].y * SCALE
             );
 
+            for(let i = 1; i < river.length; i++){
+
+                ctx.lineTo(
+                    river[i].x * SCALE,
+                    river[i].y * SCALE
+                );
+
+            }
 
             ctx.stroke();
 
@@ -606,20 +570,30 @@ function drawLakes(lakes){
 
 }
 
+function drawElevation(world){
 
+    // placeholder
 
+}
+
+function drawSettlements(settlements){
+
+    // placeholder
+
+}
+
+function drawLabels(world){
+
+    // placeholder
+
+}
 
 return{
 
-
     initialize,
-
     render,
-
     setStyle
 
-
 };
-
 
 })();

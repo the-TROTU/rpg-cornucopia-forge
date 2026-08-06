@@ -184,7 +184,10 @@ function generate(options={}){
             ForgeTerrain.generate(world);  
             
         world.geography =
-            ForgeGeography.generate(world);    
+            ForgeGeography.generate(world);
+
+        world.cartography =
+            ForgeCartography.generate(world);
 
         world.engine.modules.land =
             "4.0.0";

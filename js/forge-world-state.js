@@ -159,32 +159,6 @@ function generate(options={}){
 
     }
 
-    /*
-    SIMULATION
-    */
-
-    if(typeof ForgeSimulation!=="undefined"){
-
-        world.simulation =
-            ForgeSimulation.generate(world);
-
-        world.engine.modules.simulation =
-            "ready";
-
-    }
-
-    /*
-    NAME INTEGRATION
-    */
-
-    if(typeof ForgeNameIntegration!=="undefined"){
-
-        ForgeNameIntegration.generate(world);
-
-        world.engine.modules.names =
-            "ready";
-
-    }
 
 
     /*

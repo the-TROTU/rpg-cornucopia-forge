@@ -90,37 +90,67 @@ function render(world){
 
     if(!ctx){
 
-        console.error("Renderer not initialized.");
+        console.error(
+            "Renderer not initialized."
+        );
+
         return;
 
     }
 
-    if(!world || !world.land){
+    if(
+        !world ||
+        !world.cartography
+    ){
 
-        console.warn("No world data.");
+        console.warn(
+            "Cartography missing."
+        );
+
         return;
 
     }
+
+    const layers =
+        world.cartography.layers;
 
     drawPaper();
 
     drawOcean();
 
-    drawLandMass(world.land);
+    drawLand(
+        layers.land
+    );
 
-    drawCoastline(world.land);
+    drawCoastline(
+        layers.coastline
+    );
 
     drawElevation(world);
 
-    drawRivers(world.geography?.rivers || []);
+    drawRivers(
+        layers.rivers
+    );
 
-    drawLakes(world.geography?.lakes || []);
+    drawLakes(
+        layers.lakes
+    );
 
-    drawTerrain(world.terrain);
+    drawTerrain(
+        layers.mountains
+    );
 
-    drawSettlements(world.settlements || []);
+    drawRoads(
+        layers.roads
+    );
 
-    drawLabels(world);
+    drawSettlements(
+        layers.settlements
+    );
+
+    drawLabels(
+        layers.labels
+    );
 
 }
 
@@ -197,63 +227,52 @@ function drawOcean(){
 */
 
 
-function drawLandMass(land){
+function drawLand(cells){
 
-
-    if(
-        !land.cells
-    ){
+    if(!cells){
 
         return;
 
     }
 
-
     ctx.fillStyle =
         style==="color"
         ?
-        "#cbb98d"
+        "#cdbb8f"
         :
         "#d8c79b";
 
+    ctx.strokeStyle="#2d241b";
 
+    ctx.lineWidth=.20;
 
-    land.cells.forEach(
+    cells.forEach(cell=>{
 
-        cell=>{
+        ctx.fillRect(
 
+            cell.x*SCALE,
 
-            if(
-                !cell.land
-            ){
+            cell.y*SCALE,
 
-                return;
+            SCALE,
 
-            }
+            SCALE
 
+        );
 
-           ctx.fillRect(
-                cell.x*SCALE,
-                cell.y*SCALE,
-                SCALE,
-                SCALE
-            );
+        ctx.strokeRect(
 
-            ctx.strokeStyle="#2b2118";
-            ctx.lineWidth=.15;
+            cell.x*SCALE,
 
-            ctx.strokeRect(
-                cell.x*SCALE,
-                cell.y*SCALE,
-                SCALE,
-                SCALE
-            );
+            cell.y*SCALE,
 
+            SCALE,
 
-        }
+            SCALE
 
-    );
+        );
 
+    });
 
 }
 
@@ -268,115 +287,31 @@ function drawLandMass(land){
 */
 
 
-function drawCoastline(land){
+function drawCoastline(cells){
 
-
-    if(
-        !land.cells
-    ){
+    if(!cells){
 
         return;
 
     }
 
+    ctx.fillStyle="#23180f";
 
-    ctx.strokeStyle =
-        "#24170f";
+    cells.forEach(cell=>{
 
+        ctx.fillRect(
 
-    ctx.lineWidth = 3;
+            cell.x*SCALE,
 
+            cell.y*SCALE,
 
+            SCALE,
 
-    land.cells.forEach(
+            SCALE
 
-        cell=>{
+        );
 
-
-            if(
-                !cell.land
-            ){
-
-                return;
-
-            }
-
-
-            const neighbors=[
-
-                [1,0],
-                [-1,0],
-                [0,1],
-                [0,-1]
-
-            ];
-
-
-
-            neighbors.forEach(
-
-                n=>{
-
-
-                    const x =
-                        cell.x+n[0];
-
-
-                    const y =
-                        cell.y+n[1];
-
-
-
-                    const outside =
-                        !land.cells.some(
-
-                            other=>
-
-                            other.x===x &&
-                            other.y===y &&
-                            other.land
-
-                        );
-
-
-
-                    if(outside){
-
-
-                        ctx.beginPath();
-
-
-                        ctx.moveTo(
-
-                            cell.x*SCALE,
-                            cell.y*SCALE
-
-                        );
-
-
-                        ctx.lineTo(
-
-                            (cell.x+n[0])*SCALE,
-                            (cell.y+n[1])*SCALE
-
-                        );
-
-
-                        ctx.stroke();
-
-
-                    }
-
-
-                }
-
-            );
-
-
-        }
-
-    );
-
+    });
 
 }
 
@@ -391,65 +326,49 @@ function drawCoastline(land){
 */
 
 
-function drawTerrain(terrain){
+function drawTerrain(mountains){
 
+    if(!mountains){
 
-    ctx.fillStyle =
-        "#24170f";
-
-
-
-    if(
-        terrain.mountains
-    ){
-
-        terrain.mountains.forEach(
-
-            m=>{
-
-
-                ctx.beginPath();
-
-
-                ctx.moveTo(
-
-                    m.x*SCALE,
-
-                    m.y*SCALE-12
-
-                );
-
-
-                ctx.lineTo(
-
-                    m.x*SCALE-8,
-
-                    m.y*SCALE+8
-
-                );
-
-
-                ctx.lineTo(
-
-                    m.x*SCALE+8,
-
-                    m.y*SCALE+8
-
-                );
-
-
-                ctx.closePath();
-
-
-                ctx.fill();
-
-
-            }
-
-        );
+        return;
 
     }
 
+    ctx.fillStyle="#2b2018";
+
+    mountains.forEach(m=>{
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+
+            m.x*SCALE,
+
+            m.y*SCALE-8
+
+        );
+
+        ctx.lineTo(
+
+            m.x*SCALE-6,
+
+            m.y*SCALE+6
+
+        );
+
+        ctx.lineTo(
+
+            m.x*SCALE+6,
+
+            m.y*SCALE+6
+
+        );
+
+        ctx.closePath();
+
+        ctx.fill();
+
+    });
 
 }
 
@@ -578,13 +497,107 @@ function drawElevation(world){
 
 function drawSettlements(settlements){
 
-    // placeholder
+    if(!settlements){
+
+        return;
+
+    }
+
+    ctx.fillStyle="#782c1d";
+
+    settlements.forEach(s=>{
+
+        ctx.beginPath();
+
+        ctx.arc(
+
+            s.x*SCALE,
+
+            s.y*SCALE,
+
+            4,
+
+            0,
+
+            Math.PI*2
+
+        );
+
+        ctx.fill();
+
+    });
 
 }
 
-function drawLabels(world){
+function drawLabels(labels){
 
-    // placeholder
+    if(!labels){
+
+        return;
+
+    }
+
+    ctx.fillStyle="#201710";
+
+    ctx.font="12px Garamond";
+
+    labels.forEach(label=>{
+
+        ctx.fillText(
+
+            label.text,
+
+            label.x*SCALE+8,
+
+            label.y*SCALE-6
+
+        );
+
+    });
+
+}
+
+function drawRoads(roads){
+
+    if(!roads){
+
+        return;
+
+    }
+
+    ctx.strokeStyle="#8b6b3d";
+
+    ctx.lineWidth=2;
+
+    roads.forEach(road=>{
+
+        if(!road.from || !road.to){
+
+            return;
+
+        }
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+
+            road.from.x*SCALE,
+
+            road.from.y*SCALE
+
+        );
+
+        ctx.lineTo(
+
+            road.to.x*SCALE,
+
+            road.to.y*SCALE
+
+        );
+
+        ctx.stroke();
+
+    });
 
 }
 

@@ -1,14 +1,14 @@
 /*
 =========================================================
 
-RPG CORNUCOPIA
-THE FORGE
+ RPG CORNUCOPIA
+ THE FORGE
 
-FORGE CARTOGRAPHY
+ CARTOGRAPHY ENGINE
 
-Version 2.0.0
+ Version 2.0.0
 
-"The map remembers."
+ "Ink follows order."
 
 =========================================================
 */
@@ -19,165 +19,171 @@ function generate(world){
 
     const cartography={
 
-        shorelineLoops:[],
+        layers:{
 
-        mountainChains:[],
+            ocean:[],
 
-        riverPaths:[],
+            land:[],
 
-        lakeShapes:[],
+            coastline:[],
 
-        forestClusters:[],
+            rivers:[],
 
-        labels:[],
+            lakes:[],
 
-        beaches:[],
+            mountains:[],
 
-        cliffs:[]
+            forests:[],
+
+            roads:[],
+
+            settlements:[],
+
+            labels:[]
+
+        }
 
     };
 
-    if(!world){
 
-        return cartography;
 
-    }
+    buildLand(world,cartography);
 
-    if(world.land){
+    buildWater(world,cartography);
 
-        buildCoastlines(
-            world,
-            cartography
-        );
+    buildTerrain(world,cartography);
 
-    }
+    buildCivilization(world,cartography);
 
-    if(world.terrain){
+    buildLabels(world,cartography);
 
-        buildMountains(
-            world,
-            cartography
-        );
 
-    }
-
-    if(world.geography){
-
-        buildRivers(
-            world,
-            cartography
-        );
-
-    }
-
-    buildLabels(
-        world,
-        cartography
-    );
-
-    world.cartography=
-        cartography;
 
     return cartography;
 
 }
 
-/*============================================*/
 
-function buildCoastlines(
-    world,
-    cartography
-){
 
-    if(
-        !world.land.coastline
-    ){
+/*
+=========================================================
+LAND
+=========================================================
+*/
+
+function buildLand(world,cartography){
+
+    cartography.layers.land=
+        world.land.cells.filter(
+            c=>c.land
+        );
+
+    cartography.layers.coastline=
+        world.land.cells.filter(
+            c=>c.coast
+        );
+
+}
+
+
+
+/*
+=========================================================
+WATER
+=========================================================
+*/
+
+function buildWater(world,cartography){
+
+    cartography.layers.rivers=
+        world.geography?.rivers || [];
+
+    cartography.layers.lakes=
+        world.geography?.lakes || [];
+
+}
+
+
+
+/*
+=========================================================
+TERRAIN
+=========================================================
+*/
+
+function buildTerrain(world,cartography){
+
+    cartography.layers.mountains=
+        world.terrain?.mountains || [];
+
+    cartography.layers.forests=
+        world.terrain?.forests || [];
+
+}
+
+
+
+/*
+=========================================================
+CIVILIZATION
+=========================================================
+*/
+
+function buildCivilization(world,cartography){
+
+    if(!world.simulation){
+
         return;
+
     }
 
-    cartography.shorelineLoops.push(
+    cartography.layers.settlements=
+        world.simulation.settlements || [];
 
-        world.land.coastline
+    cartography.layers.roads=
+        world.simulation.roads || [];
+
+}
+
+
+
+/*
+=========================================================
+LABELS
+=========================================================
+*/
+
+function buildLabels(world,cartography){
+
+    if(!world.simulation){
+
+        return;
+
+    }
+
+    world.simulation.settlements.forEach(
+
+        settlement=>{
+
+            cartography.layers.labels.push({
+
+                text:settlement.name,
+
+                x:settlement.x,
+
+                y:settlement.y,
+
+                type:"settlement"
+
+            });
+
+        }
 
     );
 
 }
 
-/*============================================*/
 
-function buildMountains(
-    world,
-    cartography
-){
-
-    if(
-        !world.terrain.mountains
-    ){
-        return;
-    }
-
-    cartography.mountainChains=
-        world.terrain.mountains;
-
-}
-
-/*============================================*/
-
-function buildRivers(
-    world,
-    cartography
-){
-
-    if(
-        !world.geography.rivers
-    ){
-        return;
-    }
-
-    cartography.riverPaths=
-        world.geography.rivers;
-
-}
-
-/*============================================*/
-
-function buildLabels(
-    world,
-    cartography
-){
-
-    if(
-        world.land &&
-        world.land.continents
-    ){
-
-        world.land.continents.forEach(
-
-            continent=>{
-
-                cartography.labels.push({
-
-                    text:
-                        "Unknown Lands",
-
-                    x:
-                        continent.x,
-
-                    y:
-                        continent.y,
-
-                    type:
-                        "continent"
-
-                });
-
-            }
-
-        );
-
-    }
-
-}
 
 return{
 

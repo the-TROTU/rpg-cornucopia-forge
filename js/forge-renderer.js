@@ -6,7 +6,7 @@
 
  CARTOGRAPHER RENDERER
 
- Version 4.3.0
+ Version 4.4.0
 
  "The world exists.
  The ink reveals it."
@@ -46,23 +46,45 @@ function render(world){
     const layers=world.cartography.layers;
     const palette=getPalette();
     const land=pruneSpeckIslands(layers.land || []);
+    const settlements=selectSettlements(layers.settlements || []);
     ctx.save();
     ctx.clearRect(0,0,canvas.width,canvas.height);
     drawPaper(palette);
     drawOcean(palette);
+    const view=fitLandToCanvas(land);
+    ctx.translate(view.offsetX,view.offsetY);
+    ctx.scale(view.zoom,view.zoom);
     drawLand(land,palette);
-    drawCoastline(land,palette);
+    drawCoastline(layers.coastlinePaths || [],land,palette);
     drawLakes(layers.lakes || [],palette);
     drawRivers(layers.rivers || [],palette);
     drawForests(layers.forests || [],palette);
-    drawTerrain(layers.mountains || [],palette);
-    drawRoads(layers.roads || [],layers.settlements || [],palette);
-    drawSettlements(layers.settlements || [],palette);
-    drawLabels(layers.labels || [],layers.settlements || [],palette);
+    drawTerrain(layers.mountainRanges?.flat() || layers.mountains || [],palette);
+    drawRoads(layers.roads || [],settlements,palette);
+    drawSettlements(settlements,palette);
+    drawLabels(layers.labels || [],settlements,palette);
     ctx.restore();
 }
 
 function getPalette(){ return PALETTES[style] || PALETTES.ink; }
+
+function fitLandToCanvas(cells){
+    if(!cells.length){ return {zoom:1,offsetX:0,offsetY:0}; }
+    const xs=cells.map(cell=>cell.x*SCALE);
+    const ys=cells.map(cell=>cell.y*SCALE);
+    const minX=Math.min(...xs);
+    const maxX=Math.max(...xs)+SCALE;
+    const minY=Math.min(...ys);
+    const maxY=Math.max(...ys)+SCALE;
+    const width=maxX-minX;
+    const height=maxY-minY;
+    const zoom=Math.max(1,Math.min(1.7,canvas.width*.9/width,canvas.height*.86/height));
+    return {
+        zoom,
+        offsetX:canvas.width/2-(minX+maxX)*zoom/2,
+        offsetY:canvas.height/2-(minY+maxY)*zoom/2
+    };
+}
 
 // One- to three-cell islands are generator artifacts at this display scale.
 // Filtering them is presentation-only; cartography data remains untouched.
@@ -91,7 +113,9 @@ function pruneSpeckIslands(cells){
             });
         }
 
-        if(component.length>=4){ visible.push(...component); }
+        // Retain meaningful islands, but discard small square fragments that
+        // cannot read as islands at this map's display scale.
+        if(component.length>=10){ visible.push(...component); }
     });
 
     return visible;
@@ -114,63 +138,71 @@ function drawLand(cells,palette){
     cells.forEach(cell=>ctx.fillRect(cell.x*SCALE,cell.y*SCALE,SCALE+1,SCALE+1));
 }
 
-function drawCoastline(cells,palette){
+function drawCoastline(paths,cells,palette){
     if(!cells.length){ return; }
+    if(paths.length){
+        drawSmoothedCoastline(paths,palette);
+        return;
+    }
+
+    // Compatibility fallback for Cartography 2.0 worlds.
     const occupied=new Set(cells.map(cell=>key(cell.x,cell.y)));
-    const loops=buildCoastLoops(cells,occupied);
+    const coast=buildCoastPath(cells,occupied);
     ctx.save();
     ctx.strokeStyle="rgba(255,255,255,.32)";
     ctx.lineWidth=3.4;
     ctx.lineJoin="round";
     ctx.lineCap="round";
-    loops.forEach(loop=>strokeSmoothLoop(loop));
+    ctx.stroke(coast);
     ctx.strokeStyle=palette.coast;
     ctx.lineWidth=1.15;
-    loops.forEach(loop=>strokeSmoothLoop(loop));
+    ctx.stroke(coast);
     ctx.restore();
 }
 
-function buildCoastLoops(cells,occupied){
-    const edges=[];
+function drawSmoothedCoastline(paths,palette){
+    ctx.save();
+    ctx.lineJoin="round";
+    ctx.lineCap="round";
+    paths.forEach(path=>{
+        if(!Array.isArray(path) || path.length<3){ return; }
+        const coast=new Path2D();
+        const count=path.length;
+        const midpoint=(a,b)=>[(a.x+b.x)*SCALE/2,(a.y+b.y)*SCALE/2];
+        const start=midpoint(path[count-1],path[0]);
+        coast.moveTo(start[0],start[1]);
+        for(let i=0;i<count;i++){
+            const point=path[i];
+            const next=path[(i+1)%count];
+            const end=midpoint(point,next);
+            coast.quadraticCurveTo(point.x*SCALE,point.y*SCALE,end[0],end[1]);
+        }
+        ctx.strokeStyle="rgba(255,255,255,.7)";
+        ctx.lineWidth=3.6;
+        ctx.stroke(coast);
+        ctx.strokeStyle=palette.coast;
+        ctx.lineWidth=1.25;
+        ctx.stroke(coast);
+    });
+    ctx.restore();
+}
+
+function buildCoastPath(cells,occupied){
+    const path=new Path2D();
     cells.forEach(cell=>{
         const x=cell.x*SCALE;
         const y=cell.y*SCALE;
-        if(!occupied.has(key(cell.x,cell.y-1))){ edges.push([[x,y],[x+SCALE,y]]); }
-        if(!occupied.has(key(cell.x+1,cell.y))){ edges.push([[x+SCALE,y],[x+SCALE,y+SCALE]]); }
-        if(!occupied.has(key(cell.x,cell.y+1))){ edges.push([[x+SCALE,y+SCALE],[x,y+SCALE]]); }
-        if(!occupied.has(key(cell.x-1,cell.y))){ edges.push([[x,y+SCALE],[x,y]]); }
+        if(!occupied.has(key(cell.x,cell.y-1))){ coastEdge(path,x,y,x+SCALE,y); }
+        if(!occupied.has(key(cell.x+1,cell.y))){ coastEdge(path,x+SCALE,y,x+SCALE,y+SCALE); }
+        if(!occupied.has(key(cell.x,cell.y+1))){ coastEdge(path,x+SCALE,y+SCALE,x,y+SCALE); }
+        if(!occupied.has(key(cell.x-1,cell.y))){ coastEdge(path,x,y+SCALE,x,y); }
     });
-
-    const nextByStart=new Map(edges.map(edge=>[key(edge[0][0],edge[0][1]),edge]));
-    const visited=new Set();
-    const loops=[];
-    edges.forEach(edge=>{
-        if(visited.has(edge)){ return; }
-        const loop=[];
-        let current=edge;
-        while(current && !visited.has(current)){
-            visited.add(current);
-            loop.push(current[0]);
-            current=nextByStart.get(key(current[1][0],current[1][1]));
-        }
-        if(loop.length>2){ loops.push(loop); }
-    });
-    return loops;
+    return path;
 }
 
-function strokeSmoothLoop(points){
-    const path=new Path2D();
-    const count=points.length;
-    const midpoint=(a,b)=>[(a[0]+b[0])/2,(a[1]+b[1])/2];
-    const first=midpoint(points[count-1],points[0]);
-    path.moveTo(first[0],first[1]);
-    for(let i=0;i<count;i++){
-        const vertex=points[i];
-        const after=points[(i+1)%count];
-        const end=midpoint(vertex,after);
-        path.quadraticCurveTo(vertex[0],vertex[1],end[0],end[1]);
-    }
-    ctx.stroke(path);
+function coastEdge(path,x1,y1,x2,y2){
+    path.moveTo(x1,y1);
+    path.lineTo(x2,y2);
 }
 
 function drawRivers(rivers,palette){
@@ -242,7 +274,7 @@ function tree(x,y,size){
 }
 
 function drawTerrain(mountains,palette){
-    const features=thinFeatures(mountains,4,.3);
+    const features=thinFeatures(mountains,5,.16);
     if(!features.length){ return; }
     ctx.save();
     ctx.strokeStyle=palette.mountain;
@@ -351,13 +383,27 @@ function drawSettlements(settlements,palette){
     });
 }
 
+function selectSettlements(settlements){
+    const selected=[];
+    const ordered=(settlements || []).slice()
+        .filter(isPoint)
+        .sort((a,b)=>Number(b.population || 0)-Number(a.population || 0));
+
+    for(const settlement of ordered){
+        if(selected.length>=24){ break; }
+        const tooClose=selected.some(other=>Math.hypot(other.x-settlement.x,other.y-settlement.y)<5);
+        if(!tooClose){ selected.push(settlement); }
+    }
+    return selected;
+}
+
 function drawLabels(labels,settlements,palette){
     const occupied=[];
     const settlementByPosition=new Map(settlements.map(s=>[key(s.x,s.y),s]));
     const candidates=labels
-        .filter(label=>isPoint(label) && typeof label.text==="string" && label.text.trim())
+        .filter(label=>isPoint(label) && settlementByPosition.has(key(label.x,label.y)) && typeof label.text==="string" && label.text.trim())
         .sort((a,b)=>labelRank(b,settlementByPosition)-labelRank(a,settlementByPosition))
-        .slice(0,32);
+        .slice(0,24);
     ctx.save();
     ctx.fillStyle=palette.label;
     ctx.font="italic 13px Georgia, Garamond, serif";

@@ -216,6 +216,36 @@ function hashString(str){
 
 }
 
+function weighted(items){
+
+        let total = 0;
+
+        items.forEach(item => {
+
+            total += item.weight;
+
+        });
+
+
+        let roll = random() * total;
+
+
+        for(let item of items){
+
+            roll -= item.weight;
+
+            if(roll <= 0){
+
+                return item;
+
+            }
+
+        }
+
+
+        return items[items.length - 1];
+
+    }
 
 
 return{
@@ -227,6 +257,8 @@ return{
     range,
 
     integer,
+
+    weighted,
 
     choose
 

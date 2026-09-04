@@ -216,6 +216,26 @@ function hashString(str){
 
 }
 
+/*
+=========================================================
+ Legacy functions for name generator
+=========================================================
+*/
+
+function random(){
+
+        if(seed === null){
+
+            return Math.random();
+
+        }
+
+        seed = (seed * 9301 + 49297) % 233280;
+
+        return seed / 233280;
+
+    }
+
 function weighted(items){
 
         let total = 0;

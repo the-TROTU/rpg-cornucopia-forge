@@ -200,28 +200,148 @@ function createSettlementCandidates(
     simulation
 ){
 
+    const candidates=[];
 
-    simulation.pointsOfInterest.forEach(
 
-        point=>{
+    /*
+    River locations
+    */
+
+    if(
+        world.geography &&
+        world.geography.rivers
+    ){
+
+        world.geography.rivers.forEach(
+
+            river=>{
+
+                if(
+                    river.length < 5
+                ){
+
+                    return;
+
+                }
+
+
+                const points=[
+
+                    river[0],
+
+                    river[
+                        Math.floor(
+                            river.length/2
+                        )
+                    ],
+
+                    river[
+                        river.length-1
+                    ]
+
+                ];
+
+
+                points.forEach(
+                    point=>{
+
+                        candidates.push({
+
+                            x:point.x,
+                            y:point.y,
+
+                            origin:
+                            "river-crossing",
+
+                            score:
+                            50
+
+                        });
+
+                    }
+                );
+
+            }
+
+        );
+
+    }
+
+
+
+    /*
+    Mountain locations
+    */
+
+    if(
+        world.terrain &&
+        world.terrain.mountains
+    ){
+
+        world.terrain.mountains.forEach(
+
+            mountain=>{
+
+
+                candidates.push({
+
+                    x:mountain.x,
+                    y:mountain.y,
+
+                    origin:
+                    "mountain-pass",
+
+                    score:
+                    35
+
+                });
+
+
+            }
+
+        );
+
+    }
+
+
+
+    /*
+    Keep only the best spread-out locations
+    */
+
+    candidates.sort(
+        (a,b)=>
+            b.score-a.score
+    );
+
+
+    candidates.forEach(
+
+        candidate=>{
+
+
+            const tooClose =
+                simulation.settlements.some(
+
+                    existing=>
+
+                    Math.hypot(
+                        existing.x-candidate.x,
+                        existing.y-candidate.y
+                    )
+                    <
+                    15
+
+                );
 
 
             if(
-                point.importance==="high"
+                !tooClose
             ){
 
-                simulation.settlements.push({
-
-                    x:
-                    point.x,
-
-                    y:
-                    point.y,
-
-                    origin:
-                    point.type
-
-                });
+                simulation.settlements.push(
+                    candidate
+                );
 
             }
 
@@ -229,7 +349,6 @@ function createSettlementCandidates(
         }
 
     );
-
 
 }
 
@@ -280,7 +399,14 @@ function developSettlements(
 
 
             settlement.name =
-                generateSettlementName();
+                generateUniqueSettlementName(
+                    simulation
+                );
+
+            settlement.importance =
+                determineImportance(
+                    settlement.type
+                );
 
 
         }
@@ -290,13 +416,66 @@ function developSettlements(
 
 }
 
+function generateUniqueSettlementName(simulation){
 
+    let name;
+
+    do{
+
+        name =
+            generateSettlementName();
+
+    }
+    while(
+        simulation.settlements.some(
+            s=>s.name===name
+        )
+    );
+
+
+    return name;
+
+}
+
+function determineImportance(type){
+
+    switch(type){
+
+        case "city":
+            return 100;
+
+        case "fortress":
+            return 70;
+
+        case "town":
+            return 40;
+
+        default:
+            return 15;
+
+    }
+
+}
 
 
 
 function determineSettlementType(
     settlement
 ){
+
+    const roll =
+        Math.random();
+
+
+    if(
+        settlement.origin==="river-crossing"
+        &&
+        roll>.85
+    ){
+
+        return "city";
+
+    }
 
 
     if(
@@ -308,8 +487,16 @@ function determineSettlementType(
     }
 
 
-    return "village";
+    if(
+        settlement.origin==="mountain-pass"
+    ){
 
+        return "fortress";
+
+    }
+
+
+    return "village";
 
 }
 
@@ -406,36 +593,143 @@ function determineResources(origin){
 */
 
 
-function createRoadNetwork(
-    simulation
+function createRoadNetwork(simulation){
+
+
+const settlements =
+simulation.settlements;
+
+
+
+for(
+let i=0;
+i<settlements.length-1;
+i++
 ){
 
 
-    const settlements =
-        simulation.settlements;
+const a =
+settlements[i];
+
+
+const b =
+settlements[i+1];
+
+
+simulation.roads.push({
+
+from:{
+    x:a.x,
+    y:a.y
+},
+
+to:{
+    x:b.x,
+    y:b.y
+},
+
+fromName:a.name,
+
+toName:b.name,
+
+path:createRoadPath(
+    a,
+    b
+)
+
+});
+
+
+}
+
+
+}
+
+function createRoadPath(a,b){
+
+
+const path=[];
+
+
+const steps=10;
+
+
+const dx =
+b.x-a.x;
+
+const dy =
+b.y-a.y;
+
+
+const distance =
+Math.hypot(
+dx,
+dy
+);
 
 
 
-    for(
-        let i=0;
-        i<settlements.length-1;
-        i++
-    ){
+const bend =
+Math.sin(
+distance
+)
+*
+Math.min(
+8,
+distance*.25
+);
 
 
-        simulation.roads.push({
 
-            from:
-            settlements[i].name,
-
-
-            to:
-            settlements[i+1].name
-
-        });
+const nx =
+-dy/distance;
 
 
-    }
+const ny =
+dx/distance;
+
+
+
+for(
+let i=0;
+i<=steps;
+i++
+){
+
+
+const t=i/steps;
+
+
+const curve =
+Math.sin(
+Math.PI*t
+)
+*
+bend;
+
+
+
+path.push({
+
+x:
+a.x+
+dx*t+
+nx*curve,
+
+
+y:
+a.y+
+dy*t+
+ny*curve
+
+
+});
+
+
+}
+
+
+return path;
 
 
 }

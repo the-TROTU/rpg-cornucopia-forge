@@ -168,6 +168,11 @@ function generate(options={}){
         world.simulation =
             ForgeSimulation.generate(world);
 
+            console.log(
+                "SIMULATION RESULTS",
+                world.simulation
+            );
+
         world.engine.modules.simulation =
             "ready";
 
@@ -195,6 +200,28 @@ function generate(options={}){
 
         world.cartography =
             ForgeCartography.generate(world);
+
+            /*
+            =========================================================
+            INTEGRATE CIVILIZATION INTO CARTOGRAPHY
+            =========================================================
+            */
+
+            if(
+                world.simulation &&
+                world.cartography &&
+                world.cartography.layers
+            ){
+
+                world.cartography.layers.settlements =
+                    world.simulation.settlements;
+
+
+                world.cartography.layers.roads =
+                    world.simulation.roads;
+
+
+            }
 
         world.engine.modules.cartography =
             "ready";
